@@ -1,0 +1,51 @@
+<template>
+        <div class="slds-grid slds-wrap" if:true={viewSearchBar}>
+            <lightning-input name="input"
+                             type="search"
+                             onchange={handleSearch}
+                             value={searchValue}
+                             onkeypress={keycheck}
+                             placeholder="Search for Access Code or PO"
+                             class="slds-col slds-size_6-of-12"
+                             variant="label-hidden">
+            </lightning-input>
+            <lightning-button label="Search"
+                              type="search"
+                              onclick={handleSearchKeyword}
+                              variant="brand"
+                              class="slds-var-p-left_large slds-col slds-size_2-of-12">
+            </lightning-button>
+        </div>
+        <template if:true={isResponse}>
+            <lightning-accordion allow-multiple-sections-open
+                                    active-section-name={activeSections}>
+                                    
+                <template for:each={wrapper.orderItemSummaryWrapperList} for:item = "productInstance">
+                    <c-carmeuse-cancel-order-accordion-section product-instance ={productInstance} 
+                                                            order-id ={wrapper.orderSummaryDetails.originalOrderId}
+                                                            key ={productInstance.productCode}
+                                                            is-owner={isOwner}
+                                                            account-external-number={accountExternalNumber}
+                                                            effective-account-id={effectiveAccountId}  >   
+                    </c-carmeuse-cancel-order-accordion-section>
+                </template>
+            </lightning-accordion>
+        </template>
+        <div if:true={isNext} class="slds-utility-bar slds-align_absolute-center">
+            <lightning-button label="Previous"
+                              onclick={previousFound}
+                              variant="brand-outline"
+                              class="slds-var-p-right_small">
+            </lightning-button>
+            <lightning-button label="Go To Top"
+                              onclick={scrollToTop}
+                              variant="brand-outline"
+                              class="slds-var-p-right_small">
+            </lightning-button>
+            <lightning-button label="Next"
+                              type="search"
+                              onclick={handleSearchKeyword}
+                              variant="brand-outline">
+        </lightning-button>
+        </div>
+</template>

@@ -1,0 +1,25 @@
+table {width:100%; table-layout: fixed;}
+table th {word-wrap:break-word;white-space: normal;}
+.cancel {
+    padding-left: 0.0rem;
+    padding-right: 0.0rem;
+}
+.cancelByOn {
+    font-size: 10px;
+}
+.cancellationRequesteByOn {
+    font-size: 10px;
+    color: #B7312C !important;
+}
+.releasedByOn {
+    font-size: 10px;
+    color: #008000 !important;
+}
+
+.td-fixed-width {
+    /*width: 8rem;*/
+}
+
+.modalBodySpinner{
+    position: relative;;
+}

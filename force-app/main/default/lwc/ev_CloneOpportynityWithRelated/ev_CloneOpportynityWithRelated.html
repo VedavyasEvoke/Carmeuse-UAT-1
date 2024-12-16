@@ -1,0 +1,23 @@
+<template>
+    <lightning-quick-action-panel header="Clone Opportunity with Related">
+        
+        <div class="slds-p-around_medium lgc-bg">
+            <lightning-input type="text" label="Please enter a new opportunity Name :"
+           name="OpportunityName" class="OpportunityName" value={opportunityName} onchange={nameChange}></lightning-input>
+
+            <lightning-combobox 
+                label="Currency"  name="CurrencyIsoCode"  class="CurrencyIsoCode" 
+                value={currencyISOCode}   onchange={currencyChange} options={currencyOptions}>
+            </lightning-combobox>
+        </div>
+
+        <div slot="footer">
+            <lightning-button variant="neutral" label="Cancel" onclick={closeAction}>
+            </lightning-button>
+            <lightning-button variant="brand"
+             label="Save" onclick={cloneAction} 
+             class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>

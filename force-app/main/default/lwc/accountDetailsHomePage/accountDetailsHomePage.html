@@ -1,0 +1,18 @@
+<template>
+    <div if:true={isHome}>
+        <div class="slds-m-top_small">
+            <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account"></lightning-icon>&nbsp;&nbsp;
+            <lightning-formatted-text  value={accountName}
+                                    style="font-size: 14px; font-weight: 300; padding-bottom:20px;">
+            </lightning-formatted-text>
+        </div>
+    </div>
+    <div  if:true={isCheckout}>
+        <div class="slds-m-top_small slds-box">
+            <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account"></lightning-icon>&nbsp;&nbsp;
+            <lightning-formatted-text  value={accountName}
+                                    style="font-size: 14px; font-weight: 300; padding-bottom:20px;">
+            </lightning-formatted-text>
+        </div>
+    </div>
+</template>

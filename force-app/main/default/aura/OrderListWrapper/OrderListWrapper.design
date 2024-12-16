@@ -1,0 +1,3 @@
+<design:component >
+    <design:attribute name="effectiveAccountId" label="Effective Account ID" />
+</design:component>

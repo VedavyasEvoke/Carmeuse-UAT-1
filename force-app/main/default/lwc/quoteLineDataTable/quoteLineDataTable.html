@@ -1,0 +1,10 @@
+<template>
+    <!-- Data Table for displaying Quote Lines -->
+    <lightning-datatable
+        data={quoteLines}
+        columns={columns}
+        key-field="Id"
+        draft-values={draftValues}
+        onsave={handleSave}
+    ></lightning-datatable>
+</template>

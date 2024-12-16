@@ -1,0 +1,23 @@
+<template>
+<template lwc:if={isNorthAmerica}>
+	 
+		<c-ev_-previous-line-item record-id={recordId}>
+		</c-ev_-previous-line-item>
+		<c-ev_-proposed-line-item record-id={recordId}>
+		</c-ev_-proposed-line-item>
+		<c-ev_-competitor-line-item record-id={recordId}>
+		</c-ev_-competitor-line-item>
+	</template>
+	<template lwc:if={isEurope}>
+		 
+		<c-ev_-previous-line-item-eu record-id={recordId}>
+		</c-ev_-previous-line-item-eu>
+		<c-ev_-proposed-line-item-eu record-id={recordId}>
+		</c-ev_-proposed-line-item-eu>
+		<c-ev_-competitor-line-item-eu record-id={recordId}>
+		</c-ev_-competitor-line-item-eu>
+	</template>
+	<template lwc:if={isOther}>
+		<h1>Select The Customer Region</h1>
+	</template>
+</template>

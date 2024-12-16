@@ -1,0 +1,89 @@
+<!--
+ - Created by kdreyer on 2/16/21.
+ -->
+
+<!-- B2B Line Item -->
+<template>
+    <li
+            class="slds-p-vertical_medium"
+    >
+        <div class="slds-size_1-of-1 slds-large-small_1-of-1 slds-medium-size_6-of-7 slds-large-size_6-of-7">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-5">
+                    <a
+                            tabindex="-1"
+                            href={item.productUrl}
+                            data-productid={item.productId}
+                            onclick={handleProductDetailNavigation}
+                    >
+                        <img
+                                src={item.displayUrl}
+                                data-productid={item.productId}
+                                alt={item.displayAlternative}
+                        />
+                    </a>
+                </div>
+                <div class="details slds-has-flexi-truncate slds-col slds-size_4-of-5">
+                    <h3
+                            class="item-name slds-text-heading_medium slds-p-bottom_small slds-truncate slds-col"
+                            title={item.productName}
+                    >
+                        <a
+                                href={item.productUrl}
+                                data-productid={item.productId}
+                                onclick={handleProductDetailNavigation}
+                                tabindex="0"
+                        >
+                            {item.productName}
+                        </a>
+                    </h3>
+                    <div class="line-item-properties">
+                        <div class="slds-grid slds-wrap lineItemParent">
+                            <div class="slds-col slds-size_1-of-4">SKU#</div>
+                            <div class="slds-col slds-size_3-of-4">{item.sku}</div>
+                            <div class="slds-col slds-size_1-of-4">SIZE</div>
+                            <div class="slds-col slds-size_1-of-4">{item.size}</div>
+                            <div class="slds-col slds-size_2-of-4"></div>
+                            <div class="slds-col slds-size_1-of-4">MSRP</div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <del>
+                                    <lightning-formatted-number
+                                            format-style="currency"
+                                            currency-code={currencyCode}
+                                            currency-display-as="symbol"
+                                            maximum-fraction-digits="2"
+                                            value={item.listPrice}
+                                    ></lightning-formatted-number>
+                                </del>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 ">QTY&nbsp;&nbsp;&nbsp;{item.quantity}</div>
+                            <div class="slds-col slds-size_1-of-4 ">
+                                <strong>
+                                    <lightning-formatted-number
+                                            format-style="currency"
+                                            currency-code={currencyCode}
+                                            currency-display-as="symbol"
+                                            maximum-fraction-digits="2"
+                                            value={item.totalPrice}
+                                    ></lightning-formatted-number>
+                                </strong>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4">Your Price</div>
+                            <div class="slds-col slds-size_1-of-4">
+                                <lightning-formatted-number
+                                        format-style="currency"
+                                        currency-code={currencyCode}
+                                        currency-display-as="symbol"
+                                        maximum-fraction-digits="2"
+                                        value={item.unitPrice}
+                                ></lightning-formatted-number>
+                            </div>
+                            <div class="slds-col slds-size_2-of-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+    </li>
+</template>

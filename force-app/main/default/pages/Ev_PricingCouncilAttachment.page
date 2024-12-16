@@ -1,0 +1,91 @@
+<apex:page controller="Ev_PricingCouncilAttachmentController">
+    <div class="outer" style="padding: 4px;">
+        <div>
+            <div class="table-label" style="padding: 8px 0 4px 4px; font-size: 16px;">
+                <h2><b>Existing Line Item</b></h2>
+            </div>
+            <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">           
+                <thead>
+                    <apex:repeat value="{!proposedLinesColumns}" var="column">
+                        <th style="padding: 10px; border: 1px solid #ddd; font-weight: bold; text-align: left; color: white; background-color: #005B9A !important;">
+                            {!column.label}
+                        </th>
+                    </apex:repeat>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: left; padding: 10px; border: 1px solid #ddd;" colspan="9"><b>Currency: </b>{!existingLinesCurrency}</td>
+                    </tr>
+                    <apex:repeat value="{!existingLines}" var="line">
+                        <tr>
+                            <apex:repeat value="{!proposedLinesColumns}" var="column">
+                                <td style="text-align: left; padding: 10px; border: 1px solid #ddd;">
+                                    {!line[column.name]}
+                                </td>
+                            </apex:repeat>
+                        </tr>
+                    </apex:repeat>
+                </tbody>           
+            </table>
+        </div>
+        
+        
+        <div>
+            <div class="table-label" style="padding: 8px 0 4px 4px; font-size: 16px;">
+                <h2><b>Proposed Line Item</b></h2>
+            </div>
+            <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">
+                <thead>
+                    <apex:repeat value="{!proposedLinesColumns}" var="column">
+                        <th style="padding: 10px; border: 1px solid #ddd; font-weight: bold; text-align: left; color: white; background-color: #005B9A !important;">
+                            {!column.label}
+                        </th>
+                    </apex:repeat>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: left; padding: 10px; border: 1px solid #ddd;" colspan="9"><b>Currency: </b>{!proposedLinesCurrency}</td>
+                    </tr>
+                    <apex:repeat value="{!proposedLines}" var="line">
+                        <tr>
+                            <apex:repeat value="{!proposedLinesColumns}" var="column">
+                                <td style="text-align: left; padding: 10px; border: 1px solid #ddd;">
+                                    {!line[column.name]}
+                                </td>
+                            </apex:repeat>
+                        </tr>
+                    </apex:repeat>
+                </tbody>           
+            </table>
+        </div>
+        
+        <div>
+            <div class="table-label" style="padding: 8px 0 4px 4px; font-size: 16px;">
+                <h2><b>Competitor Line Item</b></h2>
+        	</div>
+            <table style="width:100%; border-collapse: collapse; margin-bottom: 8px;">
+                <thead>
+                    <apex:repeat value="{!competitorLinesColumns}" var="column">
+                        <th style="padding: 10px; border: 1px solid #ddd; font-weight: bold; text-align: left; color: white; background-color: #005B9A !important;">
+                            {!column.label}
+                        </th>
+                    </apex:repeat>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: left; padding: 10px; border: 1px solid #ddd;" colspan="9"><b>Currency: </b>{!competitorLinesCurrency}</td>
+                    </tr>
+                    <apex:repeat value="{!competitorLines}" var="line">
+                        <tr>
+                            <apex:repeat value="{!competitorLinesColumns}" var="column">
+                                <td style="text-align: left; padding: 10px; border: 1px solid #ddd;">
+                                    {!line[column.name]}
+                                </td>
+                            </apex:repeat>
+                        </tr>
+                    </apex:repeat>
+                </tbody>           
+            </table>
+        </div>
+    </div>
+</apex:page>

@@ -1,0 +1,35 @@
+<template>
+    <div class="slds-box ">
+        <div class="carousel-container">
+            <div class="slds-text-align_center slds-m-around_x-small">
+                <!-- Carousel to display attachments -->
+                <template if:true={attachments}>
+                    <lightning-carousel disable-auto-scroll>
+                        <template for:each={attachments} for:item="att">
+                            <lightning-carousel-image key={att.Id} src={att.DynamicURL} href={att.DynamicURL}
+                                class="carousel-image">
+                            </lightning-carousel-image>
+                        </template>
+                    </lightning-carousel>
+                </template>
+
+                <!-- Message when no images found -->
+                <template if:false={attachments}>
+                    <p>No images found.</p>
+                </template>
+
+                <!-- Error message if there's an issue fetching attachments -->
+                <template if:true={error}>
+                    <p>Error loading images: {error.message}</p>
+                </template>
+            </div>
+
+            <!-- File upload component to upload new images -->
+            <div class="upload-container slds-m-around_x-small">
+                <lightning-file-upload class="upload-button" label="Upload Image" name="fileUploader"
+                    accept=".jpg,.jpeg,.png,.gif" record-id={recordId} onuploadfinished={handleUploadFinished} multiple>
+                </lightning-file-upload>
+            </div>
+        </div>
+    </div>
+</template>

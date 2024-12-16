@@ -1,0 +1,278 @@
+<apex:page controller="ev_printsummarycontroller" renderAs="pdf" applyBodyTag="false" standardStylesheets="false">
+    
+    <!-- <apex:variable var="selectedGroup" value="{!$CurrentPage.parameters.id}" />-->
+    <apex:param name="paramName" value="paramValue" assignTo="{!yourVariable}" />
+    <head>
+        
+        <style>
+            .tickmark {
+            font-family: 'Arial';
+            font-size: 12px;
+            vertical-align: middle;
+        }
+            /* Your styles go here */
+            .line {
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            }
+            .header {
+            display: flex;
+            justify-content: space-between;
+            align-items:center;
+            padding: 5px;
+            }
+            
+            .logo-and-name {
+            display: flex;
+            align-items: center;
+            }
+            
+            .logo {
+            /* Adjust the width and height as needed */
+            width: 100px;
+            height: auto;
+            margin-right: 5px;
+            }
+            
+            
+.company-name {
+    font-size: 20px;
+    color: #000075;
+    margin-top: 0;
+    /* Remove top margin to align with the logo */
+    font-weight: bold;
+}
+            
+            .company-group-name {
+    /* Styling for the group name */
+    font-size: 30px;
+    color: #808080;
+    /* Example size, adjust as needed */
+    font-weight: bold;
+    /* Example weight, adjust as needed */
+}
+            .custom-table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            }
+            
+            .custom-table td {
+            border: 1px solid #000;
+            padding: 4px;
+            }
+            
+            .table-container {
+            flex: 2;
+            padding: 10px;
+            box-sizing: border-box;
+            width: 40%;
+            margin-left: auto;
+            }
+            
+            .blue-background {
+            background-color: #6495ED;
+            /* Set the background color for the first row */
+            color: white;
+            /* Font color for better visibility on a blue background */
+            font-weight: bold;
+            }
+            
+            .custom-table td:first-child {
+            text-align: left;
+            /* Align the content in the first column to the left */
+            padding-right: 0;
+            width: 40%;
+            }
+            
+            .custom-table td:last-child {
+            text-align: left;
+            /* Align the content in the last column to the right */
+            }
+            
+            .alldatatables {
+
+    text-align: left;
+
+    font-family: 'Arial'; 
+
+    font-size: 100%;   
+
+    vertical-align: left;
+
+    border-collapse: collapse; 
+
+            <!--border: 2px solid black;-->
+
+    padding: 5px 5px 5px 5px;
+
+    color: black;
+
+}
+       
+        <!-- .slds-truncate {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: string;
+        }-->
+        </style>
+    </head>
+    <body class="slds-scope">
+        <div class="line"></div>
+        <div class="header">
+            <div class="logo-and-name">
+                <img src="{!$Resource.LOGO}" alt="Logo" class="logo"/>
+                <span class="company-name">CIC - Carmeuse Intelligence<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  on competition Database</span>
+            </div>
+            <div class="company-group-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;{!groupname}
+            </div>
+        </div>
+    </body>
+        <div class="content-container">
+            <div class="table-container">
+                <table class="custom-table">
+                    <tr class="blue-background">
+                        <td>Group lime capacity</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Estimated production t/y:</td>
+                        <td>{!formattedEstimatedProductionty}</td>
+                         
+
+
+                    </tr>
+                    <tr>
+                        <td>Nominal capacity t/y:</td>
+                        <td>{!formattednominalcapty}</td>
+                    </tr>
+                    <tr>
+                        <td>Free capacity t/y:</td>
+                        <td>{!formattedFreeCapacityty}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Kilns:</td>
+                        <td>{!formattedtotalkilns}</td>
+                    </tr>
+                </table>
+            </div>
+            <br/><br/><br/>
+
+        <div class="line"></div>
+    <!--<table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">-->
+       <table  border ="1" class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered alldatatables">
+                <thead>
+                    <tr class="slds-line-height_reset" >
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Plant" style="color: white;">Plant</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Activity" style="color: white;">Activity</div>
+                        </th>
+                       
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Annual Extraction tpy" style="color: white;">Annual Extraction tpy</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Quick Lime" style="color: white;">Quick Lime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Dolime" style="color: white;">Dolime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Lime Estimation tpy" style="color: white;">Lime Estimation tpy</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Lime cap tpy" style="color: white;">Lime cap tpy</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="nb klin" style="color: white;">nb klin</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Hydr. Lime" style="color: white;">Hydr. Lime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">Hydr. Lime cap tpy</div>
+                        </th>
+                    </tr>
+                 
+                </thead>
+        <tbody>
+           
+                <apex:repeat value="{!plantlist}" var="company">
+                     <thead>
+                    <tr>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                             
+                            <div class="slds-truncate" title="{!company.Name}" style="color: white;">{!company.Name}</div>
+                        </th>
+                    </tr> 
+                    </thead>
+                    <apex:repeat value="{!company.Competitor__r}" var="competitor">
+                        <tr>
+                        <td scope="col">
+                            <div class="slds-truncate" title="{!competitor.Name}">{!competitor.Name}</div>
+                        </td>
+                            <td scope="col">
+                            <div class="slds-truncate" title="{!competitor.Activity__c}">{!competitor.Activity__c}</div>
+                             
+                        </td>
+                            <td scope="col">
+                            <div class="slds-truncate" title="{!competitor.Annual_Extraction_t_y__c}">{!competitor.Annual_Extraction_t_y__c}</div>
+                        </td>
+                            <td scope="col" class="bordered">
+                            <!--<div class="slds-truncate" title="{!competitor.Quicklime__c}">{!competitor.Quicklime__c}</div>-->
+                                <apex:outputField value="{!competitor.Quicklime__c}"/>
+                 
+                                    
+                        </td>
+                            <td scope="col" class="bordered">
+                            <!--<div class="slds-truncate" title="{!competitor.Dolime__c}">{!competitor.Dolime__c}</div>-->
+                                <apex:outputField value="{!competitor.Dolime__c}"/>
+                        </td>
+                            <td scope="col" class="bordered">
+                            <!--<div class="slds-truncate" title="{!competitor.Lime_Est_tpy__c}">{!competitor.Lime_Est_tpy__c}</div>-->
+                                <apex:outputField value="{!competitor.Lime_Est_tpy__c}"/>
+                        </td>
+                            <td scope="col" class="bordered">
+                            <!--<div class="slds-truncate" title="{!competitor.Lime_Cap_tpy__c}">{!competitor.Lime_Cap_tpy__c}</div>-->
+                                <apex:outputField value="{!competitor.Lime_Cap_tpy__c}"/>
+                        </td>
+                            <!--<td scope="col">
+                            <div class="slds-truncate" title="{!competitor.Name}">{!competitor.Name}</div>
+                        </td>-->
+                            <td scope="col" class="bordered">
+                            <!--<div class="slds-truncate" title="{!competitor.Hydrated_Lime__c}">{!competitor.Hydrated_Lime__c}</div>-->
+                                <apex:outputField value="{!competitor.Hydrated_Lime__c}"/>
+                        </td>
+                            <td scope="col" class="bordered">
+                            <!--<div class="slds-truncate" title="{!competitor.Hyd_Cap_T_y__c}">{!competitor.Hyd_Cap_T_y__c}</div>-->
+                                <apex:outputField value="{!competitor.Hyd_Cap_T_y__c}"/>
+                        </td>
+                            <td scope="col" class="bordered">
+                            <!--<div class="slds-truncate" title="{!competitor.Hydrated_Limecap_t_y__c}">{!competitor.Hydrated_Limecap_t_y__c}</div>-->
+                                <apex:outputField value="{!competitor.Hydrated_Limecap_t_y__c}"/>
+                        </td>
+                            </tr>
+                   
+                </apex:repeat> 
+                    <!--<apex:outputPanel rendered="{!ISNULL(company.Competitor__r) || company.Competitor__r.size == 0}">
+                    <tr>
+                        <td colspan="9">
+                            No plants for this company
+                        </td>
+                    </tr>
+                </apex:outputPanel>-->
+                </apex:repeat>
+                   
+            </tbody>
+    </table>
+    </div>
+</apex:page>

@@ -1,0 +1,589 @@
+<apex:page contentType="text/xml;" showHeader="false" sidebar="false" controller="CarmeuseDocumentTemplateController" language="{!quoteLanguage}">
+     
+    <block font-size="{!template.SBQQ__FontSize__c}" font-family="{!template.SBQQ__FontFamily__c}" >
+        <!-- QLIs Table for North America Region -->
+        <apex:outputText rendered="{!quote.Customer_Region__c = 'North America' && showLines}">
+            <table margin-bottom="5px" border-style="solid" border-width="1px" >
+                <apex:repeat value="{!columns}" var="column">
+                    <apex:outputText rendered="{!column.show == true}">
+                        <table-column column-width="{!column.columnWidth}"/>
+                    </apex:outputText>
+                </apex:repeat>
+                <table-header>
+                    <table-row font-weight="bold" background-color="#{!template.SBQQ__ShadingColor__c}">
+                        <apex:repeat value="{!columns}" var="column">
+                            <apex:outputText escape="false" rendered="{!column.show == true}">
+                                <table-cell padding="3px" border-style="solid" border-width="1px" text-align="center">
+                                    <block>
+                                        {!column.label}
+                                    </block>
+                                </table-cell>
+                            </apex:outputText>   
+                        </apex:repeat>
+                    </table-row>
+                </table-header>
+                
+                <table-body>
+                    <apex:repeat value="{!lines}" var="line">
+                        <table-row>
+                                <apex:repeat value="{!columns}" var="column">
+                                    <apex:outputText rendered="{!column.show == true}">
+                                        <apex:outputText rendered="{!column.name != 'Incoterms' && column.name != 'Destination' 
+                                                                   && column.name != 'ProductDescription'}">
+                                            <table-cell border-style="solid" border-width="1px" padding-top="30px" padding="2px">
+                                                <block>
+                                                    {!line[column.name]}
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                        <apex:outputText rendered="{!column.name == 'Incoterms'}">
+                                            <table-cell border-style="solid" border-width="1px" padding-top="30px" padding="2px">
+                                                <block>
+                                                    {!line.Incoterms__c}
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                        <apex:outputText rendered="{!column.name == 'Destination'}">
+                                            <table-cell border-style="solid" border-width="1px" padding-top="30px" padding="2px">
+                                                <block>
+                                                    {!line.SBQQ__Quote__r.Document_Destination__c}
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                        <apex:outputText rendered="{!column.name == 'ProductDescription'}">
+                                            <table-cell border-style="solid" border-width="1px" padding="2px">
+                                                <block>
+                                                    <table>
+                                                        <table-body>
+                                                            <table-row keep-together.within-column="always">
+                                                                <table-cell padding-left="10px" padding-top="2px">
+                                                                    <block font-weight="bold">
+                                                                        <apex:outputText rendered="{!line.Output_Text__c == 'Brand Text'}">{!line.Brand_Text__c}</apex:outputText>
+                                                                        <apex:outputText rendered="{!line.Output_Text__c == 'Custom Text'}">{!line.Custom_Text__c}</apex:outputText>
+                                                                        <apex:outputText rendered="{!line.Output_Text__c == 'Customer Text'}">{!line.Customer_Text__c}</apex:outputText>
+                                                                        <apex:outputText rendered="{!line.Output_Text__c == 'Sales Text'}">{!line.Sales_Text__c}</apex:outputText>
+                                                                        <apex:outputText rendered="{!line.Output_Text__c == 'Product Name' || line.Output_Text__c == null }">
+                                                                            {!line.SBQQ__ProductName__c}</apex:outputText>
+                                                                    </block>
+                                                                </table-cell>
+                                                            </table-row>
+                                                            <table-row>
+                                                                <table-cell text-align="center" padding-top="10px" text-decoration="underline">
+                                                                    <block font-weight="bold">
+                                                                        {!$Label["Price_Per_Unit"]}
+                                                                    </block>
+                                                                </table-cell>
+                                                            </table-row>
+                                                        </table-body>
+                                                    </table>
+                                                    <table>
+                                                        <table-body>
+                                                            <apex:outputText rendered="{!quote.Show_Product_Price__c == true && line.List_Unit_Price__c != null && line.List_Unit_Price__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Product_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.List_Unit_Price_QD__c}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Fees_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Fees'] != null && lineCategPricesMap[line.Id]['Fees'].nonFlatPrice != null && lineCategPricesMap[line.Id]['Fees'].nonFlatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Fee_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Fees'].nonFlatPrice}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!line.ZAST__c != null && line.ZAST__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Alabama_SeveranceTax}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.ZAST__c}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Surcharges_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Surcharges'] != null && lineCategPricesMap[line.Id]['Surcharges'].nonFlatPrice != null && lineCategPricesMap[line.Id]['Surcharges'].nonFlatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Surcharge_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Surcharges'].nonFlatPrice}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Discount_Price__c == true && line.PC_Discount__c != null && line.PC_Discount__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Discount_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.PC_Discount__c}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Freight_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Freight'] != null && lineCategPricesMap[line.Id]['Freight'].nonFlatPrice != null && lineCategPricesMap[line.Id]['Freight'].nonFlatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Freight_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Freight'].nonFlatPrice}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Misc_Price__c == true && line.Misc_Price__c != null && line.Misc_Price__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Misc_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.Misc_Price__c}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Commission_Price__c == true && line.Commission__c != null && line.Commission__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Commission}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.Commission__c}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.ShowSurchargeVariable__c == true && line.Surcharge_variable__c != null && line.Surcharge_variable__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Surcharge_variable}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.Surcharge_variable__c}"/>
+                                                                            </apex:outputText>/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <table-row><table-cell><block padding-top="5px"></block></table-cell><table-cell><block padding-top="5px"></block></table-cell></table-row>
+                                                            <apex:outputText rendered="{!quote.Show_Fees_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Fees'] != null && lineCategPricesMap[line.Id]['Fees'].flatPrice != null && lineCategPricesMap[line.Id]['Fees'].flatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold" font-size="7px">
+                                                                            {!$Label.Fee_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block font-size="7px">
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Fees'].flatPrice}"/>
+                                                                            </apex:outputText>/{!lineCategPricesMap[line.Id]['Fees'].defaultUOM}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote[fieldRenderMap['line']['Quote_Document_Total_Price__c']] == false}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px" padding-top="5px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Total_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell padding-top="5px" padding-bottom="5px">
+                                                                        <block font-weight="bold">
+                                                                            <apex:outputText rendered="{!lineCategPricesMap != null && lineCategPricesMap[line.Id]['totalPrice'] != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice > 0}">
+                                                                                <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                    :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice}"/>
+                                                                                </apex:outputText>/{!line.Document_Default_UOM__c}<apex:outputText rendered="{!quote['Show_VAT_Excl__c'] == true}">&nbsp;VAT Excl.</apex:outputText>
+                                                                            </apex:outputText>
+                                                                            <apex:outputText rendered="{! !(lineCategPricesMap != null && lineCategPricesMap[line.Id]['totalPrice'] != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice > 0)}">
+                                                                                : 0.00/{!line.Document_Default_UOM__c}<apex:outputText rendered="{!quote['Show_VAT_Excl__c'] == true}">&nbsp;VAT Excl.</apex:outputText>
+                                                                            </apex:outputText>
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{! quote.Show_Minimum_Tons_Load__c == true && line.MIN_LOAD_SIZE__c != null}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px" padding-top="5px">
+                                                                        <block font-weight="bold">
+                                                                            Min To per Load
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell padding-top="5px" padding-bottom="5px">
+                                                                        <block font-weight="bold">
+                                                                            :&nbsp;{!line.MIN_LOAD_SIZE__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>                                                           
+                                                            <apex:outputText rendered="{!quote.Show_Surcharges_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Surcharges'] != null && lineCategPricesMap[line.Id]['Surcharges'].flatPrice != null && lineCategPricesMap[line.Id]['Surcharges'].flatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold"  font-size="7px">
+                                                                            {!$Label.Surcharge_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block font-size="7px">
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Surcharges'].flatPrice}"/>
+                                                                            </apex:outputText>/{!lineCategPricesMap[line.Id]['Surcharges'].defaultUOM}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Freight_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Freight'] != null && lineCategPricesMap[line.Id]['Freight'].flatPrice != null && lineCategPricesMap[line.Id]['Freight'].flatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold" font-size="7px">
+                                                                            {!$Label.Freight_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block font-size="7px">
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Freight'].flatPrice}"/>
+                                                                            </apex:outputText>/{!lineCategPricesMap[line.Id]['Freight'].defaultUOM}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                        </table-body>
+                                                    </table>
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                    </apex:outputText>
+                                </apex:repeat>
+                            </table-row>
+                    </apex:repeat>
+                </table-body>
+            </table>
+            
+            <apex:outputText rendered="{!quote[fieldRenderMap['quote']['Net_Total__c']]}">
+                <block font-weight="bold">
+                    {!$Label.Final_Price}   :&nbsp;<apex:outputText value="{0, number, ###,##0.00}">
+                    <apex:param value="{!quote.Net_Total__c}"/>
+                    </apex:outputText>&nbsp;{!quote.CurrencyIsoCode}
+                </block>
+            </apex:outputText>
+        </apex:outputText>
+        
+        <!-- QLIs Table for Other Regions -->
+        <apex:outputText rendered="{!quote.Customer_Region__c != 'North America' && showLines}">
+            <table margin-bottom="5px" border-style="solid" border-width="1px" >
+                <apex:repeat value="{!columns}" var="column">
+                    <apex:outputText rendered="{!column.show == true}">
+                        <table-column column-width="{!column.columnWidth}"/>
+                    </apex:outputText>
+                </apex:repeat>
+                <table-header>
+                    <table-row font-weight="bold" background-color="#{!template.SBQQ__ShadingColor__c}">
+                        <apex:repeat value="{!columns}" var="column">
+                            <apex:outputText escape="false" rendered="{!column.show == true}">
+                                <table-cell padding="3px" border-style="solid" border-width="1px" text-align="center">
+                                    <block>
+                                        {!column.label}
+                                    </block>
+                                </table-cell>
+                            </apex:outputText>   
+                        </apex:repeat>
+                    </table-row>
+                </table-header>
+                
+                <table-body>
+                    <apex:repeat value="{!lines}" var="line">
+                        <apex:outputText rendered="{!line.Primary__c}">
+                            <table-row keep-together.within-column="always">
+                                <apex:repeat value="{!columns}" var="column">
+                                    <apex:outputText rendered="{!column.show == true}">
+                                        <apex:outputText rendered="{!column.name != 'ProductDescription' && column.name != 'Price' && column.name != 'Incoterms'}">
+                                            <table-cell border-style="solid" border-width="1px" padding-top="5px" padding="2px" text-align="center">
+                                                <block>
+                                                    {!line[column.name]}
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                        <apex:outputText rendered="{!column.name == 'ProductDescription'}">
+                                            <table-cell border-style="solid" border-width="1px" padding-top="5px" padding="2px" text-align="center">
+                                                <block>
+                                                    <apex:outputText rendered="{!line.Output_Text__c == 'Brand Text'}">{!line.Brand_Text__c}</apex:outputText>
+                                                    <apex:outputText rendered="{!line.Output_Text__c == 'Custom Text'}">{!line.Custom_Text__c}</apex:outputText>
+                                                    <apex:outputText rendered="{!line.Output_Text__c == 'Customer Text'}">{!line.Customer_Text__c}</apex:outputText>
+                                                    <apex:outputText rendered="{!line.Output_Text__c == 'Sales Text'}">{!line.Sales_Text__c}</apex:outputText>
+                                                    <apex:outputText rendered="{!line.Output_Text__c == 'Product Name' || line.Output_Text__c == null }">
+                                                        {!line.SBQQ__ProductName__c}</apex:outputText>
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                        <apex:outputText rendered="{!column.name == 'Price'}">
+                                            <table-cell border-style="solid" border-width="1px" padding="2px">
+                                                <block>
+                                                    <table>
+                                                        <table-body>
+                                                            <apex:outputText rendered="{!quote.Show_Ship_To__c == true && line.Ship_To__r.Name != null }">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            Ship To
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText >
+                                                                                :&nbsp;&nbsp;{!line.Ship_To__r.Name}
+                                                                            </apex:outputText>&nbsp;
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Product_Price__c == true && line.List_Unit_Price__c != null && line.List_Unit_Price__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Product_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.List_Unit_Price_QD__c}"/>
+                                                                            </apex:outputText>&nbsp;{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!line.ZCO2__c != null && line.ZCO2__c != 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.CO2_contribution}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.ZCO2__c}"/>
+                                                                            </apex:outputText>&nbsp;{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <!--<apex:outputText rendered="{!line.ZSFT__c != null && line.ZSFT__c != 0}">-->
+															<apex:outputText rendered="{!line.ZSFT__c != null}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Energy_Surcharge}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.ZSFT__c}"/>
+                                                                            </apex:outputText>&nbsp;{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <apex:outputText rendered="{!quote.Show_Freight_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Freight'] != null && lineCategPricesMap[line.Id]['Freight'].nonFlatPrice != null && lineCategPricesMap[line.Id]['Freight'].nonFlatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold" font-size="10px">
+                                                                            {!$Label.Freight_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block >
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Freight']['nonFlatPrice']}"/>
+                                                                            </apex:outputText>&nbsp;{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+															
+                                                            <!--<apex:outputText rendered="{!quote.Show_Freight_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Freight'] != null && lineCategPricesMap[line.Id]['Freight'].nonFlatPrice != null && lineCategPricesMap[line.Id]['Freight'].nonFlatPrice > 0 && line.ZF01__c == null && quote.Incoterms1__c != 'EXW'}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Freight_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block>
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Freight']['nonFlatPrice']}"/>
+                                                                            </apex:outputText>{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>-->
+                                                            <!--<apex:outputText rendered="{!quote.Incoterms1__c = 'EXW'}">-->
+															<apex:outputText >
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px" padding-top="5px" padding-bottom="5px">
+                                                                        <block font-weight="bold">
+                                                                            
+                                                                            <!--<apex:outputText rendered="{!quote.Incoterms1__c == 'DDP' && (lineCategPricesMap[line.Id]['Freight'].flatPrice == null || lineCategPricesMap[line.Id]['Freight'].flatPrice == 0)&& line.ZF01__c == null}">-->
+                                                                            <apex:outputText rendered="{!line.Incoterms__c == 'DDP' && (lineCategPricesMap[line.Id]['Freight'].flatPrice == null || lineCategPricesMap[line.Id]['Freight'].flatPrice == 0)&& line.ZF01__c == null}">
+                                                                                {!$Label.Total_DDP_Price}
+                                                                            </apex:outputText>
+                                                                            <apex:outputText rendered="{!line.Incoterms__c == 'EXW'  ||(line.Incoterms__c == 'DDP' && ((lineCategPricesMap[line.Id]['Freight'].flatPrice != null && lineCategPricesMap[line.Id]['Freight'].flatPrice != 0 ) || line.ZF01__c != null))}">
+                                                                                {!$Label.Total_EXW_Price}
+                                                                            </apex:outputText>
+                                                                            <apex:outputText rendered="{!line.Incoterms__c != 'EXW'  && line.Incoterms__c != 'DDP'}">
+                                                                                {!$Label.Total_Price}
+                                                                            </apex:outputText>
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell padding-top="5px" padding-bottom="5px">
+                                                                        <block font-weight="bold">
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!line.Total_EXW_price__c}"/>
+                                                                            </apex:outputText>&nbsp;{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}<apex:outputText rendered="{!quote['Show_VAT_Excl__c'] == true}">&nbsp;VAT Excl.</apex:outputText>
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            <!--<apex:outputText rendered="{!quote.Incoterms1__c != 'EXW'}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px" padding-top="5px">
+                                                                        <block font-weight="bold">
+                                                                            {!$Label.Total_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell padding-top="5px" padding-bottom="5px">
+                                                                        <block font-weight="bold">
+                                                                            <apex:outputText rendered="{!lineCategPricesMap != null && lineCategPricesMap[line.Id]['totalPrice'] != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice > 0}">
+                                                                                <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                    :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice}"/>
+                                                                                </apex:outputText>{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}<apex:outputText rendered="{!quote['Show_VAT_Excl__c'] == true}">&nbsp;VAT Excl.</apex:outputText>
+                                                                            </apex:outputText>
+                                                                            <apex:outputText rendered="{! !(lineCategPricesMap != null && lineCategPricesMap[line.Id]['totalPrice'] != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice != null && lineCategPricesMap[line.Id]['totalPrice'].nonFlatPrice > 0)}">
+                                                                                : 0.00{!line.CurrencyIsoCode}/{!line.Document_Default_UOM__c}<apex:outputText rendered="{!quote['Show_VAT_Excl__c'] == true}">&nbsp;VAT Excl.</apex:outputText>
+                                                                            </apex:outputText>
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>-->
+                                                            <table-row><table-cell><block padding-top="5px"></block></table-cell><table-cell><block padding-top="5px"></block></table-cell></table-row>
+                                                            <apex:outputText rendered="{!line.ZF01__c != null}">
+                                                                <table-row >
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold" font-size="7px">
+                                                                            {!$Label.Bagged_Frieght}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block font-style="bold" font-size="7px">
+                                                                            :&nbsp;{!$Label.Bagged_Frieght_Suffix}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                            
+															<apex:outputText rendered="{!quote.Show_Freight_Price__c == true && lineCategPricesMap != null && lineCategPricesMap[line.Id]['Freight'] != null && lineCategPricesMap[line.Id]['Freight'].flatPrice != null && lineCategPricesMap[line.Id]['Freight'].flatPrice > 0}">
+                                                                <table-row>
+                                                                    <table-cell padding-left="10px">
+                                                                        <block font-weight="bold" font-size="7px">
+                                                                            {!$Label.Freight_Price}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                    <table-cell>
+                                                                        <block font-size="7px">
+                                                                            <apex:outputText value="{0, number, ###,##0.00}">
+                                                                                :&nbsp;<apex:param value="{!lineCategPricesMap[line.Id]['Freight'].flatPrice}"/>
+                                                                            </apex:outputText>&nbsp;{!line.CurrencyIsoCode}/{!lineCategPricesMap[line.Id]['Freight'].defaultUOM}
+                                                                        </block>
+                                                                    </table-cell>
+                                                                </table-row>
+                                                            </apex:outputText>
+                                                        </table-body>
+                                                    </table>
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                        <apex:outputText rendered="{!column.name == 'Incoterms'}">
+                                            <table-cell border-style="solid" border-width="1px" padding-top="5px" padding="2px" text-align="center">
+                                                <block>
+                                                    {!line.IncotermsFormula__c}
+                                                </block>
+                                            </table-cell>
+                                        </apex:outputText>
+                                    </apex:outputText>
+                                </apex:repeat>
+                            </table-row>
+                        </apex:outputText>
+                    </apex:repeat>
+                </table-body>
+            </table>
+            
+            <apex:outputText rendered="{!quote[fieldRenderMap['quote']['Net_Total__c']]}">
+                <block font-weight="bold">
+                    {!$Label.Final_Price}   :&nbsp;<apex:outputText value="{0, number, ###,##0.00}">
+                    <apex:param value="{!quote.Net_Total__c}"/>
+                    </apex:outputText>&nbsp;{!quote.CurrencyIsoCode}
+                </block>
+            </apex:outputText>
+        </apex:outputText>
+    </block>
+</apex:page>

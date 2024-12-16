@@ -1,0 +1,13 @@
+.custom-button {
+    height: 40px !important;
+    background-color: white;
+    border-radius: 0px;
+    border-color: rgb(212, 212, 212);
+    color: rgb(37, 116, 169);
+    cursor: pointer;
+    font-size: 13px;
+}
+.custom-button:hover {
+    color: #CD6011;
+    background-color: white !important;
+}

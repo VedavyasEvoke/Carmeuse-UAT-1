@@ -1,0 +1,549 @@
+<template>
+	<c-custom-toast></c-custom-toast>
+	<template if:true={spinner}>
+		<lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+	</template>
+	<div class="outer">
+		<!-- HEADER - START -->
+		<div class="header slds-grid">
+			<div class="icon">
+				<lightning-icon icon-name="custom:custom93" alternative-text="Quote Line Editor"></lightning-icon>
+			</div>
+			<div class="titles">
+				<div id="sub-title" class="slds-grid">
+					<h2 class="h2-12" id="headerSubtitle">{quote.Name}</h2>
+					<h2 class="separator">|</h2>
+					<h2 class="h2-12" style="padding-left: 1px;">Edit Quote</h2>
+				</div>
+				<div id="pricingCondition">
+					<h2 class="h2-18" id="quoteTotal">Pricing Condition</h2>
+				</div>
+			</div>
+			<div class="buttons slds-grid slds-grid_align-end slds-grid_vertical-align-start">
+				<lightning-button-group>
+					<button class="button btn-border slds-button slds-button_neutral" onclick={handleBack}>Back</button>
+					<button class="button btn-border slds-button slds-button_neutral" onclick={handleClose}>Close</button>
+					<button class="button btn-border slds-button slds-button_neutral" onclick={handleSave}>Save</button>
+					<button class="button btn-border slds-button slds-button_brand" onclick={handleSaveClose}>Save & Close</button>
+				</lightning-button-group>
+			</div>
+			<p style="margin: 7px 0 0 10px;">
+				<button class="button btn-expand btn-border slds-button slds-button_icon slds-button_icon-border-filled" title={accordion.title} onclick={handleAccordion}>
+							<lightning-icon icon-name={accordion.iconName} size="xx-small" style=" --slds-c-icon-color-foreground-default: #0070d2;"></lightning-icon>
+						</button>
+			</p>
+		</div>
+		<!-- HEADER - END -->
+
+		<!-- MAIN CONTENT - START -->
+		<div class="content">
+			<!--<template lwc:if={showQuoteInformation}>-->
+				<div style="width:100%">
+					<lightning-accordion class="acrdn" active-section-name="QuoteInformation">
+						<lightning-accordion-section class="acrdn-sec" label="Quote Information"
+							name="QuoteInformation">
+							<!-- <template if:false={spinner}> -->
+							<lightning-record-edit-form object-api-name='SBQQ__Quote__c' record-id={recordId}>
+								<lightning-layout class="slds-p-horizontal_x-small" multiple-rows>
+									<template for:each={headerFields} for:item="field">
+										<lightning-layout-item key={field.name} size="12" small-device-size="3"
+											medium-device-size="6" large-device-size="4"
+											class="slds-grid slds-p-vertical_x-small slds-p-horizontal_small">
+											<lightning-input-field variant="label-stacked" field-name={field.name}
+												name={field.name} onchange={handleHeaderValue}>
+											</lightning-input-field>
+										</lightning-layout-item>
+									</template>
+								</lightning-layout>
+							</lightning-record-edit-form>
+							<!-- </template> -->
+						</lightning-accordion-section>
+					</lightning-accordion>
+				</div>
+			<!--</template>-->
+			<div>
+				<lightning-accordion class="acrdn" allow-multiple-sections-open
+					active-section-name={accordion.activeSections}>
+					<template for:each={qlis} for:item="qli">
+						<lightning-accordion-section class="acrdn-sec" key={qli.Id} name={qli.Id}
+							label={qli.SBQQ__Product__r.Name}>
+							<template if:false={dtSpinner}>
+								<div class="slds-p-horizontal_x-small slds-p-vertical_xx-small">
+									<!-- Displaying the QLI data in Datatable - START -->
+									<div class="slds-p-horizontal_medium slds-p-vertical_x-small">
+										<c-custom-datatable key-field="Id" table-data={qli.attributes.record}
+											columns={qli.attributes.columns} oncellchange={handleCellChange}
+											styling={qli.attributes.dtStyling}>
+										</c-custom-datatable>
+									</div>
+									<!-- Displaying the QLI data in Datatable - END -->
+
+									<!-- Displaying the Pricing Conditions having single value selection - START -->
+									<div>
+										<lightning-layout multiple-rows>
+											<!--<template lwc:if={showCategories.Product}>-->
+												<template if:true={qli.attributes.Product}>
+													<template if:true={qli.attributes.Product.show}>
+														<lightning-layout-item size="12"
+															class="slds-grid slds-p-vertical_x-small slds-p-horizontal_medium"
+															medium-device-size="6">
+															<lightning-combobox class='slds-col slds-size_6-of-12'
+																label="Product" value={qli.attributes.Product.value}
+																style="--slds-c-input-radius-border: 0.25rem 0 0 0.25rem;"
+																placeholder="Select a Product"
+																options={qli.attributes.Product.options}
+																data-id={qli.Id} data-name="Product"
+																data-type="Category" onchange={handleCategoryChange}>
+															</lightning-combobox>
+															<lightning-combobox
+																class='slds-col slds-size_4-of-12 c-field-help'
+																label="Option" style="--slds-c-input-radius-border: 0;"
+																value={qli.attributes.Product.option.value}
+																options={qli.attributes.Product.option.options}
+																data-required={qli.attributes.Product.option.required}
+																required={qli.attributes.Product.option.required}
+																data-id={qli.Id} data-name="Product"
+																onchange={handleOptionChange}>
+															</lightning-combobox>
+															<lightning-input
+																class='slds-col slds-size_2-of-12 c-field-help'
+																type="Number" step=".01" label="Price"
+																style="--slds-c-input-radius-border: 0 0.25rem 0.25rem 0;"
+																 value={qli.attributes.Product.price.value}
+																data-inputcategory="Price"
+																data-required={qli.attributes.Product.price.required}
+																required={qli.attributes.Product.price.required}
+																
+																data-id={qli.Id} data-name="Product"
+																onblur={handlePriceChange}>
+															</lightning-input>
+														</lightning-layout-item>
+													</template>
+												</template>
+											<!--</template>-->
+											<template lwc:if={showCategories.Misc}>
+												<template if:true={qli.attributes.Misc}>
+													<template if:true={qli.attributes.Misc.show}>
+														<lightning-layout-item size="12"
+															class="slds-grid slds-p-vertical_x-small slds-p-horizontal_medium"
+															medium-device-size="6">
+															<lightning-combobox class='slds-col slds-size_9-of-12'
+																label="Misc"
+																style="--slds-c-input-radius-border: 0.25rem 0 0 0.25rem;"
+																value={qli.attributes.Misc.value}
+																placeholder="Select a Misc"
+																options={qli.attributes.Misc.options} data-id={qli.Id}
+																data-name="Misc" data-type="Category"
+																onchange={handleCategoryChange}>
+															</lightning-combobox>
+															<lightning-combobox
+																class='slds-col slds-size_3-of-12 c-field-help'
+																label="Option"
+																style="--slds-c-input-radius-border: 0 0.25rem 0.25rem 0;"
+																value={qli.attributes.Misc.option.value}
+																options={qli.attributes.Misc.option.options}
+																data-required={qli.attributes.Misc.option.required}
+																required={qli.attributes.Misc.option.required}
+																data-id={qli.Id} data-name="Misc"
+																onchange={handleOptionChange}>
+															</lightning-combobox>
+														</lightning-layout-item>
+													</template>
+												</template>
+											</template>
+											<template lwc:if={showCategories.Discount}>
+												<template if:true={qli.attributes.Discount}>
+													<template if:true={qli.attributes.Discount.show}>
+														<lightning-layout-item size="12"
+															class="slds-grid slds-p-vertical_x-small slds-p-horizontal_medium"
+															medium-device-size="6">
+															<lightning-combobox class='slds-col slds-size_9-of-12'
+																label="Discount"
+																style="--slds-c-input-radius-border: 0.25rem 0 0 0.25rem;"
+																value={qli.attributes.Discount.value}
+																placeholder="Select a Discount"
+																options={qli.attributes.Discount.options}
+																data-id={qli.Id} data-name="Discount"
+																data-type="Category" onchange={handleCategoryChange}>
+															</lightning-combobox>
+															<lightning-combobox
+																class='slds-col slds-size_3-of-12 c-field-help'
+																label="Option"
+																style="--slds-c-input-radius-border: 0 0.25rem 0.25rem 0;"
+																value={qli.attributes.Discount.option.value}
+																options={qli.attributes.Discount.option.options}
+																data-required={qli.attributes.Discount.option.required}
+																required={qli.attributes.Discount.option.required}
+																data-id={qli.Id} data-name="Discount"
+																onchange={handleOptionChange}>
+															</lightning-combobox>
+														</lightning-layout-item>
+													</template>
+												</template>
+											</template>
+											<template lwc:if={showCategories.Commission}>
+												<template if:true={qli.attributes.Commission}>
+													<template if:true={qli.attributes.Commission.show}>
+														<lightning-layout-item size="12"
+															class="slds-grid slds-p-vertical_x-small slds-p-horizontal_medium"
+															medium-device-size="6">
+															<lightning-combobox class='slds-col slds-size_9-of-12'
+																label="Commission"
+																style="--slds-c-input-radius-border: 0.25rem 0 0 0.25rem;"
+																value={qli.attributes.Commission.value}
+																placeholder="Select a Commission"
+																options={qli.attributes.Commission.options}
+																data-id={qli.Id} data-name="Commission"
+																data-type="Category" onchange={handleCategoryChange}>
+															</lightning-combobox>
+															<lightning-combobox
+																class='slds-col slds-size_3-of-12 c-field-help'
+																label="Option"
+																style="--slds-c-input-radius-border: 0 0.25rem 0.25rem 0;"
+																value={qli.attributes.Commission.option.value}
+																placeholder="Select a Commission"
+																options={qli.attributes.Commission.option.options}
+																data-required={qli.attributes.Commission.option.required}
+																required={qli.attributes.Commission.option.required}
+																data-id={qli.Id} data-name="Commission"
+																onchange={handleOptionChange}>
+															</lightning-combobox>
+														</lightning-layout-item>
+													</template>
+												</template>
+											</template>
+										</lightning-layout>
+									</div>
+									<!-- Displaying the Pricing Conditions having single value selection - END -->
+
+									<!-- Displaying the Pricing Conditions having multi value selection - START -->
+									<lightning-layout multiple-rows>
+										<template if:true={qli.attributes.Freight}>
+											<template if:true={qli.attributes.Freight.show}>
+												<lightning-layout-item size="12"
+													class="slds-p-vertical_x-small slds-p-horizontal_medium"
+													medium-device-size="6" large-device-size="4">
+													<div class="slds-grid">
+														<div
+															class="slds-col slds-size_5-of-12 slds-form-element__label">
+															Freight</div>
+														<div
+															class="slds-col slds-size_3-of-12 slds-form-element__label">
+															Option&nbsp;&nbsp;
+															<!--<lightning-helptext
+																content={qli.attributes.Freight.pcaOptionsInfo}>
+															</lightning-helptext>
+															-->
+														</div>
+														<div
+															class="slds-col slds-size_2-of-12 slds-form-element__label">
+															Price</div>
+														<div
+															class="slds-col slds-size_2-of-12 slds-form-element__label">
+														</div>
+													</div>
+													<div>
+														<template for:each={qli.attributes.Freight.data}
+															for:item="freight">
+															<div class="slds-grid slds-p-bottom_xx-small"
+																key={freight.rno}>
+																<div class="slds-col slds-size_5-of-12">
+																	<lightning-combobox variant="label-hidden"
+																		value={freight.value}
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0.25rem 0 0 0.25rem;"
+																		dropdown-alignment="auto"
+																		placeholder="Select a Freight"
+																		options={freight.options} data-id={qli.Id}
+																		data-required={freight.optionsRequired}
+																		required={freight.optionsRequired}
+																		data-rno={freight.rno} data-name='Freight'
+																		onchange={handleRowCategChange}>
+																	</lightning-combobox>
+																</div>
+																<div class="slds-col slds-size_3-of-12">
+																	<lightning-combobox variant="label-hidden"
+																		value={freight.option.value}
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0;"
+																		dropdown-alignment="auto"
+																		options={freight.option.options}
+																		data-id={qli.Id}
+																		data-required={freight.option.required}
+																		required={freight.option.required}
+																		data-rno={freight.rno} data-name='Freight'
+																		disabled={freight.option.disabled}
+																		onchange={handleRowOptionChange}>
+																	</lightning-combobox>
+																</div>
+																<div class="slds-col slds-size_2-of-12">
+																	<lightning-input type="Number" step=".01"
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0 0.25rem 0.25rem 0;"
+																		variant="label-hidden" value={freight.price}
+																		data-id={qli.Id} data-rno={freight.rno}
+																		data-name='Freight'
+																		disabled={freight.priceInfo.disabled}
+																		onblur={handleRowPriceChange}>
+																	</lightning-input>
+																</div>
+																<div class="slds-col slds-size_2-of-12 slds-grid">
+																	<div style="padding-top: 4px;">
+																		<template if:true={freight.showAdd}>
+																			<lightning-button-icon
+																				class="cra-btnicon slds-p-horizontal_x-small slds-col"
+																				icon-name="utility:add" variant="bare"
+																				alternative-text="Add new row"
+																				data-id={qli.Id} data-rno={freight.rno}
+																				data-name='Freight'
+																				onclick={handleNewRow}>
+																			</lightning-button-icon>
+																		</template>
+																		<template if:true={freight.showDelete}>
+																			<lightning-button-icon
+																				class="cra-btnicon slds-col"
+																				icon-name="utility:delete"
+																				variant="bare"
+																				alternative-text="Delete row"
+																				data-id={qli.Id} data-rno={freight.rno}
+																				data-name='Freight'
+																				onclick={handleDelRow}>
+																			</lightning-button-icon>
+																		</template>
+																	</div>
+																</div>
+															</div>
+														</template>
+													</div>
+												</lightning-layout-item>
+											</template>
+										</template>
+										<template if:true={qli.attributes.Surcharges}>
+											<template if:true={qli.attributes.Surcharges.show}>
+												<lightning-layout-item size="12"
+													class="slds-p-vertical_x-small slds-p-horizontal_medium"
+													medium-device-size="6" large-device-size="4">
+													<div class="slds-grid">
+														<div
+															class="slds-col slds-size_5-of-12 slds-form-element__label">
+															Surcharges</div>
+														<div
+															class="slds-col slds-size_3-of-12 slds-form-element__label">
+															Option&nbsp;&nbsp;
+															<!--<lightning-helptext
+																content={qli.attributes.Surcharges.pcaOptionsInfo}>
+															</lightning-helptext>
+															-->
+														</div>
+
+														<div
+															class="slds-col slds-size_2-of-12 slds-form-element__label">
+															Price</div>
+														<div
+															class="slds-col slds-size_2-of-12 slds-form-element__label">
+														</div>
+													</div>
+													<div>
+														<template for:each={qli.attributes.Surcharges.data}
+															for:item="surcharge">
+															<div class="slds-grid slds-p-bottom_xx-small"
+																key={surcharge.rno}>
+																<div class="slds-col slds-size_5-of-12">
+																	<lightning-combobox variant="label-hidden"
+																		value={surcharge.value}
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0.25rem 0 0 0.25rem;"
+																		dropdown-alignment="auto"
+																		placeholder="Select a Surcharge"
+																		options={surcharge.options} data-id={qli.Id}
+																		data-required={surcharge.optionsRequired}
+																		required={surcharge.optionsRequired}
+																		data-rno={surcharge.rno} data-name='Surcharges'
+																		onchange={handleRowCategChange}>
+																	</lightning-combobox>
+																</div>
+																<div class="slds-col slds-size_3-of-12">
+																	<lightning-combobox variant="label-hidden"
+																		value={surcharge.option.value}
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0;"
+																		dropdown-alignment="auto"
+																		options={surcharge.option.options}
+																		data-id={qli.Id}
+																		data-required={surcharge.option.required}
+																		required={surcharge.option.required}
+																		data-rno={surcharge.rno} data-name='Surcharges'
+																		onchange={handleRowOptionChange}>
+																	</lightning-combobox>
+																</div>
+																<div class="slds-col slds-size_2-of-12">
+																	<lightning-input type="Number" step=".01"
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0 0.25rem 0.25rem 0;"
+																		variant="label-hidden"  value={surcharge.price}
+																		data-id={qli.Id} data-rno={surcharge.rno}
+																		data-name='Surcharges'
+																		
+																		onblur={handleRowPriceChange}>
+																	</lightning-input>
+																</div>
+																<div class="slds-col slds-size_2-of-12 slds-grid">
+																	<div style="padding-top: 4px;">
+																		<template if:true={surcharge.showAdd}>
+																			<lightning-button-icon
+																				class="cra-btnicon slds-p-horizontal_x-small slds-col"
+																				icon-name="utility:add" variant="bare"
+																				alternative-text="Add new row"
+																				data-id={qli.Id}
+																				data-rno={surcharge.rno}
+																				data-name='Surcharges'
+																				onclick={handleNewRow}>
+																			</lightning-button-icon>
+																		</template>
+																		<template if:true={surcharge.showDelete}>
+																			<lightning-button-icon
+																				class="cra-btnicon slds-col"
+																				icon-name="utility:delete"
+																				variant="bare"
+																				alternative-text="Delete row"
+																				data-id={qli.Id}
+																				data-rno={surcharge.rno}
+																				data-name='Surcharges'
+																				onclick={handleDelRow}>
+																			</lightning-button-icon>
+																		</template>
+																	</div>
+																</div>
+															</div>
+														</template>
+													</div>
+												</lightning-layout-item>
+											</template>
+										</template>
+										<template if:true={qli.attributes.Fees}>
+											<template if:true={qli.attributes.Fees.show}>
+												<lightning-layout-item size="12"
+													class="slds-p-vertical_x-small slds-p-horizontal_medium"
+													medium-device-size="6" large-device-size="4">
+													<div class="slds-grid">
+														<div
+															class="slds-col slds-size_5-of-12 slds-form-element__label">
+															Fees</div>
+														<div
+															class="slds-col slds-size_3-of-12 slds-form-element__label">
+															Option&nbsp;&nbsp;
+															<!--<lightning-helptext
+																content={qli.attributes.Fees.pcaOptionsInfo}>
+															</lightning-helptext>-->
+														</div>
+
+														<div
+															class="slds-col slds-size_2-of-12 slds-form-element__label">
+															Price</div>
+														<div
+															class="slds-col slds-size_2-of-12 slds-form-element__label">
+														</div>
+													</div>
+													<div>
+														<template for:each={qli.attributes.Fees.data} for:item="fee">
+															<div class="slds-grid slds-p-bottom_xx-small" key={fee.rno}>
+																<div class="slds-col slds-size_5-of-12">
+																	<lightning-combobox variant="label-hidden"
+																		value={fee.value}
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0.25rem 0 0 0.25rem;"
+																		dropdown-alignment="auto"
+																		placeholder="Select a Fee" options={fee.options}
+																		data-id={qli.Id} data-rno={fee.rno}
+																		data-required={fee.optionsRequired}
+																		required={fee.optionsRequired} data-name='Fees'
+																		onchange={handleRowCategChange}>
+																	</lightning-combobox>
+																</div>
+																<div class="slds-col slds-size_3-of-12">
+																	<lightning-combobox variant="label-hidden"
+																		value={fee.option.value}
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0;"
+																		dropdown-alignment="auto"
+																		options={fee.option.options} data-id={qli.Id}
+																		data-required={fee.option.required}
+																		required={fee.option.required}
+																		data-rno={fee.rno} data-name='Fees'
+																		onchange={handleRowOptionChange}>
+																	</lightning-combobox>
+																</div>
+																<div class="slds-col slds-size_2-of-12">
+																	<lightning-input type="Number" step=".01"
+																		class="slds-col slds-p-around-medium"
+																		style="--slds-c-input-radius-border: 0 0.25rem 0.25rem 0;"
+																		variant="label-hidden" value={fee.price}
+																		data-id={qli.Id} data-rno={fee.rno}
+																		data-name='Fees' onblur={handleRowPriceChange}>
+																	</lightning-input>
+																</div>
+																<div class="slds-col slds-size_2-of-12 slds-grid">
+																	<div style="padding-top: 4px;">
+																		<template if:true={fee.showAdd}>
+																			<lightning-button-icon
+																				class="cra-btnicon slds-p-horizontal_x-small slds-col"
+																				icon-name="utility:add" variant="bare"
+																				alternative-text="Add new row"
+																				data-id={qli.Id} data-rno={fee.rno}
+																				data-name='Fees' onclick={handleNewRow}>
+																			</lightning-button-icon>
+																		</template>
+																		<template if:true={fee.showDelete}>
+																			<lightning-button-icon
+																				class="cra-btnicon slds-col"
+																				icon-name="utility:delete"
+																				variant="bare"
+																				alternative-text="Delete row"
+																				data-id={qli.Id} data-rno={fee.rno}
+																				data-name='Fees' onclick={handleDelRow}>
+																			</lightning-button-icon>
+																		</template>
+																	</div>
+																</div>
+															</div>
+														</template>
+													</div>
+												</lightning-layout-item>
+											</template>
+										</template>
+									</lightning-layout>
+									<!-- Displaying the Pricing Conditions having multi value selection - END -->
+
+									<template if:true={qliHeaderFields}>
+										<lightning-record-edit-form object-api-name='SBQQ__QuoteLine__c'
+											record-id={qli.Id}>
+											<div>
+												<lightning-layout multiple-rows>
+													<template for:each={qliHeaderFields} for:item="qliField">
+														<template if:true={qliField.show}>
+															<lightning-layout-item size="12"
+																class={qliField.class}
+																large-device-size="4" medium-device-size="6"
+																key={qliField.name}>
+																<lightning-input-field variant="label-stacked"
+																	data-id={qli.Id} field-name={qliField.name}
+																	name={qliField.name} data-fieldname={qliField.name}
+																	onchange={handleQliHeaderValue}>
+																</lightning-input-field>
+															</lightning-layout-item>
+														</template>
+													</template>
+												</lightning-layout>
+											</div>
+										</lightning-record-edit-form>
+									</template>
+								</div>
+							</template>
+						</lightning-accordion-section>
+					</template>
+				</lightning-accordion>
+			</div>
+		</div>
+		<!-- MAIN CONTENT - END -->
+	</div>
+</template>

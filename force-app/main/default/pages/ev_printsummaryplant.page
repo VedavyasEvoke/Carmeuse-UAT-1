@@ -1,0 +1,467 @@
+<apex:page controller="ev_printsummaryplantkilncontroller" renderAs="pdf" applyBodyTag="false" standardStylesheets="false">
+    
+    <!-- <apex:variable var="selectedPlant" value="{!$CurrentPage.parameters.id}" />-->
+    <apex:param name="paramName" value="paramValue" assignTo="{!yourVariable}" />
+    <head>
+        
+        <style>
+            .tickmark {
+            font-family: 'Arial';
+            font-size: 12px;
+            vertical-align: middle;
+        }
+            /* Your styles go here */
+            .line {
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            }
+            .header {
+            display: flex;
+            justify-content: space-between;
+            align-items:center;
+            padding: 5px;
+            }
+            
+            .logo-and-name {
+            display: flex;
+            align-items: left;
+            }
+            
+            .logo {
+            /* Adjust the width and height as needed */
+            width: 100px;
+            height: auto;
+            margin-right: 5px;
+            }
+            
+            
+.company-name {
+    font-size: 15px;
+    color: #000075;
+    margin-top: 0;
+    /* Remove top margin to align with the logo */
+    font-weight: bold;
+}
+            
+.company-group-name {
+    /* Styling for the group name */
+    font-size: 15px;
+    color: #808080;
+    /* Example size, adjust as needed */
+    font-weight: bold;
+    /* Example weight, adjust as needed */
+}
+            .custom-table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            }
+            
+            .custom-table td {
+            border: 1px solid #000;
+            padding: 4px;
+            }
+            
+            .table-container {
+            flex: 2;
+            padding: 10px;
+            box-sizing: border-box;
+            width: 100%;
+            margin-left: auto;
+            }
+            
+            .blue-background {
+            background-color: #6495ED;
+            /* Set the background color for the first row */
+            color: white;
+            /* Font color for better visibility on a blue background */
+            font-weight: bold;
+            }
+            
+            .custom-table td:first-child {
+            text-align: left;
+            /* Align the content in the first column to the left */
+            padding-right: 0;
+            width: 100%;
+            }
+            
+            .custom-table td:last-child {
+            text-align: left;
+            width: 100%;
+            /* Align the content in the last column to the right */
+            }
+            
+            .alldatatables {
+
+    text-align: left;
+
+    font-family: 'Arial'; 
+
+    font-size: 100%;   
+
+    vertical-align: left;
+
+    border-collapse: collapse; 
+
+            <!--border: 2px solid black;-->
+
+    padding: 5px 5px 5px 5px;
+
+    color: black;
+
+}
+    .block {
+        display: block;
+        }
+
+        </style>
+    </head>
+    
+    <div class="block" style="display: inline-block;">
+    <div class="logo-and-name" style="display: inline-block;">
+        <img src="{!$Resource.LOGO}" alt="Logo" class="logo"/>
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="company-name" style="display: inline-block;">
+        CIC - Carmeuse Intelligence<br/>    
+        on competition Database
+    </div>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="company-group-name" style="display: inline-block;">
+        {!groupname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{!companyname}<br/>
+        COUNTRY: {!countryname}
+    </div>
+</div>
+
+    <br/>
+    <br/>
+
+    <!-- Plant Details-->
+    <apex:pageBlock >
+       <table  border ="1" class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered alldatatables">
+                <thead>
+                    <tr class="slds-line-height_reset" >
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Plant" style="color: white;">Plant</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Aggre." style="color: white;">Aggre.</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Limestone" style="color: white;">Limestone</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Dolomite" style="color: white;">Dolomite</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Quicklime" style="color: white;">Quicklime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Dolime" style="color: white;">Dolime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Hyd .Lime" style="color: white;">Hyd .Lime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="PCC quality lime" style="color: white;">PCC quality lime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Milk of lime" style="color: white;">Milk of lime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Putty lime" style="color: white;">Putty lime</div>
+                        </th>
+                    </tr>
+                </thead>
+        <tbody>
+           
+                    <apex:repeat value="{!plantlist}" var="plant">
+                    <tr>
+                        <td>
+                            <apex:outputText value="{!plant.Name}"/>
+                        </td>
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Aggre__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Aggre__c}"/>
+                        </td>
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Limestone__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Limestone__c}"/>
+                        </td>
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Dolomite__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Dolomite__c}"/>
+                        </td> 
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Quicklime__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Quicklime__c}"/>
+                        </td>
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Dolime__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Dolime__c}"/>
+                        </td>
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Hyd_Lime__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Hyd_Lime__c}"/>
+                        </td>
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.PCC_quality_lime__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.PCC_quality_lime__c}"/>
+                        </td> 
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Milk_of_lime__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Milk_of_lime__c}"/>
+                        </td>
+                        <td>
+                            <!-- <apex:outputText value="{!IF(plant.Putty_lime__c, 'TRUE', 'FALSE')}"/> -->
+                            <apex:outputField value="{!plant.Putty_lime__c}"/>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+    </apex:pageBlock>
+
+    <br/>
+
+<apex:panelGrid columns="1">
+    <!-- CRUDE PRODUCTS: -->
+        <apex:pageBlock >
+        <apex:repeat value="{!plantlist}" var="plant">
+            <table>
+                <tr class="blue-background">
+                    <td>CRUDE PRODUCTS:</td>
+                </tr>
+                <tr>
+                    <td>Owner:</td> 
+                    <td><apex:outputText value="{!plant.Stone_Owner__c}"/></td>
+                    
+                    <!-- <th style="text-align:left;">Owner: </th>
+                    <td>{!plant.Stone_Owner__c}</td> -->
+
+                    <td>Location:</td>
+                    <td><apex:outputText value="{!plant.Location_Quary__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Geological Comments:</td>
+                    <td><apex:outputText value="{!plant.Geological_Comments__c}"/></td>
+                </tr>
+            </table>
+            </apex:repeat>
+    </apex:pageBlock>
+
+    <br/>
+
+    <!-- ESTIM. HYDERATES SALES: -->
+        <apex:pageBlock >
+        <apex:repeat value="{!plantlist}" var="plant">
+            <table>
+                <tr class="blue-background">
+                    <td>ESTIM. HYDERATES SALES:</td>
+                </tr>
+                <tr>
+                    <td>Milling:</td>
+                    <td><apex:outputText value="{!plant.Milling__c}"/></td>
+
+                    <td>Milling Info:</td>
+                    <td><apex:outputText value="{!plant.Milling_Info__c}"/></td>
+                </tr>
+            </table>
+            </apex:repeat>
+    </apex:pageBlock>
+
+    <br/>
+    
+        <!-- <div class="content-container"> -->
+        <!-- Plant capacity -->
+        <apex:pageBlock >
+        <apex:repeat value="{!plantlist}" var="plant">
+            <div class="table-container">
+                <table class="custom-table">
+                    <tr class="blue-background">
+                    <td>Plant capacity</td>
+                    <td></td>
+                </tr>
+                <tr class="blue-background">
+                    <td>Crude</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Annual Extraction tpy:</td>
+                    <td><apex:outputText value="{!plant.Annual_Extraction_t_y__c}"/></td>
+                </tr>
+                <tr class="blue-background">
+                    <td>Burnt (Quicklime and Dolime)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Estimated production t/y:</td>
+                    <td><apex:outputText value="{!plant.Estimated_Production_t_y__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Nominal capacity t/y:</td>
+                    <td><apex:outputText value="{!plant.Nominal_Capacity_t_y__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Free capacity t/y:</td>
+                    <td><apex:outputText value="{!plant.Free_Capacity_t_y__c}"/></td>
+                </tr> 
+                <tr>
+                    <td>Number of Kilns:</td>
+                    <td><apex:outputText value="{!plant.Number_of_Kilns__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Hydrated lime cap. tpy:</td>
+                    <td><apex:outputText value="{!plant.Hydration_Cap__c}"/></td>
+                </tr>
+                </table>
+            </div>
+            </apex:repeat>
+            </apex:pageBlock>
+            <br/>
+    </apex:panelGrid>
+
+
+    <!-- Kiln Details -->
+        <apex:pageBlock >
+        <br/>
+        <table  border ="1" class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered alldatatables">
+            <thead>
+            <tr class="slds-line-height_reset">
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Name" style="color: white;">Name</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Kiln" style="color: white;">Kiln</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Nbr" style="color: white;">Nbr</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Est. Prod t/y" style="color: white;">Est. Prod t/y</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Nom.Cap.tpy" style="color: white;">Nom.Cap. tpy</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Nom.Cap.tpd" style="color: white;">Nom.Cap. tpd</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Fuel 1" style="color: white;">Fuel 1</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Fuel 2" style="color: white;">Fuel 2</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Fuel 3" style="color: white;">Fuel 3</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Active" style="color: white;">Active</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Lime Type" style="color: white;">Lime Type</div>
+                </th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                    <div class="slds-truncate" title="Comment" style="color: white;">Comment</div>
+                </th>
+                <!-- Add more columns as needed -->
+            </tr>
+            </thead>
+            <tbody>                     
+            <apex:repeat value="{!kilnlist}" var="kiln">
+                    <!-- <thead>
+                    <tr>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                             
+                            <div class="slds-truncate" title="{!kiln.Name}" style="color: white;">{!kiln.Name}</div>
+                        </th>
+                    </tr> 
+                    </thead> -->
+                <tr>
+                <td>
+                    <apex:outputText value="{!kiln.Name}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Kiln__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Nbr__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Est_Prod_t_y__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Cap_t_y__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Cap_t_d__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Fuel_1__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Fuel_2__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Fuel_3__c}"/>
+                </td>
+                <td>
+                    <!-- <apex:outputText value="{!IF(kiln.Active__c, 'TRUE', 'FALSE')}"/> -->
+                    <apex:outputField value="{!kiln.Active__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Lime_Type__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!kiln.Comment__c}"/>
+                </td>
+            </tr>
+        </apex:repeat>
+    </tbody>
+</table>
+</apex:pageBlock>
+    <!-- </div> -->
+
+    <br/>
+
+    <!-- GENERAL INFOS: -->
+        <apex:pageBlock >
+        <apex:repeat value="{!plantlist}" var="plant">
+            <table>
+                <tr class="blue-background">
+                    <td>GENERAL INFOS:</td>
+                </tr>
+                <tr>
+                    <td>Total Employees:</td>
+                    <td><apex:outputText value="{!plant.Total_Employees__c}"/></td>
+                
+                    <td>Logistic - road:</td>
+                    <td><apex:outputText value="{!plant.Logistic_road__c}"/></td>
+                    
+                    <td>Train:</td>
+                    <td><apex:outputText value="{!plant.Logistic_train__c}"/></td>
+
+                    <td>Ship:</td>
+                    <td><apex:outputText value="{!plant.Logistic_ship__c}"/></td>
+                </tr>
+                <!-- <tr>
+                    <td>Market-application:</td>
+                    <td><apex:outputText value="{!plant.Milling__c}"/></td>
+                </tr> -->
+                <tr>
+                    <td>Storage info:</td>
+                    <td><apex:outputText value="{!plant.Storage__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Environment:</td>
+                    <td><apex:outputText value="{!plant.Environment__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Comments:</td>
+                    <td><apex:outputText value="{!plant.Comments__c}"/></td>
+                </tr>
+            </table>
+            </apex:repeat>
+    </apex:pageBlock>
+</apex:page>

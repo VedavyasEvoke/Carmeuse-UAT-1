@@ -1,0 +1,287 @@
+<apex:page controller="ev_KilnsReportController" contenttype="application/vnd.ms-excel#kilnsreport.xls" applyBodyTag="false" standardStylesheets="false">
+    <style>
+        .custom-table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: white;
+        }
+        .blue-background {
+        background-color: #6495ED;
+        /* Set the background color for the first row */
+        color: white;
+        /* Font color for better visibility on a blue background */
+        font-weight: bold;
+        }
+        .company-name {
+        font-size: 30px;
+        color: #000075;
+        margin-top: 0;
+        font-weight: bold;
+        }
+        .company-group-name {
+        /* Styling for the group name */
+        font-size: 30px;
+        color: #808080;
+        /* Example size, adjust as needed */
+        font-weight: bold;
+        /* Example weight, adjust as needed */
+        }
+    </style>
+        <apex:pageBlock >        
+        <div class="company-name">
+            <b>CIC - Carmeuse Intelligence
+                on Competitor Database</b>
+        </div>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="{!groupname}">
+            
+            <table border="1" class="custom-table" >
+                
+                <tr class="blue-background">
+                        <th class="slds-truncate">Group Lime Production</th>
+     					<th></th>
+                        <th></th>
+                        <th></th>
+  
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="font-size:14.8px;"><b>Captive</b></td>
+                        <td style="font-size:14.8px;"><b>Merchant</b></td>
+                        <td style="font-size:14.8px;"><b>Total</b></td>
+                    </tr>
+                    <tr>
+                        <td>Estim.Prod tpy</td>
+                        <td></td>
+                        <td>16,378,485</td>
+                        <td>16,378,485</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Nom.Cap tpy</td>
+                        <td></td>
+                        <td>20,900,790</td>
+                        <td>20,900,790</td>
+                        
+                    </tr>
+                </table>     
+    </apex:pageBlock>
+	<apex:pageBlock title="Merchant">
+         <table border="1" class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+            <tr class="slds-line-height_reset">
+                <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Plant" style="color: white;">PLANT</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Activity" style="color: white;">LIME STONE</div>
+                        </th>
+                       
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Annual Extraction tpy" style="color: white;">DOLOMITE</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Quick Lime" style="color: white;">FILLER</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Dolime" style="color: white;">QUICK LIME</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Lime Estimation tpy" style="color: white;">DOLIME</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Lime cap tpy" style="color: white;">BLENDS</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="nb klin" style="color: white;">LIME EST.TPY</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime" style="color: white;">LIME CAP TPY</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">HYDR. LIME</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">HYDR. LIME CAP TPY</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">NB</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">TYPE</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">ACTIVE</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">FUEL 1</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">FUEL 2</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">FUEL 3</div>
+                        </th>
+             </tr>
+
+                <apex:repeat value="{!wrapperMerchantList}" var="wrapper">
+                <tr>
+                    <td class="bordered" colspan="17" style="background-color: #6495ED;">
+                        <p>{!wrapper.groupName} - {!wrapper.companyName} - {!wrapper.countryName}</p>
+                    </td>
+                </tr>
+                <apex:repeat value="{!wrapper.competitor}" var="competitor">
+                    <tr>
+                        <td class="bordered"><apex:outputField value="{!competitor.Name}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Limestone__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Dolime__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Filler__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Quicklime__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Dolomite__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Blends__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputField value="{!competitor.Lime_Est_tpy__c}"/></td>
+                        <td class="bordered"><apex:outputField value="{!competitor.Lime_Cap_tpy__c}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Hydrated_Lime__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputField value="{!competitor.Hydration_Cap__c}"/></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                    </tr>
+                    <apex:repeat value="{!competitor.Kiln_Report__r}" var="kr">
+                        <tr>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Nbr__c}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Lime_Type__c}"/></td>
+                            <td class="bordered"><apex:outputText value="{!IF(kr.Active__c, 'TRUE', 'FALSE')}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Fuel_1__c}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Fuel_2__c}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Fuel_3__c}"/></td>
+                        </tr>
+                    </apex:repeat> 
+                </apex:repeat>
+            </apex:repeat>
+        </table>
+    </apex:pageBlock>
+
+    <apex:pageBlock title="Captive">
+         <table border="1" class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+            <tr class="slds-line-height_reset">
+                <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Plant" style="color: white;">PLANT</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Activity" style="color: white;">LIME STONE</div>
+                        </th>
+                       
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Annual Extraction tpy" style="color: white;">DOLOMITE</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Quick Lime" style="color: white;">FILLER</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Dolime" style="color: white;">QUICK LIME</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Lime Estimation tpy" style="color: white;">DOLIME</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Lime cap tpy" style="color: white;">BLENDS</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="nb klin" style="color: white;">LIME EST.TPY</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime" style="color: white;">LIME CAP TPY</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">HYDR. LIME</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">HYDR. LIME CAP TPY</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">NB</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">TYPE</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">ACTIVE</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">FUEL 1</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">FUEL 2</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;font-size:10px;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">FUEL 3</div>
+                        </th>
+             </tr>
+
+                <apex:repeat value="{!wrapperCaptiveList}" var="wrapper">
+                <tr>
+                    <td class="bordered" colspan="17" style="background-color: #6495ED;">
+                        <p>{!wrapper.groupName} - {!wrapper.companyName} - {!wrapper.countryName}</p>
+                    </td>
+                </tr>
+                <apex:repeat value="{!wrapper.competitor}" var="competitor">
+                    <tr>
+                        <td class="bordered"><apex:outputField value="{!competitor.Name}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Limestone__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Dolime__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Filler__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Quicklime__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Dolomite__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Blends__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputField value="{!competitor.Lime_Est_tpy__c}"/></td>
+                        <td class="bordered"><apex:outputField value="{!competitor.Lime_Cap_tpy__c}"/></td>
+                        <td class="bordered"><apex:outputText value="{!IF(competitor.Hydrated_Lime__c, 'TRUE', 'FALSE')}"/></td>
+                        <td class="bordered"><apex:outputField value="{!competitor.Hydration_Cap__c}"/></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                        <td class="bordered"></td>
+                    </tr>
+                    <apex:repeat value="{!competitor.Kiln_Report__r}" var="kr">
+                        <tr>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td style="border-width: 0;"></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Nbr__c}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Lime_Type__c}"/></td>
+                            <td class="bordered"><apex:outputText value="{!IF(kr.Active__c, 'TRUE', 'FALSE')}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Fuel_1__c}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Fuel_2__c}"/></td>
+                            <td class="bordered"><apex:outputField value="{!kr.Fuel_3__c}"/></td>
+                        </tr>
+                    </apex:repeat> 
+                </apex:repeat>
+            </apex:repeat>
+        </table>
+    </apex:pageBlock>
+</apex:page>

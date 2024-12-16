@@ -1,0 +1,53 @@
+<apex:page controller="Ev_CPQPricingConditionController" sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" standardStylesheets="false">
+    <head>
+        <meta charset="utf-8"></meta>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+  		<title>Salesforce CPQ External Config</title>
+		<apex:includeLightning />
+		<style>* {margin:0px; padding:0px;} .slds-popover__body{ white-space: pre-wrap; word-break: break-all; } lightning-primitive-bubble{  top: -185px; }</style>
+	</head>
+    <body class="slds-scope">
+        <apex:form >
+            <apex:actionFunction action="{!navigateToUrl}" name="navigateToUrlFn">
+            	<apex:param name="customUrl" assignTo="{!url}" value="" />
+			</apex:actionFunction>
+        </apex:form>
+        <apex:slds />
+        <!-- This is it, all we need is a div to host our LEX app -->
+        <div id="ext-config"></div>
+        <div id="componentId"/>
+        <div id="spinner">
+            <div class="slds-scope" style="width:100%; height:100vh;">
+                <div style="height:6rem;position:relative;top:50%;">
+                <div class="slds-spinner_container">
+                    <div role="status" class="slds-spinner slds-spinner_large slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+    	function navigateToUrlFromVf(url) {
+            console.log(url);
+            navigateToUrlFn(url);
+        }
+        document.addEventListener('lightning__showtoast', event => {
+        	sforce.one.showToast(event.toastAttributes);
+    	});
+        $Lightning.use("c:ev_PricingConditionApp", function() {
+            $Lightning.createComponent("c:ev_PricingCondition", {
+                "recordId": "{!$CurrentPage.parameters.Id}",
+                "navigateToUrlFromVf":  navigateToUrlFromVf
+            }, "componentId",
+              function(cmp) {
+                 document.getElementById('componentId').style.height = '100vh';
+                 document.getElementById('spinner').innerHTML = '';
+              });
+        });
+    </script>
+</apex:page>

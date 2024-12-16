@@ -1,0 +1,35 @@
+<template>
+    <!-- <lightning-card title="Update Language" icon-name="custom:custom14">
+        <lightning-record-edit-form
+            record-id={recordId}
+            object-api-name="SBQQ__Quote__c"
+            onsuccess={handleSuccess}
+            onerror={handleError}
+        >
+            <lightning-input-field 
+                field-name="SBQQ__QuoteLanguage__c" 
+                onchange={handleFieldChange}>
+            </lightning-input-field>
+        </lightning-record-edit-form>
+        <template if:true={showSuccessMessage}>
+            <div class="slds-text-color_success slds-m-top_small">
+                Record updated successfully.
+            </div>
+        </template>
+        <template if:true={showErrorMessage}>
+            <div class="slds-text-color_error slds-m-top_small">
+                Error updating record: {errorMessage}
+            </div>
+        </template>
+    </lightning-card> -->
+
+
+<lightning-record-edit-form 
+            record-id={recordId}
+            object-api-name={objectApiName}>
+    <lightning-input-field field-name="SBQQ__QuoteLanguage__c" value = {quoteLanguage} onchange={languageChange}></lightning-input-field>
+    <!-- submit -->
+</lightning-record-edit-form>
+
+
+</template>

@@ -1,0 +1,16 @@
+<template>
+     <lightning-card title="Ship To Opportunities" icon-name="standard:opportunity">
+        <div class="slds-p-horizontal_small">
+            <div if:true={data}>
+                <lightning-datatable data={data} columns={columns} key-field="Id" hide-checkbox-column="true"></lightning-datatable>
+            </div>
+        </div>
+
+        <div class="slds-m-around_medium">
+            <p class="slds-m-vertical_medium content">
+                     Displaying {startingRecord} to {endingRecord} of {totalRecountCount} records.
+                     Page {page} of {totalPage}. </p>
+            <c-ev_paginator onprevious={previousHandler} onnext={nextHandler}></c-ev_paginator>
+        </div>
+    </lightning-card>
+</template>

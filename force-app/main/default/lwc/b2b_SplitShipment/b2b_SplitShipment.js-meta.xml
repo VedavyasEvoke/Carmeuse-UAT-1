@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <description>B2B Split Shipment</description>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B Split Shipment</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <!--<targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <propertyType name ="PT" extends="SObject" label="Select a sObject" description="Select a sObject"/>
+            <property name="records" type="{PT[]}" label="Records" description="Record List Variable"/>
+        </targetConfig>
+    </targetConfigs>-->
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Cart Id"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

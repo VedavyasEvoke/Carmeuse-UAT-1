@@ -1,0 +1,185 @@
+:host {
+    /* Styles for the host element */
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.line-vertical {
+    width: 1px;
+    height: 50px;
+    background-color: #ddd;
+    margin: 10px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.current-page-box,
+.total-pages-box {
+    margin: 0 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pagination-text {
+    margin: 0 5px;
+}
+
+.control-icon {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.controls lightning-button-icon {
+    margin: 0 10px;
+}
+
+.resolution-dropdown {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    position: relative;
+    top: -7px;
+    width: 70px;
+}
+
+.resolution-dropdown lightning-combobox {
+    width: 85%;
+    margin: 0;
+}
+
+/* .logo {
+    Adjust the width and height as needed 
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+} */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.logo-container {
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.logo-container img {
+    width: 40px;
+    height: auto;
+}
+
+.logo-and-name {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    /* Adjust the width and height as needed */
+    width: 150px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.company-name {
+    font-size: 20px;
+    color: #000075;
+    margin-top: 0;
+    /* Remove top margin to align with the logo */
+    font-weight: bold;
+}
+
+.company-group-name {
+    /* Styling for the group name */
+    font-size: 20px;
+    color: #808080;
+    /* Example size, adjust as needed */
+    font-weight: bold;
+    /* Example weight, adjust as needed */
+}
+
+.custom-table {
+    border-collapse: collapse;
+    margin-left: 5px;
+    width: 95%;
+    height: 90%;
+}
+
+.custom-table td {
+    border: 1px solid #000;
+    padding: 4px;
+}
+
+.table-container {
+    flex: 2;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 30%;
+    margin-left: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    flex: 1;
+    margin-left: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.blue-background {
+    background-color: #0099cc;
+    /* Set the background color for the first row */
+    color: white;
+    /* Font color for better visibility on a blue background */
+    font-weight: bold;
+    text-align: left;
+}
+.custom-table-td{
+    text-align: left;
+    /* Align the content in the first column to the left */
+    padding-right: 0;
+    width: 30%;
+}
+
+.custom-table td:first-child {
+    text-align: left;
+    /* Align the content in the first column to the left */
+    padding-right: 0;
+    width: 10%;
+}
+.custom-table td:nth-child(2) {
+    text-align: center; /* Center the text content in the second column */
+}.custom-table td:nth-child(3) {
+    text-align: center; /* Center the text content in the second column */
+}
+.custom-table td:nth-child(4) {
+    text-align: center; /* Center the text content in the second column */
+}
+.custom-table td:nth-child(5) {
+    text-align: center; /* Center the text content in the second column */
+}
+.custom-table td:nth-child(6) {
+    text-align: center; /* Center the text content in the second column */
+}
+.custom-table td:nth-child(7) {
+    text-align: right; /* Center the text content in the second column */
+}
+
+.custom-table td:last-child {
+    text-align: right;
+    /* Align the content in the last column to the right */
+}
+.custom-table th {
+    text-align: left; /* Align header cells to the left */
+    background-color: #0099cc; /* Apply background color to header cells */
+    color: white; /* Font color for better visibility on a blue background */
+    font-weight: bold;
+}

@@ -1,0 +1,99 @@
+<template>
+    <div class = "width slds-scrollable--x">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered ">
+        <thead>
+            <tr class=" slds-line-height_reset">
+                
+                <th  scope="col">
+                    {label.Order_Detail_Product_Code}
+                </th>
+                <th scope="col">
+                    {label.Order_Detail_Access_Code}
+                </th>
+                <th  scope="col">
+                    {label.Order_Detail_Status}
+                </th>
+                <th  scope="col">
+                    {label.Order_Detail_Shipping_DateTime}
+                </th>
+                <th  scope="col">
+                    {label.Order_Detail_Shipping_Weight}
+                </th>
+                <th  scope="col">
+                    {label.Order_Detail_BOL_Number}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList} 
+                        for:item = "eachDeliveryDateLineItemWrapper"
+                        for:index="indx">
+                        <tr  key ={eachDeliveryDateLineItemWrapper.Id}> 
+                            <td  scope="col">
+                                {productCode}
+                            </td >
+                            <td scope="col">
+                                {eachDeliveryDateLineItemWrapper.accessCode}
+                            </td>
+                            <td scope="col">
+                                {eachDeliveryDateLineItemWrapper.shipmentStatus}
+                            </td>
+                            <td scope="col">
+                                {eachDeliveryDateLineItemWrapper.shipmentDateTime}
+                            </td>
+                            <td scope="col">
+                                {eachDeliveryDateLineItemWrapper.shipmentWeight}
+                            </td>
+                            <td scope="col">
+                                {eachDeliveryDateLineItemWrapper.bolNumber}
+                            </td>
+                            <td scope="col">
+                                <c-each-order-summery-table-row product-code={productCode}
+                                                                    each-delivery-date-line-item-wrapper={eachDeliveryDateLineItemWrapper}
+                                                                    index={indx}
+                                                                    today ={today}
+                                                                    onshowconfirmationmodal={handleShowConfirmationModal}
+                                                                    onshoweditmodal={handleShowEditModal}
+                                                                    shipping-mode={shippingMode}
+                                                                    is-owner={isOwner}>
+                                </c-each-order-summery-table-row>
+                    
+                            </td>
+                            <td scope="col">
+                                <c-edit-each-order-delivery         if:true={isMLSAccount}
+                                                                    each-delivery-date-line-item-wrapper={eachDeliveryDateLineItemWrapper}
+                                                                    index={indx}
+                                                                    today ={today}
+                                                                    org-details={orgDetails}
+                                                                    onshoweditdeliverymodal={handleShowEditDeliveryModal}
+                                                                    onshoweditdatemodal={handleShowEditDateModal}               
+                                                                    is-owner={isOwner}>
+                                </c-edit-each-order-delivery>
+                    
+                            </td>
+                        </tr>
+    
+
+                
+            
+            </template>
+        </tbody>
+        </table>
+    </div>
+    <c-carmeuse-cancel-order-for-line-item-modal onhandleconfirmation={handleRequestForCancel} 
+                                                 onhandlecancel={handleModalCancel} 
+                                                 today ={today}
+                                                 if:true={showConfirmationModal} >
+
+    </c-carmeuse-cancel-order-for-line-item-modal>
+    <c-carmeuse-edit-each-delivery  onhandleconfirmation={handleEditSingleDelivery}                                 
+                                    ongetselectnewdate={handleSelectNewDate}
+                                    onhandlecancel={handleModalCancel}
+                                    index ={index}
+                                    org-details={orgDetails}
+                                    time-zone={timeZone}
+                                    locale={locale}
+                                    each-delivery-date-wrapper ={eachDeliveryDateWrapper}
+                                    if:true={showEditDeliveryModel}>
+    </c-carmeuse-edit-each-delivery>
+</template>

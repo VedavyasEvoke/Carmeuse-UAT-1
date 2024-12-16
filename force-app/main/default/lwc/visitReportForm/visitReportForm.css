@@ -1,0 +1,15 @@
+.outer { height: 450px; }
+.form-content { height: calc(100% - 118px); overflow: auto; position: relative; }
+.slds-modal__footer { border-radius: 0; }
+
+.accordions-cont { width: 100%; }
+.accordion { --slds-c-accordion-summary-color-background: rgb(243, 243, 243);
+--slds-c-accordion-sizing-border: 0px;}
+.accordion-section { --slds-c-accordion-section-spacing-block-start: 0.5rem; 
+--slds-c-accordion-section-spacing-block-end: 0.5rem }
+
+.file { overflow: hidden; border-radius: 0.25rem; background-color: white; 
+box-shadow: rgb(0 0 0 / 17%) 0px 1px 4px; }
+.file-name { padding: 0px 4px; width: 150px; overflow: hidden; text-overflow: ellipsis;
+white-space: nowrap; font-size: 11px; }
+.file-delete-btn:hover { cursor: pointer; }

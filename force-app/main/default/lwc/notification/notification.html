@@ -1,0 +1,147 @@
+<template >
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open"> 
+            <div class="slds-modal__container">
+                <div if:true={update1}>
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                            Ready to Take Your Order!
+                        </h2>
+                    </header>
+                    <div  class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p>
+                                <img src={Next_Day_Order} alt="Carmeuse Logo" class="center"><br>
+                                <b>You can place orders in MyCarmeuse up until 12pm (Eastern) the day before delivery!
+                                    <br><br>
+                                    <i>Need it sooner?</i><br>
+                                    Our Customer Service Team is at the ready 24/7. If you need to place a last-minute or emergency order, call us directly at 1-800-445-3930.
+                                </b> 
+                            </p>
+
+                    </div>
+                </div>
+                <div if:true={update2}>
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">
+                            Spreadsheets Welcome!
+                        </h2>
+                    </header>
+                    <div  class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                        <p>
+                            <img src={Excel_OR_CSV} alt="Carmeuse Logo" class="center"><br>
+                            <b>
+                                MyCarmeuse now supports Excel and CSV file uploads for building your order! Simply fill out and upload the template from the Order Details page (once you’ve Proceeded to Checkout).<br><br>   
+                            </b> 
+                        </p>
+                    </div>
+                </div>
+                <div if:true={update3}>
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">
+                            Save Your Progress!
+                        </h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                        <p>
+                            <img src={QuickSave} alt="Carmeuse Logo" class="center"><br>
+                            <b>Pick up right where you left off with our new Quick Save feature.
+                            <br><br>
+                            If you need more time to build out your order, click the Quick Save button at the bottom of the Order Details screen to save your progress. You can then return to your Cart at any time to continue from your Quick Save spot!
+                            <br>
+                            </b> 
+                        </p>
+                    </div>
+                </div>
+                <div if:true={update4}>
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-04" class="slds-text-heading_medium slds-hyphenate">
+                            How Can I Add Users?
+                        </h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-4">
+                        <p>
+                            <img src={AddUser} alt="Carmeuse Logo" class="center"><br>
+                            <b>Don’t keep MyCarmeuse a secret! If others in your organization need access, you can add new users from the My Contacts tab. 
+                                <br><br>                   
+                                Just click the New button, fill out the New Contact form and set level of access. To assign users to multiple accounts, contact us at <i><a>customer-portal@carmeuse.com</a></i>
+                            </b> 
+                        </p>
+                    </div>
+                </div>
+                <div if:true={update5}>
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate">
+                            Tell Us Your Thoughts
+                        </h2>
+                    </header>
+                    <div  class="slds-modal__content slds-p-around_medium" id="modal-content-id-5">
+                        <p>
+                            <img src={New_Ideas} alt="Carmeuse Logo" class="center"><br>
+                            <b>We designed MyCarmeuse to make things easier for our customers.
+                                <br><br>
+                                If there is a new feature or functionality that you’d love to see become part of MyCarmeuse, let us know! We’d love to hear from you.<br><br>
+                                <a href={invitationLink} target="_blank">Click here to take a quick survey.</a>.
+                            </b>
+                        </p>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    
+                            <lightning-button variant="neutral"
+                                name="Previous"
+                                label="<<"
+                                title="Previous"
+                                onclick={onPrevious}
+                                disabled={update1}>
+                            </lightning-button>   
+                                
+                            <lightning-button variant="neutral"
+                                name="Next"
+                                label=">>"
+                                title="Next"
+                                onclick={onNext}
+                                disabled={update5}>
+                            </lightning-button>
+                
+                </footer>
+            </div>
+            
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>    
+    </template>    
+</template>

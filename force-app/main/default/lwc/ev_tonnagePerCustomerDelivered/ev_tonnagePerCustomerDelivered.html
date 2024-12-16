@@ -1,0 +1,67 @@
+<template>
+      <lightning-card title="Tonnage Per Customer Delivered">
+        <template if:true={parentAccount}>
+          <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+              <tr class="slds-text-title_caps">
+                <th scope="col" class="custom-heading">
+                  <div class="slds-truncate" title="Customer">Customer</div>
+                </th>
+                <th scope="col" class="custom-heading">
+                  <div class="slds-truncate" title="Tonnage">Tonnage</div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+          <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="slds-truncate" title={parentAccount.ParentAccountName}>
+                    <strong>{parentAccount.ParentAccountName}</strong>
+                  </div>
+                </td>
+                <td>
+                  <div class="slds-truncate" title={parentAccount.ParentAccountQuantity}>
+                    <strong> {parentAccount.ParentAccountQuantity}</strong>
+                  </div>
+                </td>
+              </tr>
+              <template for:each={parentAccount.ChildAccounts} for:item="ChildAccounts">
+                <tr key={ChildAccounts.AccountName} class="child-account-row">
+                  <td>
+                    <div class="slds-truncate" title={ChildAccounts.AccountName}>{ChildAccounts.AccountName}</div>
+                  </td>
+                  <td>
+                    <div class="slds-truncate" title={ChildAccounts.TotalQuantity}>{ChildAccounts.TotalQuantity}</div>
+                  </td>
+                </tr>
+              </template>
+              <template if:false={parentAccount.ChildAccounts}>
+                <tr>
+                  <td colspan="2">
+                    <p>No Accounts with Won Quotes.</p>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+          <!-- Display total tonnage inside the same table, outside the accordion -->
+          <div class="slds-m-top_medium">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+              <tfoot>
+                <tr class="slds-text-title_bold">
+                  <td>Total Tonnage</td>
+                  <td>
+                    <strong>{parentAccount.TotalQuantityIncludingChildren}</strong>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </template>
+        <template if:true={error}>
+          <p>Error: {error}</p>
+        </template>
+      </lightning-card>
+    </template>

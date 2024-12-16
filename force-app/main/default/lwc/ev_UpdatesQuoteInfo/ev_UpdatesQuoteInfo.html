@@ -1,0 +1,19 @@
+<template>
+   <div class="slds-p-bottom_large slds-p-left_large" style="width:650px">
+    <lightning-record-edit-form record-id={recordId} object-api-name="SBQQ__Quote__c"
+            onsuccess={handleSuccess} onsubmit ={handleSubmit}>
+        <lightning-messages> </lightning-messages>
+        <lightning-output-field field-name="recordId"></lightning-output-field>
+        <div class="hide-label">
+        <lightning-input-field field-name="Approver_Notes__c" ></lightning-input-field>
+        </div>
+        <lightning-input-field field-name="Pricing_Approved_Status__c"></lightning-input-field>
+        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update Status" ></lightning-button>
+   
+				<lightning-input-field class="slds-hidden" field-name="Pricing_Council_Approve_By__c" value={userId} ></lightning-input-field>
+				<lightning-input-field class="slds-hidden" field-name="Pricing_Council_Approved_Date__c" value={selectedDate} onchange={handleDateChange} ></lightning-input-field>
+        
+				
+</lightning-record-edit-form>
+   </div>
+</template>

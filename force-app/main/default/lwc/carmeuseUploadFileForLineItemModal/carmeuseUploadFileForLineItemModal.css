@@ -1,0 +1,27 @@
+.modalBody {
+    position: relative;
+}
+.errors{
+    color:red;
+}
+.detail{
+    border:3px;
+     border-style:solid; 
+     border-color:#9b9696; 
+     padding: 1em;
+}
+.note{
+    color:red;
+    font-size: 14px;
+}
+.spinsfile::after {
+    position: absolute;
+    content: 'Uploading......';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}
+.details{
+    color:green;
+}

@@ -1,0 +1,39 @@
+<apex:component controller="AllOrderCancellationController" access="global">
+    <style>
+        tbody{text-align:center}
+        .tpadding{padding-right:12px;padding-left:12px}
+    </style>
+    <apex:attribute name="orderSumarryId" type="Id" description="Id of Order Sumarry" assignTo="{!osId}"/>
+    <table border="1px" width="100%" >
+        <tr>
+            <th>Order Delivery Group Number</th>
+            <th>Desired Delivery Date</th>
+            <th>Quote Number</th>
+            <th>Access Code</th>
+            <th>SAP Account Number</th>
+            <th>PO Number</th> 
+            <th>Cancellation Requested By</th> 
+            <th>Cancellation Requested On </th> 
+        </tr>                    
+        <apex:repeat value="{!lstOrderDeliveryGroup}" var="odg" >
+            <tr>
+                <td class="tpadding">{!odg.OrderDeliveryGroupNumber}</td> 
+                <td class="tpadding">
+                    <apex:outputText value="{0,date,MM/dd/yyyy}">
+                        <apex:param value="{!odg.DesiredDeliveryDate}" /> 
+                    </apex:outputText>
+                </td>
+                <td class="tpadding">{!odg.QuoteNumber__c}</td>
+                <td class="tpadding">{!odg.AccessCode__c}</td>
+                <td class="tpadding">{!odg.AccountExternalNumber__c}</td> 
+                <td class="tpadding">{!odg.PONumber__c}</td> 
+                <td class="tpadding">{!odg.Cancel_Requested_By__r.Name}</td> 
+                <td class="tpadding">
+                    <apex:outputText value="{0,date,MM/dd/yyyy}">
+                        <apex:param value="{!odg.Cancel_Requested_On__c}" /> 
+                    </apex:outputText>
+                </td>
+            </tr>                
+        </apex:repeat>
+    </table>
+</apex:component>

@@ -1,0 +1,17 @@
+<template>  
+    <template if:true={isResponse}>
+        <lightning-accordion allow-multiple-sections-open
+                                active-section-name={activeSections}>
+                                
+            <template for:each={wrapper.orderItemSummaryWrapperList} for:item = "productInstance">
+                <c-carmeuse-amend-order-accordion-section product-instance ={productInstance} 
+                    order-id ={wrapper.orderSummaryDetails.originalOrderId}
+                    key ={productInstance.productCode} 
+                    account-id ={wrapper.orderSummaryDetails.accountId}
+                    account-external-number={accountExternalNumber}
+                    >
+                </c-carmeuse-amend-order-accordion-section>
+            </template>
+        </lightning-accordion>
+    </template>
+</template>

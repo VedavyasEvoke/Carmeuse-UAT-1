@@ -1,0 +1,6 @@
+table {width:100%; }/*width: 100%;
+table-layout: fixed;*/
+table th {word-wrap:break-word;white-space: normal;}
+.width {
+    width: 100% !important;
+}

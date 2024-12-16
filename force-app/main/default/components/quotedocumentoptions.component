@@ -1,0 +1,9 @@
+<apex:component >
+    <apex:attribute name="supportlanguage" type="String" description="TODO: Describe me"/>
+    <apex:attribute name="ispreview" type="String" description="TODO: Describe me"/>
+    <apex:attribute name="formfactor" type="String" description="TODO: Describe me"/>
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  This is your new Component: quotedocumentoptions
+  <!-- End Default Content REMOVE THIS -->
+</apex:component>

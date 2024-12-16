@@ -1,0 +1,43 @@
+<!--
+ - Created by kdreyer on 2/16/21.
+ -->
+
+<!-- B2B Split Shipment -->
+<template>
+    <lightning-card title="Split Your Order" icon-name="standard:shipment">
+        <p style="color:tomato;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><u>NOTE</u> :</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>&bull; Limit - 500 total deliveries per order.</span></p>
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <div class="slds-grid slds-grid_align-center slds-m-around_medium">
+            <div class="slds-size_2-of-2">
+<!--                <p>Enter Number of Shipments:</p>-->
+<!--                <lightning-layout multiple-rows="false">-->
+<!--                    <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3"-->
+<!--                        padding="around-small">-->
+<!--                        <lightning-input type="number" label="Enter Number of Shipments" name="numberOfShipments"-->
+<!--                            value={numberOfShipments} onchange={handleNumberOfShipmentsChanged} step="1" class="slds-m-bottom_x-small" required="true">-->
+<!--                        </lightning-input>-->
+<!--                    </lightning-layout-item>-->
+
+<!--                    <lightning-button variant="success" onclick={createShipments} name="createShipments"-->
+<!--                        label="Create Shipments"></lightning-button>-->
+<!--                </lightning-layout>-->
+
+                <template for:each={shipments} for:item="shipment">
+                    <c-split-shipment-item index={shipment.index} cart-item-options={cartItemOptions} data-key={shipment.index} key={shipment.index} onformchanged={shipmentChangedHandler}>
+                    </c-split-shipment-item>
+                </template>
+
+            </div>
+        </div>
+    </lightning-card>
+
+<!--    <div class="slds-align_absolute-center">-->
+<!--        <lightning-button variant="success" onclick={handleSubmit} name="submit" label="Submit">-->
+<!--        </lightning-button>-->
+<!--    </div>-->
+
+    <!--<lightning-datatable data={records} columns={fieldColumns} key-field="id"></lightning-datatable>-->
+</template>

@@ -1,0 +1,462 @@
+<template>
+<lightning-card  variant="Narrow">
+    <div class="slds-m-top_medium slds-m-bottom_x-large">
+        <!-- bare -->
+        <div class="slds-p-around_medium">
+            <lightning-button-icon icon-name="utility:left" alternative-text="First" onclick={handleFirst} variant="neutral" class="mybutton"></lightning-button-icon>&nbsp;&nbsp;&nbsp;
+            <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Back" variant="neutral" onclick={handleBackward} class="slds-m-left_xx-small" title="Add user"></lightning-button-icon>
+            <span class="current-page-box">{currentPage}</span>
+            <span class="pagination-text">of</span>
+            <span class="total-pages-box">{totalPages}</span>
+            <span class="pagination-text"></span>&nbsp; &nbsp;
+            <lightning-button-icon icon-name="utility:chevronright" alternative-text="Next" variant="neutral" onclick={handleForward}  class="mybutton"></lightning-button-icon>
+            <lightning-button-icon icon-name="utility:right"      variant="neutral" alternative-text="Last" onclick={handleLast}    class="slds-m-left_xx-small"></lightning-button-icon>
+            <lightning-button-icon icon-name="utility:loop"  variant="neutral" alternative-text="Refresh" onclick={handleRefresh} class="slds-m-left_xx-small"></lightning-button-icon>
+            <lightning-button-menu alternative-text="Save" icon-name="utility:save" onselect={handleMenuSelect} class="slds-m-left_xx-small">
+                    <lightning-menu-item label="PDF" value="pdf"> </lightning-menu-item>
+                    <lightning-menu-item label="Excel" value="Excel"> </lightning-menu-item>
+                </lightning-button-menu>
+            <!--lightning-button-icon icon-name="utility:print"   variant="neutral" alternative-text="Print" onclick={handlePrint} class="slds-m-left_xx-small"></lightning-button-icon-->
+        </div>
+    </div><br/>
+    <div class="slds-grid slds-gutters">
+<div class="slds-col">
+<img src={logoUrl} alt="Logo" class="logo"/>
+</div>
+<div class="slds-col">
+<span class="companyName">CIC - CarmeUse Intelligence <br> &nbsp;on Competitor Database</span>
+</div>
+<div class="slds-col">
+     <div class="company-group-name">
+                {selectedGroupName} 
+            </div> 
+<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+    <thead>
+        <tr class="blue-background">
+<td colspan="4">Group Lime Production</td>
+</tr>
+    <tr class="slds-line-height_reset">
+      <th class="" scope="col">
+        <div class="slds-truncate" title="Field Name"></div>
+      </th>
+      <th class="" scope="col">
+        <div class="slds-truncate" title="Captive">Captive</div>
+      </th>
+      <th class="" scope="col">
+        <div class="slds-truncate" title="Merchant">Merchant</div>
+      </th>
+      <th class="" scope="col">
+        <div class="slds-truncate" title="Total">Total</div>
+      </th>
+      </tr>
+  </thead>
+ <tbody>
+    <tr class="slds-hint-parent">
+        <th data-label="Field Name" scope="row">
+            <div class="slds-truncate" title="Estim.Prod tpy">
+                Estim.Prod tpy
+            </div>
+        </th>
+        <td data-label="Captive">
+            <div class="slds-truncate" title="Captive">{overallTotalNomCapTpyCap}</div>
+        </td>
+        <td data-label="Merchant">
+            <div class="slds-truncate" title="Merchant">{overallTotalNomCapTpyMer}</div>
+        </td>
+        <td data-label="Total">
+            <div class="slds-truncate" title="Total">{totalNomProdTpy}</div>
+        </td>
+    </tr>
+    <tr class="slds-hint-parent">
+        <th data-label="Field Name" scope="row">
+            <div class="slds-truncate" title="Nom.Cap tpy">
+                Nom.Cap tpy
+            </div>
+        </th>
+        <td data-label="Captive">
+            <div class="slds-truncate" title="Captive">{overallTotalEstimProdTpyCap}</div>
+        </td>
+        <td data-label="Merchant">
+            <div class="slds-truncate" title="Merchant">{overallTotalEstimProdTpyMer}</div>
+        </td>
+        <td data-label="Total">
+            <div class="slds-truncate" title="Total">{totalEstimProdTpy}</div>
+        </td>
+    </tr>
+</tbody>
+
+</table>
+</div>
+</div><br/>
+<div class="table1">
+<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                <thead>
+                    <tr class="slds-line-height_reset" >
+                        <th class="header-cell" scope="col" colspan="12" style="background-color: #0047AB !important;">
+                            <div class="slds-truncate" title="Plant" style="color: white;">Merchant</div>
+                        </th>
+                    </tr>
+                    <tr class="slds-line-height_reset">
+                         <th  class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Plant">
+                                Plant
+                            </div>
+                        </th>
+                        <th  class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Lime Stone">
+                                Lime Stone
+                            </div>
+                        </th>
+                        <th  class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Dolomite">
+                               Dolomite
+                            </div>
+                        </th>
+                        <th  class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Filler">
+                                Filler
+                            </div>
+                        </th>
+                        <th  class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Quick Lime">
+                                Quick Lime
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Dolime">
+                                Dolime
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Blends">
+                                Blends
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Lime Est.tpy">
+                                Lime Est.tpy
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Lime Cap tpy">
+                                Lime Cap tpy
+                            </div>
+                        </th>
+                         <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Hydr. Lime">
+                                Hydr. Lime
+                            </div>
+                        </th>
+                          <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Hydr. Lime Cap tpy">
+                                Hydr. Lime Cap tpy
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Nb">
+                                Nb &nbsp; Type &nbsp;&nbsp; Active &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fuel 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fuel 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fuel 3
+                            </div>
+                        </th>
+                        <!-- <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Type">
+                                Type
+                            </div>
+                        </th> 
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Active">
+                                Active
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Fuel 1">
+                                Fuel 1
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Fuel 2">
+                                Fuel 2
+                            </div>
+                        </th>
+                        <th class="slds-is-resizable" scope="col">
+                            <div class="slds-truncate" title="Fuel 3">
+                                Fuel 3
+                            </div>
+                        </th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                <template if:true={companiesWithMerchantCompetitors}>
+                    <template for:each={companiesWithMerchantCompetitors} for:item="company">
+                        <tr key={company} class="slds-line-height_reset">
+                            <th class="header-cell" scope="col" colspan="12" style="background-color: #0047AB !important;">
+                                <div class="slds-truncate" title="Plant" style="color: white;"> {company.groupName} - {company.companyName} - {company.countryName} </div>
+                            </th>
+                        </tr>
+                        <!-- <tr key={company.key} class="slds-line-height_reset">
+                            <th class="header-cell" scope="col" colspan="10" style="background-color: #0047AB !important;">
+                                <div class="slds-truncate" title="Plant" style="color: white;">plant: {company.competitor.Name}  </div>
+                            </th>
+                        </tr> -->
+                        
+                       <template for:each={company.competitor} for:item="plant">
+                            <tr key={plant.Id}>
+                                 <td scope="row" data-label="Plant">
+                                   {plant.Name} 
+                                </td>
+                                <td data-label="Lime Stone">
+                                    <input type="checkbox" checked={plant.Limestone__c} disabled />
+                                </td>
+                               <td scope="row" data-label="Dolomite">
+                                    <input type="checkbox" checked={plant.Dolomite__c} disabled />
+                                </td>
+                                 <td scope="row" data-label="Filler">
+                                    <input type="checkbox" checked={plant.Filler__c} disabled />
+                                </td>
+                                 <td scope="row" data-label="Quick Lime">
+                                    <input type="checkbox" checked={plant.Quicklime__c} disabled />
+                                </td>
+                                 <td scope="row" data-label="Dolomite">
+                                    <input type="checkbox" checked={plant.Dolomite__c} disabled />
+                                </td>
+                                <td scope="row" data-label="Blends">
+                                    <input type="checkbox" checked={plant.Blends__c} disabled />
+                                </td>
+                                <td scope="row" data-label="Lime Est.tpy">
+                                   {plant.Lime_Est_tpy__c} 
+                                </td>
+                                <td scope="row" data-label="Lime Cap tpy">
+                                   {plant.Lime_Est_tpy__c} 
+                                </td>
+                                <td scope="row" data-label="Hydr. Lime">
+                                    <input type="checkbox" checked={plant.Hydrated_Lime__c} disabled />
+                                </td>
+                                <td scope="row" data-label="Hydr. Lime Cap tpy">
+                                    {plant.Hydration_Cap__c} 
+                                </td>
+                                <template if:true={plant.Kiln_Report__r}> 
+                                 <template for:each={plant.Kiln_Report__r} for:item="kr">
+                                     <tr key={kr.Id}>       
+                                           <td scope="row" data-label="Nb" key={kr.Id}>
+                                   {kr.Nbr__c} 
+                                </td>
+                                <td scope="row" data-label="Type" key={kr.Id}>
+                                   {kr.Lime_Type__c} 
+                                </td>
+                                 <td scope="row" data-label="Active" key={kr.Id}>
+                                    <input type="checkbox" checked={kr.Active__c} disabled />
+                                </td>
+                                <td scope="row" data-label="Fuel 1" key={kr.Id}>
+                                   {kr.Fuel_1__c} 
+                                </td>
+                                <td scope="row" data-label="Fuel 2" key={kr.Id}>
+                                   {kr.Fuel_2__c} 
+                                </td>
+                                <td scope="row" data-label="Fuel 3" key={kr.id}>
+                                   {kr.Fuel_3__c} 
+                                </td>
+                                     </tr>
+                                 </template>
+                                </template>
+                                
+                            </tr>
+                     </template>
+                    </template> 
+                </template>   
+                </tbody>
+            </table>
+            <template if:true={isDisplayNoRecords}>
+                <div class="slds-align_absolute-center">
+                    <br/>
+                    No records found
+                </div>
+            </template>
+            <br/>
+</div>
+</br></br></br>
+<!-- Captive -->
+<div class="table1">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                    <thead>
+                        <tr class="slds-line-height_reset" >
+                            <th class="header-cell" scope="col" colspan="12" style="background-color: #0047AB !important;">
+                                <div class="slds-truncate" title="Plant" style="color: white;">Captive</div>
+                            </th>
+                        </tr>
+                        <tr class="slds-line-height_reset">
+                             <th  class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Plant">
+                                    Plant
+                                </div>
+                            </th>
+                            <th  class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Lime Stone">
+                                    Lime Stone
+                                </div>
+                            </th>
+                            <th  class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Dolomite">
+                                   Dolomite
+                                </div>
+                            </th>
+                            <th  class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Filler">
+                                    Filler
+                                </div>
+                            </th>
+                            <th  class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Quick Lime">
+                                    Quick Lime
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Dolime">
+                                    Dolime
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Blends">
+                                    Blends
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Lime Est.tpy">
+                                    Lime Est.tpy
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Lime Cap tpy">
+                                    Lime Cap tpy
+                                </div>
+                            </th>
+                             <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Hydr. Lime">
+                                    Hydr. Lime
+                                </div>
+                            </th>
+                              <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Hydr. Lime Cap tpy">
+                                    Hydr. Lime Cap tpy
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Nb">
+                                    Nb &nbsp; Type &nbsp;&nbsp; Active &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fuel 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fuel 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fuel 3
+                                </div>
+                            </th>
+                            <!-- <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Type">
+                                    Type
+                                </div>
+                            </th> 
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Active">
+                                    Active
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Fuel 1">
+                                    Fuel 1
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Fuel 2">
+                                    Fuel 2
+                                </div>
+                            </th>
+                            <th class="slds-is-resizable" scope="col">
+                                <div class="slds-truncate" title="Fuel 3">
+                                    Fuel 3
+                                </div>
+                            </th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <template if:true={companiesWithCaptiveCompetitors}>
+                        <template for:each={companiesWithCaptiveCompetitors} for:item="company">
+                            <tr key={company} class="slds-line-height_reset">
+                                <th class="header-cell" scope="col" colspan="12" style="background-color: #0047AB !important;">
+                                    <div class="slds-truncate" title="Plant" style="color: white;"> {company.groupName} - {company.companyName} - {company.countryName} </div>
+                                </th>
+                            </tr>
+                            <!-- <tr key={company.key} class="slds-line-height_reset">
+                                <th class="header-cell" scope="col" colspan="10" style="background-color: #0047AB !important;">
+                                    <div class="slds-truncate" title="Plant" style="color: white;">plant: {company.competitor.Name}  </div>
+                                </th>
+                            </tr> -->
+                            
+                           <template for:each={company.competitor} for:item="plant">
+                                <tr key={plant.Id}>
+                                     <td scope="row" data-label="Plant">
+                                       {plant.Name} 
+                                    </td>
+                                    <td data-label="Lime Stone">
+                                        <input type="checkbox" checked={plant.Limestone__c} disabled />
+                                    </td>
+                                   <td scope="row" data-label="Dolomite">
+                                        <input type="checkbox" checked={plant.Dolomite__c} disabled />
+                                    </td>
+                                     <td scope="row" data-label="Filler">
+                                        <input type="checkbox" checked={plant.Filler__c} disabled />
+                                    </td>
+                                     <td scope="row" data-label="Quick Lime">
+                                        <input type="checkbox" checked={plant.Quicklime__c} disabled />
+                                    </td>
+                                     <td scope="row" data-label="Dolomite">
+                                        <input type="checkbox" checked={plant.Dolomite__c} disabled />
+                                    </td>
+                                    <td scope="row" data-label="Blends">
+                                        <input type="checkbox" checked={plant.Blends__c} disabled />
+                                    </td>
+                                    <td scope="row" data-label="Lime Est.tpy">
+                                       {plant.Lime_Est_tpy__c} 
+                                    </td>
+                                    <td scope="row" data-label="Lime Cap tpy">
+                                       {plant.Lime_Est_tpy__c} 
+                                    </td>
+                                    <td scope="row" data-label="Hydr. Lime">
+                                        <input type="checkbox" checked={plant.Hydrated_Lime__c} disabled />
+                                    </td>
+                                    <td scope="row" data-label="Hydr. Lime Cap tpy">
+                                        {plant.Hydration_Cap__c} 
+                                    </td>
+                                    <template if:true={plant.Kiln_Report__r}> 
+                                     <template for:each={plant.Kiln_Report__r} for:item="kr">
+                                         <tr key={kr.Id}>       
+                                               <td scope="row" data-label="Nb" key={kr.Id}>
+                                       {kr.Nbr__c} 
+                                    </td>
+                                    <td scope="row" data-label="Type" key={kr.Id}>
+                                       {kr.Lime_Type__c} 
+                                    </td>
+                                     <td scope="row" data-label="Active" key={kr.Id}>
+                                        <input type="checkbox" checked={kr.Active__c} disabled />
+                                    </td>
+                                    <td scope="row" data-label="Fuel 1" key={kr.Id}>
+                                       {kr.Fuel_1__c} 
+                                    </td>
+                                    <td scope="row" data-label="Fuel 2" key={kr.Id}>
+                                       {kr.Fuel_2__c} 
+                                    </td>
+                                    <td scope="row" data-label="Fuel 3" key={kr.id}>
+                                       {kr.Fuel_3__c} 
+                                    </td>
+                                         </tr>
+                                     </template>
+                                    </template>
+                                    
+                                </tr>
+                         </template>
+                        </template> 
+                    </template>   
+                    </tbody>
+                </table>
+                <template if:true={isDisplayNoRecords}>
+                    <div class="slds-align_absolute-center">
+                        <br/>
+                        No records found
+                    </div>
+                </template>
+                <br/>
+    </div>
+</lightning-card>
+</template>

@@ -1,0 +1,59 @@
+.logo{
+position: relative;
+bottom:50px; 
+}
+.slds-m-left_xx-small{
+	margin-right: 10px;
+}
+.mybutton{
+margin-right: 20px;
+}
+.companyName{
+color : blue;
+font-weight: bold;
+font-size: 20px;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.company-group-name {
+/* Styling for the group name */
+font-size: 25px;
+color: #808080;
+/* Example size, adjust as needed */
+font-weight: bold;
+/* Example weight, adjust as needed */
+text-transform: uppercase;
+margin-left: auto;
+}
+.blue-background {
+background-color: #6495ED;
+/* Set the background color for the first row */
+color: white;
+/* Font color for better visibility on a blue background */
+font-weight: bold;
+}
+.table1{
+font-family: Arial, Helvetica, sans-serif;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+overflow-y: auto;
+}
+
+.table1 td, .table1 th{
+border: 1px solid #ddd;
+padding: 8px;
+}
+.table1 tr:nth-child(even){
+background-color: #f2f2f2;
+}
+.table1 tr:hover{
+background-color:coral;
+}
+.table1 th{
+    padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}

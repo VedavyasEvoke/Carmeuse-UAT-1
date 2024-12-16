@@ -1,0 +1,12 @@
+<!--
+ - Created by kdreyer on 2/16/21.
+ -->
+
+<!-- B2B Cart Line Items -->
+<template>
+    <ul>
+        <template for:each={items} for:item="item">
+            <c-b-2b-line-item if:true={renderChildren} item={item} currency-code={currencyCode} key={item.id}></c-b-2b-line-item>
+        </template>
+    </ul>
+</template>

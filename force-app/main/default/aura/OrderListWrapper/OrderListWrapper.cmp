@@ -1,0 +1,6 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:attribute name="effectiveAccountId"  type="String"  />
+    <div>
+        <c:orderDataTable effectiveAccountId="{!v.effectiveAccountId}"/>
+    </div>
+</aura:component>

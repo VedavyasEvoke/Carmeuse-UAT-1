@@ -1,0 +1,5 @@
+@font-face {
+    font-family: "Salesforce Sans";
+    src: url("https://carmeuse--crmuatfull.sandbox.lightning.force.com/_slds/fonts/v2.3.0/SalesforceSans-Regular.woff2")format("woff2"),
+    url("https://carmeuse--crmuatfull.sandbox.lightning.force.com/_slds/fonts/v2.3.0/SalesforceSans-Regular.woff")format("woff");
+}

@@ -1,0 +1,15 @@
+/**
+ * Created by kdreyer on 2/16/21.
+ */
+a {
+    color:rgb(0, 162, 143);
+    font-weight: bold;
+}
+
+div {
+    font-size: 13.5px;
+}
+
+.lineItemParent > div {
+    padding-bottom:5px;
+}

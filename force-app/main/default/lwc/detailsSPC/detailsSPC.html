@@ -1,0 +1,10 @@
+<template>
+    <div if:false={isMLSAccount}>
+        <div if:true={isDetails}>
+            <h1 style="color: #0b5cab;font-size: medium;"><b>Supply Planning Coordinators:</b></h1>
+            <div if:true={isName}><b>Name : </b> {firstName}  {lastName}<br></div> 
+            <div  if:true={isEmail}><b> Email : </b> {email}<br></div>   
+            <b>Phone : </b> {phone}<br>
+        </div>
+    </div>
+ </template>

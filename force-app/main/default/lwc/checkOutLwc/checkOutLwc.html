@@ -1,0 +1,75 @@
+<template>
+  <template if:true={show}>
+     <template if:true={isLoaded}>
+        <lightning-spinner class="spins" alternative-text="Loading" size="medium"></lightning-spinner>
+      </template>
+      <template if:true={isQuickSaveLoaded}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+      </template>
+     <template for:each={listOfProductItems} for:item="eachItem">
+      <c-split-shipment-product-details if:true={defaultDataGenerated} key={eachItem}
+                                          index ={eachItem}
+                                          record-id={recordId}
+                                          map-of-product-id-vs-name={mapOfProductIdVsName}
+                                          map-of-product-name-vs-id={mapOfProductNameVsId}
+                                          cart-item-clone ={cartItemAvailable}
+                                          onupdateproductdetails ={handleProductDetailsAddition}
+                                          map-of-index-vs-product-detail ={mapOfIndexVsProductDetail}
+                                          onupdateselectionmap={handleUpdateSelectionMap}
+                                          ondeleteproduct={handleDeleteProduct}
+                                          onupdatesubmitbutton={updateSubmitButton}
+                                          onactivateaddproductsbutton={updateAddProductsButton}
+                                          map-of-product-id-vs-available ={mapOfProductIdVsAvailable}
+                                          default-data={defaultData}
+                                          quick-save-data={quickSaveData}
+                                          list-of-product-items={listOfProductItems}
+                                          onaddproductoncard={addProductOnCard}
+                                          product-in-cart={productInCart}
+                                          onactivatequicksavebutton={updateQuickSaveButton}
+                                          map-of-cart-id-and-product-id={mapOfCartIdAndProductId}
+                                          cart-item-line-item={cartItemLineItem}
+                                          cart-delivery-group={cartDeliveryGroup}
+                                          onupdatedeliverydata={updatedeliverydata}
+                                          ondeleteandupdatedeliverydata={deleteandupdatedeliverydata}
+                                          ondeletelineitems={deletelineitems}
+                                          cart-id={cardId}
+                                          effective-account-data={effectiveAccountData}
+                                          default-ids={defaultIds}
+                                          default-cart-delivery-data={defaultCartDeliveryData}
+                                          product-id-to-new-delivery-groups={productIdToNewDeliveryGroups}
+                                          is-default={isDefault}
+                                          pricebook-entries={pricebookEntries}
+                                          get-existing-product-detail={getExistingProductDetail}
+                                          oncsvsize={handlecsvsize}                                          
+                                          csv-file-count={csvFileCount}
+                                          time-zone={timeZone}
+                                          get-price-book-products-value={getPriceBookProductsValue}
+                                          >
+      </c-split-shipment-product-details>
+    </template>
+  </template>
+  <lightning-button name="Add Products"
+                      label="Add Products"
+                      if:true={showAddProductButtons}
+                      class="slds-m-top_large addProducts"
+                      onclick={addLineItems}
+                      disabled={addProductButton}
+                      >
+
+  </lightning-button>
+  <lightning-button   name="Submit"
+                      label="Submit"
+                      class="slds-m-top_large submit"
+                      variant={blueVariant}
+                      onclick={handleSubmit}
+                      disabled=true 
+                      >
+                    </lightning-button>
+  <lightning-button
+            name="Quick Save"
+            label="Quick Save"
+            class="slds-m-top_large quicksave"
+            onclick={handleQuickSave}
+            disabled=true>
+</lightning-button>
+</template>

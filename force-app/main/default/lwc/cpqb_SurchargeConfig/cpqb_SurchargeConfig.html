@@ -1,0 +1,206 @@
+<template>
+	<template if:true={spinner}>
+		<p>&nbsp;</p>
+		<lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+	</template>
+	<template if:false={spinner}>
+		<div style="height: 100vh;">
+			<!------------------ Header START----------------- -->
+			<div class="modal__header slds-p-vertical_medium slds-p-horizontal_large slds-grid"
+				style="border-bottom:2px solid #c9c9c9;">
+				<div class="slds-col slds-size_1-of-3"></div>
+				<div class="slds-hyphenate slds-col slds-size_1-of-3"
+					style="font-size:var(--slds-c-modal-heading-font-size, var(--sds-c-modal-heading-font-size, 1.25rem));">
+					<center>{header}</center>
+				</div>
+				<div class="slds-col slds-size_1-of-3">
+					<lightning-button class="slds-float_right" slot="actions" variant="brand" label="Save" title="Save"
+						onclick={handleSave}>Save</lightning-button>
+				</div>
+			</div>
+			<!------------------- Header END-------------------->
+			<div class="modal__content" style="height: calc(100vh - 65px); overflow:auto;">
+				<div class="slds-p-horizontal_small slds-p-vertical_x-small">
+					<lightning-layout multiple-rows>
+						<template if:true={productOptions}>
+							<lightning-layout-item size="12" class="slds-p-vertical_xx-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								<lightning-combobox class='slds-col' name="Product" label="Product"
+									value={selectedProductValue} placeholder="Select Product" options={productOptions}
+									onchange={handleProductChange}>
+								</lightning-combobox>
+							</lightning-layout-item>
+						</template>
+						<template if:true={freightOptions}>
+							<lightning-layout-item size="12" class="slds-p-vertical_xx-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								<lightning-combobox class='slds-col' name="Freight" label="Freight"
+									value={selectedFreightValue} placeholder="Select Freight" options={freightOptions}
+									onchange={handleFreightChange}>
+								</lightning-combobox>
+							</lightning-layout-item>
+						</template>
+						<template if:true={miscOptions}>
+							<lightning-layout-item size="12" class="slds-p-vertical_xx-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								<lightning-combobox class='slds-col' name="Misc" label="Misc" value={selectedMiscValue}
+									placeholder="Select Misc" options={miscOptions} onchange={handleMiscChange}>
+								</lightning-combobox>
+							</lightning-layout-item>
+						</template>
+						<template if:true={discountOptions}>
+							<lightning-layout-item size="12" class="slds-p-vertical_xx-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								<lightning-combobox class='slds-col' name="Discount" label="Discount"
+									value={selectedDiscountValue} placeholder="Select Discount"
+									options={discountOptions} onchange={handleDiscountChange}>
+								</lightning-combobox>
+							</lightning-layout-item>
+						</template>
+						<template if:true={commissionOptions}>
+							<lightning-layout-item size="12" class="slds-p-vertical_xx-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								<lightning-combobox class='slds-col' name="Commissions" label="Commissions"
+									value={selectedCommissionValue} placeholder="Select Commission"
+									options={commissionOptions} onchange={handleCommissionChange}>
+								</lightning-combobox>
+							</lightning-layout-item>
+						</template>
+					</lightning-layout>
+
+					<lightning-layout multiple-rows>
+						<!----------------- Surcharge Price Header --START----------------- -->
+						<template if:true={showSurchargeList}>
+							<lightning-layout-item size="12" class="slds-p-vertical_x-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								<div class="slds-grid">
+									<template for:each={surchargeHeaders} for:item="header">
+										<div key={header} class="slds-col slds-size_4-of-12 slds-form-element__label">
+											{header}
+										</div>
+									</template>
+								</div>
+								<div class="">
+									<template for:each={surchargeList} for:item="surcharge">
+										<div class="slds-grid slds-p-bottom_xx-small" key={surcharge.rno}>
+											<div class="slds-col slds-size_4-of-12">
+												<lightning-combobox variant="label-hidden"
+													value={surcharge.selectedSurchargeValue}
+													class="slds-col slds-p-around-medium" style="margin-right: 10px;"
+													placeholder="Select Surcharge" options={surcharge.surchargeOptions}
+													onchange={handleSurchargeChange} data-rno={surcharge.rno}>
+												</lightning-combobox>
+											</div>
+											<div class="slds-col slds-size_4-of-12">
+												<lightning-input type="Number" class="slds-col slds-p-around-medium"
+													variant="label-hidden" value={surcharge.surchargePrice}
+													data-rno={surcharge.rno} onchange={handleSurchargePriceChange}>
+												</lightning-input>
+											</div>
+											<div class="slds-col slds-size_4-of-12">
+												<template if:true={surcharge.showAdd}>
+													<lightning-icon class="cra-btnicon slds-p-around_x-small slds-col"
+														icon-name="utility:add" size="x-small"
+														alternative-text="Add new row" onclick={handleNewSurchargeRow}
+														data-rno={surcharge.rno}>
+													</lightning-icon>
+												</template>
+												<template if:true={surcharge.showDelete}>
+													<lightning-icon class="cra-btnicon slds-p-around_x-small slds-col"
+														icon-name="utility:delete" size="x-small"
+														alternative-text="Delete row" onclick={handleDelSurchargeRow}
+														data-rno={surcharge.rno}>
+													</lightning-icon>
+												</template>
+											</div>
+										</div>
+									</template>
+								</div>
+							</lightning-layout-item>
+						</template>
+						<!----------------- Surcharge Price Header --END--------------------->
+
+						<!----------------- Fee Price Header --START------------------------->
+						<template if:true={showFeeList}>
+							<lightning-layout-item size="12" class="slds-p-vertical_x-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								<div class="slds-grid">
+									<template for:each={feeHeaders} for:item="header">
+										<div key={header} class="slds-col slds-size_4-of-12 slds-form-element__label">
+											{header}
+										</div>
+									</template>
+								</div>
+								<div>
+									<template for:each={feeList} for:item="fee">
+										<div class="slds-grid slds-p-bottom_xx-small" key={fee.rno}>
+											<div class="slds-col slds-size_4-of-12">
+												<lightning-combobox variant="label-hidden" value={fee.selectedFeeValue}
+													class="slds-col slds-p-around-medium" style="margin-right: 10px;"
+													placeholder="Select Fees" options={fee.feeOptions}
+													data-rno={fee.rno} onchange={handleFeeChange}>
+												</lightning-combobox>
+											</div>
+											<div class="slds-col slds-size_4-of-12">
+												<lightning-input type="Number" class="slds-col slds-p-around-medium"
+													variant="label-hidden" data-rno={fee.rno} value={fee.feePrice}
+													onchange={handleFeePriceChange}>
+												</lightning-input>
+											</div>
+											<div class="slds-col slds-size_4-of-12">
+												<template if:true={fee.showAdd}>
+													<lightning-icon class="cra-btnicon slds-p-around_x-small slds-col"
+														icon-name="utility:add" size="x-small"
+														alternative-text="Add new row" data-rno={fee.rno}
+														onclick={handleNewFeeRow}>
+													</lightning-icon>
+												</template>
+												<template if:true={fee.showDelete}>
+													<lightning-icon class="cra-btnicon slds-p-around_x-small slds-col"
+														icon-name="utility:delete" size="x-small"
+														alternative-text="Delete row" data-rno={fee.rno}
+														onclick={handleDelFeeRow}>
+													</lightning-icon>
+												</template>
+											</div>
+										</div>
+									</template>
+								</div>
+							</lightning-layout-item>
+						</template>
+						<!----------------- Fee Price Header --END-------------------------->
+
+						<!----------------- Surcharge Price --START----------------------- -->
+						<!-- <template if:true={showSurchargeList}>
+							<lightning-layout-item size="12" class="slds-p-bottom_x-small slds-p-horizontal_medium"
+								medium-device-size="6">
+
+							</lightning-layout-item>
+						</template> -->
+						<!----------------- Surcharge Price --END------------------------- -->
+
+						<!----------------- Fee Price --START----------------------------- -->
+						<!-- <template if:true={showFeeList}>
+							<lightning-layout-item size="12" class="slds-p-bottom_x-small slds-p-horizontal_medium"
+								medium-device-size="6">
+								
+							</lightning-layout-item>
+						</template> -->
+						<!-- --------------- Fee Price --END------------------------------- -->
+					</lightning-layout>
+				</div>
+
+				<!------------------Product Options DataTable --START----------------------->
+				<div class="selectedOptionsTable" style="border-top: 1px solid #c9c9c9;">
+					<!-- <lightning-datatable key-field="SBQQ__OptionalSKU__c" data={selectedOptions} show-row-number-column
+						hide-checkbox-column columns={selectedOptionsColumns} suppress-bottom-bar=true
+						oncellchange={handleCellChange}>
+					</lightning-datatable> -->
+					<c-custom-datatable key-field="SBQQ__OptionalSKU__c" table-data={selectedOptions}
+						columns={selectedOptionsColumns} oncellchange={handleCellChange}></c-custom-datatable>
+				</div>
+				<!------------------Product Options DataTable --END------------------------->
+			</div>
+		</div>
+	</template>
+</template>

@@ -1,0 +1,58 @@
+<apex:page standardController="SBQQ__Quote__c" extensions="ev_SFBhoomiService" action="{!sendQuotes}">
+    <apex:form >
+        <head>
+            <style>
+                .hello-name {
+                font-size: 20px;
+                color: #000075;
+                margin-top: 0;
+                /* Remove top margin to align with the logo */
+                font-weight: bold;
+                }
+                .data-name {
+                /* Styling for the group name */
+                font-size: 20px;
+                color: #808080;
+                /* Example size, adjust as needed */
+                font-weight: bold;
+                /* Example weight, adjust as needed */
+                }
+                .header {
+                display: flex;
+                justify-content: space-between;
+                align-items:center;
+                padding: 5px;
+                }
+                
+                .logo-and-name {
+                display: flex;
+                align-items: left;
+                }
+                
+                .logo {
+                /* Adjust the width and height as needed */
+                width: 100px;
+                height: auto;
+                margin-right: 5px;
+                }
+                
+            </style>
+        </head>
+        <body class="slds-scope">
+            <div class="line"></div>
+            <div class="header">
+                <div class="logo-and-name">
+                    <img src="{!$Resource.Carmeuse_Logo}" alt="Logo" class="logo"/>
+                </div>
+            </div>
+        </body>
+        <br/>
+        <b class="hello-name">Hello!</b>
+        <br/>
+        <br/>
+        <b class="data-name">Your Quote has been successfully submitted to Business Central. 
+            <br/>
+            You may close this window.</b>
+        <apex:inputHidden value="{!SBQQ__Quote__c.Id}"/>
+    </apex:form>
+</apex:page>

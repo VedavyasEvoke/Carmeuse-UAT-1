@@ -1,0 +1,48 @@
+<!--
+ - Created by kdreyer on 2/17/21.
+ -->
+
+<!-- B2B Split Shipment Item -->
+<template>
+    <lightning-layout multiple-rows="false">
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+            padding="around-small">
+            <lightning-input type="date" label="Requested Date" name="RequestedDate" class="slds-m-bottom_x-small"
+                required="true" value={RequestedDate} onchange={formChangedHandler}></lightning-input>
+        </lightning-layout-item>
+
+<!--        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3"-->
+<!--            padding="around-small">-->
+<!--            <lightning-input type="time" label="Requested Time" name="RequestedTime" class="slds-m-bottom_x-small"-->
+<!--                required="true" value={RequestedTime} onchange={formChangedHandler}></lightning-input>-->
+<!--        </lightning-layout-item>-->
+
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3"
+            padding="around-small">
+            <lightning-combobox options={cartItemOptions} placeholder="Select Product" label="Product"
+                value={CartItemId} onchange={formChangedHandler} name="CartItemId" class="slds-m-bottom_x-small"
+                required="true">
+            </lightning-combobox>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="1"
+            padding="around-small">
+            <lightning-input type="number" label="Quantity" name="Quantity" step="1" class="slds-m-bottom_x-small"
+                required="true" value={Quantity} onchange={formChangedHandler}></lightning-input>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3"
+            padding="around-small">
+            <lightning-input type="textarea" label="Delivery Instructions" name="DeliveryInstructions"
+                class="slds-m-bottom_x-small" required="true" value={DeliveryInstructions}
+                onchange={formChangedHandler}></lightning-input>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3"
+                               padding="around-small">
+            <lightning-input type="text" label="Purchase Order" name="PurchaseOrder" class="slds-m-bottom_x-small"
+                             required="true" value={PurchaseOrder} onchange={formChangedHandler}></lightning-input>
+        </lightning-layout-item>
+
+    </lightning-layout>
+</template>

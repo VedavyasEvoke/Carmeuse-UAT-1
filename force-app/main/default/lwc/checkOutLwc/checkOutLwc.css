@@ -1,0 +1,28 @@
+.fixHieght {
+    min-height: 300px !important;
+}
+
+div[commerce_checkout-orderaddress_orderaddress] > .slds-radio_faux,
+.slds-radio_faux {
+    display: none !important;
+}
+
+.slds-radio_faux {
+    display: none !important;
+}
+
+.slds-form-element__label {
+    color: red !important;
+}
+
+.hide {
+    display: none !important;
+}
+.spins::after {
+    position: absolute;
+    content: 'Your Order Is Getting Placed......';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: bold;
+}

@@ -1,0 +1,20 @@
+<template>
+
+	<!-- Previous UI -- START -->
+	<div class="rl" title="Existing Line Item">
+		<div class="rl-header">
+			<lightning-icon icon-name="utility:cart" alternative-text="Cart" size="small"
+				style="--slds-c-icon-color-foreground-default: white;"></lightning-icon>
+			<span style="padding-left: 12px;">Existing Line Item</span>
+		</div>
+		<template if:true={records}>
+			<div>
+				<lightning-datatable class="table-test" key-field="Id" data={records} hide-checkbox-column style="font-size: 10px;"
+					columns={columns} column-widths-mode="auto" min-column-width="35" wrap-table-header>
+				</lightning-datatable>
+			</div>
+			 
+		</template>
+	</div>
+	<!-- Previous UI -- END -->
+</template>

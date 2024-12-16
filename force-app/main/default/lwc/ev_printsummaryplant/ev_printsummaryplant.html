@@ -1,0 +1,311 @@
+<template>
+<lightning-card>
+    <div class="line"></div>
+<div class="controls">
+<div class="control-icon" onclick={handleFirstPage}>
+                    <lightning-button-icon icon-name="utility:left" alternative-text="FirstPage"></lightning-button-icon>
+                </div>
+                <div class="control-icon" onclick={handleBackward}>
+                    <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Backward"></lightning-button-icon>
+                </div>
+                <span class="current-page-box">{currentPage}</span>
+                <span class="pagination-text">of</span>
+                <span class="total-pages-box">{totalPages}</span>
+                <span class="pagination-text">?</span>
+                <div class="control-icon" onclick={handleForward}>
+                    <lightning-button-icon icon-name="utility:chevronright" alternative-text="Forward" disabled={isDisabled}></lightning-button-icon>
+                </div>
+                <div class="control-icon" onclick={handleLastPage}>
+                    <lightning-button-icon icon-name="utility:right" alternative-text="LastPage"></lightning-button-icon>
+                </div>
+                <div class="line-vertical"></div>
+                <div class="control-icon" onclick={handleRefresh}>
+                    <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh"></lightning-button-icon>
+                </div>
+                <div class="line-vertical"></div>
+                <!-- <div class="control-icon" onclick={handleBack}>
+                    <lightning-button-icon icon-name="utility:back" alternative-text="Back"></lightning-button-icon>
+                </div> -->
+                <div class="line-vertical"></div>
+                <!--<div class="resolution-dropdown">
+                    <lightning-combobox
+                        options={resolutionOptions}
+                        onchange={handleResolutionChange}
+                    ></lightning-combobox>
+                </div>-->
+                <div class="line-vertical"></div>
+                <!-- <lightning-button-icon icon-name="utility:save" alternative-text="Save" onclick={handleSave}></lightning-button-icon> -->
+                <lightning-button-menu alternative-text="Save" icon-name="utility:save" onselect={handleMenuSelect}>
+                <lightning-menu-item label="PDF" value="pdf"> </lightning-menu-item>
+                <lightning-menu-item label="Excel" value="Excel"> </lightning-menu-item>
+                </lightning-button-menu>
+                <div class="line-vertical"></div>
+                <!-- <lightning-button-icon icon-name="utility:print" alternative-text="Print" onclick={handlePrint}></lightning-button-icon> -->
+                <!-- Add the refresh button -->
+            </div>
+            <div class="line"></div>
+    <div class="header">
+<div class="logo-and-name">
+<img src={logoUrl} alt="Logo" class="logo"/>
+<span class="company-name">
+    CIC - Carmeuse Intelligence<br> &nbsp;&nbsp;on competition Database</span>
+
+</div>
+<div class="company-group-name">
+                {selectedGroupName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{selectedCompanyName}
+                </br>
+                COUNTRY : {selectedCountry}
+</div>
+</div>
+<lightning-layout multiple-rows="true">
+    <lightning-layout-item size="8">
+        <lightning-card>
+<table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+    <thead>
+        <tr class="slds-line-height_reset" >
+    <th class="header-cell" scope="col" colspan="10" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Plant" style="color: white;">Products produced</div>
+            </th>
+            </tr>
+        <tr class="slds-line-height_reset">
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Plant" style="color: white;">Plant</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Aggre" style="color: white;">Aggre.</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Limestone" style="color: white;">Limestone</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Dolomite" style="color: white;">Dolomite</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Quicklime" style="color: white;">Quicklime</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Dolime" style="color: white;">Dolime</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Nom .Cap.tpy" style="color: white;">Hyd .Lime</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Estimated Production t/y" style="color: white;">PCC quality lime</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Estimated Production t/y" style="color: white;">Milk of lime</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Estimated Production t/y" style="color: white;">Putty lime</div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <template for:each={displayplant} for:item="childRecord">
+            <tr key={childRecord.Id}>
+               
+                <td data-label="plant name">
+                    <div class="slds-truncate" title={childRecord.Name}>{childRecord.Name}</div>
+                </td>
+                <td data-label="Aggre">
+                    <input type="checkbox" disabled checked={childRecord.Aggre__c}  />
+                </td>
+                <td data-label="Limestone">
+                    <input type="checkbox" checked={childRecord.Limestone__c} disabled />
+                </td>
+                <td data-label="Dolomite">
+                    <input type="checkbox" checked={childRecord.Dolomite__c} disabled />
+                </td>
+                <td data-label="Quicklime">
+                    <input type="checkbox" checked={childRecord.Quicklime__c} disabled />
+                </td>
+                <td data-label="Dolime">
+                    <input type="checkbox" checked={childRecord.Dolime__c} disabled />
+                </td>
+                <td data-label="Hyd .Lime">
+                    <input type="checkbox" checked={childRecord.Hyd_Lime__c} disabled />
+                </td>
+                <td data-label="PCC quality lime">
+                    <input type="checkbox" checked={childRecord.PCC_quality_lime__c} disabled />
+                </td>
+                <td data-label="Milk of lime">
+                    <input type="checkbox" checked={childRecord.Milk_of_lime__c} disabled />
+                </td>
+                <td data-label="Putty lime">
+                    <input type="checkbox" checked={childRecord.Putty_lime__c} disabled />
+                </td>
+            </tr>
+        </template>
+    </tbody>
+</table><br/><br/>
+<div class="line"></div>
+
+<!-- CRUDE PRODUCTS -->
+<div class="slds-truncate" title="CRUDE PRODUCTS:" style="color: white; background-color: #0047AB !important;width:15%">CRUDE PRODUCTS:</div>
+<template for:each={displayplant} for:item="childRecord">
+    <b key={childRecord.id}>Owner</b>: {childRecord.Stone_Owner__c} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <b key={childRecord.id}>Location</b>: {childRecord.Location_Quary__c}
+    <br key={childRecord.id}/>
+    <br key={childRecord.id}/>
+    <b key={childRecord.id}>Geological Comments:</b> {childRecord.Geological_Comments__c}
+</template>
+<br/>
+<br/>
+<br/>
+<br/>
+<!-- ESTIM. HYDERATES SALES -->
+<div class="slds-truncate" title="Estim. Hydrate Sales:" style="color: white; background-color: #0047AB !important;width:20.5%">Estim. Hydrate Sales:</div>
+<template for:each={displayplant} for:item="childRecord">
+    <b key={childRecord.id}>Milling:</b> {childRecord.Milling__c} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <b key={childRecord.id}>Milling Info:</b> {childRecord.Milling_Info__c}
+</template>
+
+
+</lightning-card>
+</lightning-layout-item>
+<lightning-layout-item size="4">
+    <lightning-card>
+        <template for:each={displayplant} for:item="childRecord">
+            <table key={childRecord.id} class="custom-table">
+            <tr class="blue-background">
+            <td colspan="2" style="text-align: left;">Plant capacity</td>
+            </tr>
+            <tr class="blue-background">
+            <td colspan="2" style="text-align: left;">Crude</td>
+            </tr>
+            <tr>
+            <td>Annual Extraction tpy:</td>
+            <td>{childRecord.Annual_Extraction_t_y__c}</td>
+            </tr>
+            <tr class="blue-background">
+            <td colspan="2" style="text-align: left;">Burnt (Quicklime & Dolime)</td>
+            </tr>
+            <tr>
+            <td style="width:50%;">Estimated production t/y:</td>
+            <td>{childRecord.Estimated_Production_t_y__c}</td>
+            </tr>
+            <tr>
+            <td class="custom-table-td">Nominal capacity t/y:</td>
+            <td>{childRecord.Nominal_Capacity_t_y__c}</td>
+            </tr>
+            <tr>
+            <td class="custom-table-td">Free capacity t/y:</td>
+            <td>{childRecord.Free_Capacity_t_y__c}</td>
+            </tr>
+            <tr>
+            <td class="custom-table-td">Number of Kilns:</td>
+            <td>{childRecord.Number_of_Kilns__c}</td>
+            </tr>
+            <tr>
+            <td class="custom-table-td">Hydrated lime cap. tpy</td>
+            <td>{childRecord.Hydration_Cap__c}</td>
+            </tr>
+            </table>
+        </template>
+    </lightning-card>
+</lightning-layout-item>
+<lightning-layout-item size="12"> <!-- Kilns Data -->
+    <lightning-card>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Kiln" style="color: white;">Kiln</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Nbr" style="color: white;">Nbr</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Est. Prod t/y" style="color: white;">Est. Prod t/y</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Nom.Cap.tpy" style="color: white;">Nom.Cap.tpy</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Nom.Cap.tpd" style="color: white;">Nom.Cap.tpd</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Fuel 1" style="color: white;">Fuel 1</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Fuel 2" style="color: white;">Fuel 2</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Fuel 3" style="color: white;">Fuel 3</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Active" style="color: white;">Active</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Lime Type" style="color: white;">Lime Type</div>
+                    </th>
+                    <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                        <div class="slds-truncate" title="Comment" style="color: white;">Comment</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={displaykilns} for:item="childRecord">
+                    <tr key={childRecord.Id}>
+                        <td data-label="Kiln">
+                            <div class="slds-truncate" title={childRecord.Kiln__c}>{childRecord.Kiln__c}</div>
+                        </td>
+                        <td data-label="Nbr">
+                            <div class="slds-truncate" title={childRecord.Nbr__c}>{childRecord.Nbr__c}</div>
+                        </td>
+                        <td data-label="Est. Prod t/y">
+                            <div class="slds-truncate" title={childRecord.Est_Prod_t_y__c}>{childRecord.Est_Prod_t_y__c}</div>
+                        </td>
+                        <td data-label="Nom.Cap.tpy">
+                            <div class="slds-truncate" title={childRecord.Cap_t_y__c}>{childRecord.Cap_t_y__c}</div>
+                        </td>
+                        <td data-label="Nom.Cap.tpd">
+                            <div class="slds-truncate" title={childRecord.Cap_t_d__c}>{childRecord.Cap_t_d__c}</div>
+                        </td>
+                        <td data-label="Fuel 1">
+                            <div class="slds-truncate" title={childRecord.Fuel_1__c}>{childRecord.Fuel_1__c}</div>
+                        </td>
+                        <td data-label="Fuel 2">
+                            <div class="slds-truncate" title={childRecord.Fuel_2__c}>{childRecord.Fuel_2__c}</div>
+                        </td>
+                        <td data-label="Fuel 3">
+                            <div class="slds-truncate" title={childRecord.Fuel_3__c}>{childRecord.Fuel_3__c}</div>
+                        </td>
+                        <td data-label="Active">
+                            <input type="checkbox" checked={childRecord.Active__c} disabled />
+                        </td>
+                        <td data-label="Lime Type">
+                            <div class="slds-truncate" title={childRecord.Lime_Type__c}>{childRecord.Lime_Type__c}</div>
+                        </td>
+                        <td data-label="Comment">
+                            <div class="slds-truncate" title={childRecord.Comment__c}>{childRecord.Comment__c}</div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table><br><Br><br>
+        <div class="line"></div>
+        <div class="slds-truncate" title="General Info:" style="color: white; background-color: #0047AB !important; width:9%;">General Info:</div>
+        <template for:each={displayplant} for:item="childRecord">
+            <b key={childRecord.id}>Total Employees:</b> {childRecord.Total_Employees__c} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b key={childRecord.id}>Logistic - road:</b> {childRecord.Logistic_road__c} &nbsp;&nbsp;&nbsp;
+            <b key={childRecord.id}>Train:</b> {childRecord.Logistic_train__c} &nbsp;&nbsp;&nbsp;
+            <b key={childRecord.id}>Ship:</b> {childRecord.Logistic_ship__c}
+            <!--<br key={childRecord.id}/>
+            <br key={childRecord.id}/>
+            <b key={childRecord.id}>Market-application:</b> -->
+            <br key={childRecord.id}/>
+            <br key={childRecord.id}/>
+            <b key={childRecord.id}>Storage info:</b> {childRecord.Storage__c}
+            <br key={childRecord.id}/>
+            <br key={childRecord.id}/>
+            <b key={childRecord.id}>Environment:</b> {childRecord.Environment__c}
+            <br key={childRecord.id}/>
+            <br key={childRecord.id}/>
+            <b key={childRecord.id}>Comments:</b> {childRecord.Comments__c}
+        </template>
+        </lightning-card>
+</lightning-layout-item>
+</lightning-layout>
+</lightning-card>
+</template>

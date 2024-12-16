@@ -1,0 +1,43 @@
+<apex:page showHeader="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false">
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Thank You Page</title>
+            <style>
+                body {
+                    font-family: 'Salesforce Sans', Arial, sans-serif;
+                    background-color: #ffffff;
+                    padding: 20px;
+                    
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
+
+                 
+
+                .slds-text-heading_medium {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    text-align: center;
+                    color: #00001a;
+                }
+
+                .logo {
+                    max-width: 100px;
+                    display: block;
+                    margin: 0 auto 20px; /* Added margin-bottom */
+                }
+            </style>
+        </head>
+        <body>
+            <div >
+      <apex:image value="{!$Resource.Carmeuse_Logo}" width="150" style="max-width: 300px; margin-bottom: 20px;" />
+
+                 <h2 class="slds-text-heading_medium">Thank You for Submitting Supply Chain Details</h2>
+            </div>
+        </body>
+    </html>
+</apex:page>

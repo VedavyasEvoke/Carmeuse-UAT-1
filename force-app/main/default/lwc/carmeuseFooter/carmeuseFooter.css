@@ -1,0 +1,163 @@
+@media print,screen and (min-width: 40em) {
+    .footer-wrapper {
+        padding-top:35px
+    }
+
+    .footer-wrapper p {
+        max-width: 288px
+    }
+
+    .footer-wrapper .logo img {
+        width: 112px;
+        margin-bottom: 0
+    }
+
+    .footer-wrapper .block {
+        max-width: 288px
+    }
+}
+
+.footer-wrapper .block-title {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+    margin-bottom: 14px
+}
+
+.footer-wrapper {
+    position: relative;
+    background: #212934;
+    padding-left : 15px;
+    padding: 21px 0 0
+}
+
+.anchors-nav-wrapper .anchors-nav-toggle,.anchors-nav-wrapper li a,.big-body,.block-contact-nav .menu a,.block-main-nav .menu.dropdown>li>a,.block-main-nav .menu.dropdown>li>span,.block-main-nav-mobile .menu .submenu a,.footer-wrapper .block-title,.grey-box,.node--type-application .field-node--field-app-intro .field-item,.paragraph--type--paragraph-content-body.is-chapeau .field-paragraph--field-paragraph-content-body,.product-nav-wrapper .prod-nav-toggle,.product-nav-wrapper li a,.sidebar-filters .sidebar-title {
+    font-size: 1.125rem;
+    line-height: 1.33334
+}
+
+.footer-wrapper .logo img {
+    width: 92px;
+    margin-bottom: 10px
+}
+
+@media print,screen and (min-width: 40em) {
+    .footer-wrapper {
+        padding-top:35px;
+        padding-left : 15px;
+    }
+
+    .footer-wrapper p {
+        max-width: 288px
+    }
+
+    .footer-wrapper .logo img {
+        width: 112px;
+        margin-bottom: 0
+    }
+
+    .footer-wrapper .block {
+        max-width: 288px
+    }
+}
+
+.footer-wrapper .block-title {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+    margin-bottom: 14px
+}
+
+.bottom-bar,.private-file .file-type {
+    text-transform: uppercase
+}
+
+.footer-wrapper .block {
+    font-size: 14px;
+    color: #C5CBD5
+}
+
+.footer-wrapper .language-toggle i:before,.icon-arrow-down:before {
+    content: "\EA1D"
+}
+
+
+.block-main-nav-footer .menu li:first-child a {
+    padding-top: 7px
+}
+
+.block-main-nav-footer .menu a,.block-main-nav-footer .menu span {
+    display: block;
+    color: #fff;
+    font-size: 18px;
+    padding: 15px 0;
+    cursor: pointer
+}
+
+.block-main-nav-footer .accordion-menu .is-accordion-submenu a,.block-main-nav-footer .accordion-menu a,.block-main-nav-footer .menu .menu-text {
+    padding: 15px 0
+}
+
+.colorlastfotter {
+    font-size: 12px;
+    background: #212934;
+    color: #7B8FAD;
+}
+
+.inlineflex {
+    display: inline-flex;
+}
+
+.displayflex {
+    display: flex;
+}
+
+.marginpdiv {
+    max-width: 80rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.letterspace {
+    letter-spacing: 2px;
+    line-height: 40px;
+}
+
+.fontsize16 {
+    font-size:16px;
+}
+
+.social-nw-icon {
+    margin-right: 5px;
+}
+
+@media only screen and (max-width: 440px) {
+    hr {
+      display : block;
+    }
+
+    .displayClass{
+        display : block;
+    }
+  }
+
+@media only screen and (min-width: 450px) {
+    hr {
+      display : none;
+    }
+
+    .displayClass{
+        display : flex;
+    }
+}
+.vertical-line{
+    display: inline-block;
+    border: 1px solid #ccc;
+    margin: 0 50%;
+    height: 180px;
+}
+.contentHeader{
+    font-size: revert;
+}

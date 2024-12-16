@@ -1,0 +1,287 @@
+<template>
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-top--large ">
+                <thead style="background-color:rgb(243, 243, 243);">
+                    <tr class="slds-grid slds-wrap slds-line-height_reset">
+                        
+                        <!-- <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Product_Code}
+                        </th> -->
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Quote_Number}
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Plant_Code}
+                        </th>
+                        <th class="slds-col slds-size_2-of-12" scope="col">
+                            Material Number
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Access_Code}
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Status}
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Shipping_Date}
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Shipping_Weight}
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_BOL_Number}
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Edit}
+                            <span if:true={showEditAll}>
+                                <br><br>
+                                <lightning-button variant="brand" 
+                                    name={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}
+                                    label="Edit All"
+                                    title="Edit All Action"
+                                    onclick={handleEditAll}
+                                    data-editbtn={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}
+                                    class="slds-m-left_x-small editAll"
+                                    if:true={showEditAll}>
+                                </lightning-button>
+                                <br><br>
+                            </span>
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            Cancel
+                            <span if:true={showCancelAll}>
+                                <br><br>
+                                <lightning-button variant="brand" 
+                                    name={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}
+                                    label="Cancel All"
+                                    title="Cancel All Action"
+                                    onclick={handleCancelAll}
+                                    data-cancelallbtn={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}
+                                    class="slds-m-left_x-small cancelAll"
+                                    if:true={showCancelAll}>
+                                </lightning-button>
+                            <br><br>
+                            </span>                            
+                        </th>
+                        <th class="slds-col slds-size_1-of-12" scope="col">
+                            {label.Amend_Order_Release}
+                            <span if:true={showReleaseAll}>
+                                <br><br>
+                                    <lightning-button variant="brand" 
+                                        name={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}
+                                        label="Release All"
+                                        title="Release All Action"
+                                        onclick={handleReleaseAll}
+                                        data-releaseallbtn={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}
+                                        class="slds-m-left_x-small releaseAll"
+                                        if:true={showReleaseAll}>
+                                    </lightning-button>
+                                <br><br>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList} 
+                                for:item = "eachDeliveryDateLineItemWrapper">
+                        <tr class = "slds-grid slds-wrap" key ={eachDeliveryDateLineItemWrapper.Id}>
+                            
+                            <!-- <td class="slds-col slds-size_1-of-12">
+                                {productCode}
+                            </td> -->
+                            <td class="slds-col slds-size_1-of-12">
+                                <div data-quote={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}> 
+                                    {eachDeliveryDateLineItemWrapper.quoteNumber}
+                                </div>                                      
+                            </td>
+                            <td class="slds-col slds-size_1-of-12">
+                                <div data-plantcode={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}>
+                                    {plantCode}
+                                </div>
+                            </td>
+                            <td class="slds-col slds-size_2-of-12" >
+                                <div data-materialid={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}>
+                                    {eachDeliveryDateLineItemWrapper.materialNumber}
+                                </div>  
+                            </td>
+                            <td class="slds-col slds-size_1-of-12">
+                                {eachDeliveryDateLineItemWrapper.accessCode}
+                            </td>
+                            <td class="slds-col slds-size_1-of-12">                  
+                                <div data-statusid={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}>
+                                {eachDeliveryDateLineItemWrapper.shipmentStatus}
+                                </div>  
+                            </td>
+                            <td class="slds-col slds-size_1-of-12 td-fixed-width">
+                                <div class="slds-cell-wrap">
+                                    {eachDeliveryDateLineItemWrapper.shipmentDateTime}
+                                </div>
+                            </td>
+                            <td class="slds-col slds-size_1-of-12">
+                                {eachDeliveryDateLineItemWrapper.shipmentWeight}
+                            </td>
+                            <td class="slds-col slds-size_1-of-12">
+                                {eachDeliveryDateLineItemWrapper.bolNumber}
+                            </td>
+
+                            <td class="slds-col slds-size_1-of-12">
+                                <template if:true={eachDeliveryDateLineItemWrapper.isHold}>
+                                    <template if:false={eachDeliveryDateLineItemWrapper.isStatusCancelled}>
+                                        <template if:true={eachDeliveryDateLineItemWrapper.isCSRButtonToDisplay}>
+                                            <lightning-button variant="brand"
+                                                name={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId} 
+                                                label={label.Amend_Order_Edit_Button}
+                                                title={label.Amend_Order_Edit_Button}
+                                                onclick={handleUpdate}
+                                                data-editbtn={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}
+                                                class="slds-m-left_x-small">
+                                            </lightning-button>
+                                        </template>
+                                    </template>                                
+                                </template>
+                                        
+                            </td>
+                            <td class="slds-col  slds-cell-wrap slds-size_1-of-12" >
+                                
+                                <template if:true={eachDeliveryDateLineItemWrapper.isOrderRequestedForCancellation}>                                        
+                                    <div id={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId} class="cancellationRequesteByOn">  
+                                        {label.Amend_Order_Cancellation_Request_By} {eachDeliveryDateLineItemWrapper.cancelRequestedBy} {Amend_Order_Cancellation_Request_On} {eachDeliveryDateLineItemWrapper.cancelRequestedOn}
+                                    </div>  
+                                </template>
+                                
+                                <!-- <template if:true={eachDeliveryDateLineItemWrapper.isHold}> -->
+                                    <template if:false={eachDeliveryDateLineItemWrapper.isStatusCancelled}>
+                                                                                
+                                            <div lwc:dom="manual" data-id={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId} class="cancelByOn"  ></div>  
+                                            
+                                            <template if:true={eachDeliveryDateLineItemWrapper.isCSRButtonToDisplay}>
+                                                <lightning-button variant="brand" 
+                                                name={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}
+                                                label={label.Amend_Order_Cancel_Button} 
+                                                title={label.Amend_Order_Cancel_Button} 
+                                                data-btn={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}
+                                                onclick={handleConfirmation}
+                                                class="slds-m-left_x-small cancel">
+                                                </lightning-button> 
+                                            </template>                                        
+                                                                       
+                                    <!-- </template> -->
+                                </template>
+                                <template if:true={eachDeliveryDateLineItemWrapper.isStatusCancelled}>
+                                    <template if:true={eachDeliveryDateLineItemWrapper.isOrderCanceledByCSR}>                                        
+                                        <div id={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId} class="cancelByOn {eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}">  
+                                            {label.Amend_Order_Canceled_By} {eachDeliveryDateLineItemWrapper.canceledBy} {label.Amend_Order_Canceled_On} {eachDeliveryDateLineItemWrapper.canceledOn}
+                                        </div>  
+                                    </template>
+                                </template>        
+                            </td>
+                            <td class="slds-col  slds-cell-wrap slds-size_1-of-12" >
+                               
+                                <template if:true={eachDeliveryDateLineItemWrapper.isHold}>
+                                    <template if:false={eachDeliveryDateLineItemWrapper.isStatusCancelled}>
+                                                                                
+                                        <div lwc:dom="manual" data-relid={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId} class="releasedByOn"  ></div>  
+                                        
+                                        <template if:true={eachDeliveryDateLineItemWrapper.isCSRButtonToDisplay}>
+                                            <template if:false={eachDeliveryDateLineItemWrapper.isOrderReleasedByCSR}>
+                                                <lightning-button variant="brand" 
+                                                name={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}
+                                                label={label.Amend_Order_Release_Button}
+                                                title={label.Amend_Order_Release_Button}
+                                                data-releasebtn={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId}
+                                                onclick={handleReleaseConfirmation}
+                                                class="slds-m-left_x-small cancel">
+                                                </lightning-button> 
+                                            </template>
+                                        </template>              
+                                    </template>
+                                </template>
+                                
+                                <template if:true={eachDeliveryDateLineItemWrapper.isOrderReleasedByCSR}>                                        
+                                    <div data-relid={eachDeliveryDateLineItemWrapper.originalOrderDeliveryGroupId} class="releasedByOn">  
+                                        {label.Amend_Order_Released_By} {eachDeliveryDateLineItemWrapper.releasedBy} {label.Amend_Order_Released_On} {eachDeliveryDateLineItemWrapper.releasedOn}
+                                    </div>  
+                                </template>   
+                                   
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+    </table>
+    <c-confirmation-dialog title='Confirm Order Cancellation'
+        message={label.Amend_Order_Cancel_Proceed_Confirmation_Message}
+        confirm-label='Yes'
+        cancel-label='No'
+        visible={isDialogVisible}
+        original-message={originalMessage}
+        name="confirmModal"
+        onclick={handleCancel}>
+    </c-confirmation-dialog>
+
+    <c-confirmation-dialog title='Confirm Order Release'
+        message={label.Amend_Order_Release_Confirmation_Message}
+        confirm-label='Yes'
+        cancel-label='No'
+        visible={isReleaseDialogVisible}
+        original-message={originalReleaseMessage}
+        name="confirmReleaseModal"
+        onclick={handleRelease}>
+    </c-confirmation-dialog>
+
+    <c-order-delivery-group-modal 
+        record-id=""
+        account-id={accountId} 
+        onprogressvaluechange={handleProgressValueChange}
+        >
+    </c-order-delivery-group-modal>    
+    <c-order-delivery-group-modal-edit-all 
+        record-id=""
+        account-id={accountId} 
+        onprogressvaluechange={handleProgressValueChange}
+        >
+    </c-order-delivery-group-modal-edit-all> 
+
+    <template if:true={isConfirm}>
+        <div class="slds-container_small ">   
+           <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open"> 
+              <div class="slds-modal__container">
+                 <div class="modalBodySpinner">
+                    <template if:true={showLoadingSpinner}>
+                        <lightning-spinner alternative-text="Cancelling the orders......" size="small"></lightning-spinner>
+                      </template>    
+                    <header class="slds-modal__header"> 
+                       <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                        {confirmHeader}
+                       </h2>
+                    </header>
+                    <div  class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                         
+                      <span if:true={showconfirmationMsg}>{confirmationMsg}<br></span>
+                        <span if:true={isAllOrderCancel}>Once you CANCEL ALL ORDERS, no further changes can be made to this orders. Do you wish to proceed with the cancellation of this orders?</span>
+                        <span if:true={isAllOrderRelease}>Once you release the all orders, ALL CHANGES must be made in SAP. Do you wish to proceed to release the orders?</span>
+                    </div>
+                 </div>           
+                 <footer class="slds-modal__footer">
+                    <lightning-button variant="brand"                   
+                       name="Yes"
+                       class='slds-m-right--small'
+                       onclick={handleYesAction}
+                       label="Yes"
+                       title="Yes"                      
+                       > 
+                    </lightning-button>
+                    <lightning-button variant="neutral"                   
+                      name="No"
+                      class='slds-m-right--small'
+                      onclick={handleNoAction}
+                      label="No"
+                      title="No" 
+                    > 
+                    </lightning-button>                
+                </footer>
+              </div>          
+           </section>
+           <div class="slds-backdrop slds-backdrop_open">
+           </div>
+        </div>
+    </template>  
+</template>

@@ -1,0 +1,643 @@
+<template>
+  <c-common-toast>    
+  </c-common-toast>
+  <lightning-layout multiple-rows="false" class="fixHieght">
+    <lightning-layout-item size="12"
+                              small-device-size="6"
+                              medium-device-size="4"
+                              large-device-size="3"
+                              padding="around-small">
+                              <lightning-combobox name="Product"
+                                                  label={label.Split_Shipment_Select_Product}
+                                                  required="true"
+                                                  value={ProductDetail.Product}
+                                                  placeholder="Select Product"
+                                                  options={cartItemOptions}
+                                                  data-index ={indexKey}
+                                                  onchange={handleChange}
+                                                  class="slds-m-bottom--xx-large"
+                                                  data-id = "Product"
+                                                  disabled={ProductDetail.isFile}>
+                              </lightning-combobox> 
+    </lightning-layout-item>
+    <lightning-layout-item size="12"
+                            small-device-size="6"
+                            medium-device-size="4"
+                            large-device-size="3"
+                            padding="around-small">
+                          <lightning-button name="Upload File"
+                                label="Upload File"
+                                class="slds-button uploadCSVButton"
+                                variant="brand"
+                                onclick={handleUploadCSVFile}
+                                >
+                            </lightning-button>
+    </lightning-layout-item>
+  </lightning-layout>
+  <lightning-layout multiple-rows="false" class="fixHieght">
+        <template if:true={isProduct} >
+          <template if:false={showLineItemsForFileUpload}>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+              <lightning-input type="text"
+                                  name="PlantCode"
+                                  label="Plant Code"
+                                  data-id="checkValidity"
+                                  min="0"
+                                  max="100"
+                                  required="true"
+                                  value={ProductDetail.plantCode}
+                                  onchange={handleChange}
+                                  disabled
+                            >
+              </lightning-input>
+          </lightning-layout-item>
+          <!-- <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+              <lightning-input type="date"
+                                  name="Price Valid From"
+                                  label="Price Valid From"
+                                  data-id="checkValidity"
+                                  required="true"
+                                  value={ProductDetail.validFrom}
+                                  onchange={handleChange}
+                                  disabled
+                            >
+              </lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+              <lightning-input type="date"
+                                  name="Price Valid To"
+                                  label="Price Valid To"
+                                  data-id="checkValidity"
+                                  required="true"
+                                  value={ProductDetail.validTo}
+                                  onchange={handleChange}
+                                  disabled
+                            >
+              </lightning-input>
+          </lightning-layout-item> -->
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+              <lightning-input type="text"
+                                  name="shipmentType"
+                                  label="Shipment Type"
+                                  data-id="checkValidity"
+                                  min="0"
+                                  max="100"
+                                  required="true"
+                                  value={ProductDetail.shippingType}
+                                  onchange={handleChange}
+                                  disabled
+                            >
+              </lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+                  <lightning-input type="text"
+                                    name="shippingCondition"
+                                    label="Shipping Condition"
+                                    data-id="checkValidity"
+                                    min="0"
+                                    max="100"
+                                    required="true"
+                                    value={ProductDetail.shippingCondition}
+                                    onchange={handleChange}
+                                    disabled
+                                >
+                  </lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item if:true={isCarrierField} 
+                                size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+              <lightning-input type="text"
+                                  name="Carrier"
+                                  label="Carrier"
+                                  data-id="checkValidity"
+                                  min="0"
+                                  max="100"
+                                  required="true"
+                                  value={ProductDetail.carrier}
+                                  onchange={handleChange}
+                                  disabled
+                            >
+              </lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+
+                <lightning-input type="number"
+                                    name="quantity"
+                                    label={label.Split_Shipment_Deliveries_Required}
+                                    data-id="checkValidity"
+                                    min="1"
+                                    max="100"
+                                    required="true"
+                                    value={ProductDetail.quantity}
+                                    onchange={handleChange}
+                                  >
+                </lightning-input>
+
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+
+              <lightning-input  type="number"
+                                name="loadVolume"
+                                label={loadVolumeLabel}
+                                data-id="checkValidity"
+                                required="true"
+                                value={ProductDetail.loadVolume}
+                                onchange={handleChange}
+                                class="loadVolume"
+                                step=".001"      
+                                disabled={isloadVolumeDisable}
+                                >
+              </lightning-input>
+
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+                      <lightning-input
+                                type="date"
+                                name="startDate"
+                                label={label.Split_Shipment_Delivery_Start_Date}
+                                min={today}
+                                max={maxDate}
+                                required="true"
+                                data-id = "checkValidity"
+                                value={ProductDetail.startDate}
+                                onchange={handleChange}
+                                message-when-range-underflow={todayError}
+                                message-when-range-overflow={maxDateError}
+                                >
+                      </lightning-input>
+
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+                <lightning-input
+                                type="date"
+                                name="endDate"
+                                label={label.Split_Shipment_Delivery_End_Date}
+                                min={today}
+                                max={maxEndDate}
+                                data-id = "checkValidity"
+                                value={ProductDetail.endDate}
+                                onchange={handleChange}
+                                message-when-range-underflow={todayError}
+                                message-when-range-overflow={maxDateError}>
+                </lightning-input>
+
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+
+                <lightning-input type="text"
+                                    name="poNumber"
+                                    required="true"
+                                    label={label.Split_Shipment_PO_Number}
+                                    data-id = "checkValidity"
+                                    value={ProductDetail.poNumber}
+                                    onchange={handleChange}
+>
+          </lightning-input>
+
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                large-device-size="3"
+                                padding="around-small">
+
+            <lightning-input
+                      type="text"
+                      name = "deliveryText"
+                      label={label.Split_Shipment_Delivery_Text}
+                      value={ProductDetail.deliveryText}
+                      onchange={handleChange}
+                      class="slds-align--absolute-center"
+                      maxlength="650"
+                    >
+          </lightning-input>
+
+
+          </lightning-layout-item>
+          <lightning-layout-item size="12"
+                                small-device-size="12"
+                                medium-device-size="12"
+                                large-device-size="12"
+                                padding="around-small"
+                                class="slds-align--absolute-center">
+              <lightning-button if:false={showLineItemsForFileUpload}
+                              name="Generate Line Items"
+                              label="Generate Line Items"
+                              class="slds-m-top_large"
+                              variant="brand"
+                              onclick={handleGenerateLineItems}>
+
+            </lightning-button>
+
+          </lightning-layout-item>
+          </template>
+          <template if:true={showLineItems}>
+            <div class="slds-grid slds-wrap width">
+                <div class="slds-size--1-of-2">
+                  {productname}
+                </div>
+                <div class="slds-text-align--right slds-size--1-of-2">
+                  Total Volume: {getTotalVolume}
+                </div>
+            </div>
+
+            <div class = "width slds-scrollable--x" >
+              <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped"
+              >
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Line_Item_Delivery_Date}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate"></div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Deliveries_Required}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Load_Volume}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Delivery_Text}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_PO_Number}</div>
+                    </th>
+                    <th class="" scope="col">
+
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template
+                    for:each={listDeliveryLineItems}
+                    for:item="eachLineItem"
+                    for:index="indx">
+                    <tr class="slds-hint-parent" key={eachLineItem.index}>
+                      <td data-label="deliveryDate">
+                        <div class="slds-truncate">
+                          <lightning-input
+                                  type="date"
+                                  required="true"
+                                  name={indx}
+                                  min={today}
+                                  variant="label-hidden"
+                                  data-validity = "checkDeliveryDateValidity"
+                                  data-id = "checkLineItemValidity"
+                                  value={eachLineItem.deliveryDate}
+                                  onchange={handleDeliveryDateChangeOfLineItem}
+                                  message-when-range-underflow={todayError}
+                                  message-when-range-overflow={maxDateError}
+                                  >
+                        </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="deliveryDay">
+                        <div class="slds-truncate">{eachLineItem.deliveryDay}</div>
+                      </td>
+                      <td data-label="Daily Shipment">
+                        <div class="slds-truncate">
+                          <lightning-input
+                            type="number"
+                            required = "true"
+                            name={indx}
+                            data-id = "checkLineItemValidity"
+                            label="Daily Shipment"
+                            variant="label-hidden"
+                            min="1"
+                            max="100"
+                            value={eachLineItem.Quantity}
+                            message-when-value-missing="Required Deliveries Per Day." 
+                            message-when-range-overflow='Deliveries Per Day should range from 1 to 100.'
+                            message-when-range-underflow='Deliveries Per Day should range from 1 to 100.'
+                            onchange={handleLineItemQuantityChange}
+                          >
+                          </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="Tonnage">
+                        <div class="slds-truncate"> 
+                          <lightning-input
+                          type="number"
+                          name={indx}
+                          min={loadVolMin}
+                          max={loadVolMax}
+                          onchange={handleLoadVolume}
+                          data-id = "checkLineItemValidity"
+                          label=""
+                          variant="label-hidden"                           
+                          value={eachLineItem.Tonnage}                           
+                          message-when-value-missing="Required Load Volume" 
+                          disabled={isTonnage}
+                          required
+                          step=".001"
+                        >
+                        </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="DeliveryText">
+                        <div class="slds-truncate">
+                          <lightning-input
+                            type="text"
+                            name={indx}
+                            label=""
+                            variant="label-hidden"
+                            data-id = "checkLineItemValidity"
+                            maxlength="650"
+                            value={eachLineItem.DeliveryText}
+                            onchange={handleDeliveryTextChangeOfLineItem}
+                          >
+                          </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="PoNumber">
+                        <div class="slds-truncate" >
+                          <lightning-input
+                            type="text"
+                            min-length ="1"
+                            max-length ="30"
+                            name={indx}
+                            label=""
+                            variant="label-hidden"
+                            data-id = "checkLineItemValidity"
+                            value={eachLineItem.PoNumber}
+                            onchange={handlePoNumberPerLineItemChange}
+                            message-when-value-missing="If you do not use a PO please leave the “.”" 
+                            required                           
+                            >
+                          </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="Delete">
+                        <div class="slds-truncate">
+                          <lightning-button-icon
+                            icon-name="utility:delete"
+                            alternative-text="Delete"
+                            class="slds-m-left_xx-small"
+                            title="Delete"
+                            name={indx}
+                            onclick={deleteLineItem}>
+                          </lightning-button-icon>
+                        </div>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <lightning-button
+                              name="Add"
+                              label="Add Line Item"
+                              class = "slds-m-top--large slds-m-bottom--large"
+                              onclick={addLineItems}>
+            </lightning-button>
+            <lightning-button
+                              name="Add"
+                              label="Delete All Line Items"
+                              class = "slds-m-top--large slds-m-bottom--large"
+                              onclick={handleDeleteProduct}>
+
+            </lightning-button>
+          </template>
+          <template if:true={showLineItemsForFileUpload}>
+            <div  class="slds-grid slds-wrap width">
+                <div class="slds-size--1-of-2">
+                  {productname}
+                </div>
+                <div class="slds-text-align--right slds-size--1-of-2">
+                  Total Volume: {getTotalVolume}
+                </div>
+            </div>
+
+            <div class = "width slds-scrollable--x">
+              <table
+                class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped"
+              >
+                <thead>
+                  <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Line_Item_Delivery_Date}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate"></div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Deliveries_Required}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Load_Volume}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_Delivery_Text}</div>
+                    </th>
+                    <th class="" scope="col">
+                      <div class="slds-truncate">{label.Split_Shipment_PO_Number}</div>
+                    </th>
+                    <th class="" scope="col">
+
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template
+                    for:each={listDeliveryLineItems}
+                    for:item="eachLineItem"
+                    for:index="indx">
+                    <tr class="slds-hint-parent" key={eachLineItem.index}>
+                      <td data-label="deliveryDate">
+                        <div class="slds-truncate">
+                          <lightning-input
+                                  type="date"
+                                  required="true"
+                                  name={indx}
+                                  min={today}
+                                  variant="label-hidden"
+                                  data-validity = "checkDeliveryDateValidity"
+                                  data-id = "checkLineItemValidity"
+                                  value={eachLineItem.deliveryDate}
+                                  onchange={handleDeliveryDateChangeOfLineItem}
+                                  message-when-range-underflow={todayError}
+                                  message-when-range-overflow={maxDateError}>
+                        </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="deliveryDay">
+                        <div class="slds-truncate">{eachLineItem.deliveryDay}</div>
+                      </td>
+                      <td data-label="Daily Shipment">
+                        <!-- <div class="slds-truncate" style="padding-left: 30%;">{eachLineItem.Quantity}</div> -->
+                        <div class="slds-truncate"> 
+                          <lightning-input
+                          type="number"
+                          name={indx}
+                          min=1
+                          max=100
+                          onchange={handleLineItemQuantityCSVChange}
+                          data-id = "checkLineItemValidity"
+                          label=""
+                          variant="label-hidden"                           
+                          value={eachLineItem.Quantity}                           
+                          message-when-value-missing='Required Deliveries Per Day.'
+                          message-when-range-overflow='Deliveries Per Day should range from 1 to 100.'
+                          message-when-range-underflow='Deliveries Per Day should range from 1 to 100.'
+                          disabled={isTonnage}
+                          required
+                        >
+                        </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="Tonnage">
+                        <div class="slds-truncate"> 
+                          <lightning-input
+                          type="number"
+                          name={indx}
+                          min={loadVolMin}
+                          max={loadVolMax}
+                          onchange={handleLoadVolume}
+                          data-id = "checkLineItemValidity"
+                          label=""
+                          variant="label-hidden"                           
+                          value={eachLineItem.Tonnage}                           
+                          message-when-value-missing={errorString}
+                          message-when-range-overflow={errorString}
+                          message-when-range-underflow={errorString}
+                          message-when-pattern-mismatch={errorString}
+                          disabled={isTonnage}
+                          class ="loadvolumecustom"
+                          required
+                          step=".001" 
+                        >
+                        </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="DeliveryText">
+                        <div class="slds-truncate">
+                          <lightning-input
+                            type="text"
+                            name={indx}
+                            label=""
+                            variant="label-hidden"
+                            data-id = "checkLineItemValidity"
+                            maxlength="650"
+                            value={eachLineItem.DeliveryText}
+                            onchange={handleDeliveryTextChangeOfLineItem}
+                          >
+                          </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="PoNumber">
+                        <div class="slds-truncate">
+                          <lightning-input
+                            type="text"
+                            min-length ="1"
+                            name={indx}
+                            label=""
+                            variant="label-hidden"
+                            data-id = "checkLineItemValidity"
+                            value={eachLineItem.PoNumber}
+                            onchange={handlePoNumberPerLineItemChange}
+                            message-when-value-missing="If you do not use a PO please leave the “.”" 
+                            required
+                            >
+                          </lightning-input>
+                        </div>
+                      </td>
+                      <td data-label="Delete">
+                        <div class="slds-truncate">
+                          <lightning-button-icon
+                            icon-name="utility:delete"
+                            alternative-text="Delete"
+                            class="slds-m-left_xx-small"
+                            title="Delete"
+                            name={indx}
+                            onclick={deleteLineItem}>
+                          </lightning-button-icon>
+                        </div>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <lightning-button
+                              name="Add"
+                              label="Add Line Item"
+                              class = "slds-m-top--large slds-m-bottom--large"
+                              onclick={addLineItems}>
+            </lightning-button>
+            <lightning-button
+                              name="Add"
+                              label="Delete All Line Items"
+                              class = "slds-m-top--large slds-m-bottom--large"
+                              onclick={handleDeleteProduct}>
+
+            </lightning-button>
+          </template>         
+        </template>
+  </lightning-layout>
+  <c-carmeuse-upload-file-for-line-item-modal if:true={isUploadCSV}
+                                            onhandlecancel={handleModalCancel}
+                                            onhandlecancelonlimit={handleCancelOnLimit}
+                                            onhandlecanceldataerror={handleCancelDataError}
+                                            csv-file-count={csvFileCount}
+                                            product-detail={ProductDetail} 
+                                            onhandlecsvsize={handleCSVLineItemSize}
+                                            oncreatelistdeliverylineitems={handlelistDeliveryLineItems}
+                                            onupdateproductdetail={handleupdateproductdetail}
+                                            map-of-product-id-vs-name={mapOfProductIdVsName}
+                                            cart-item-options={cartItemOptions}  
+                                            error-lst={errorLst}
+                                            time-zone={timeZone}
+                                            is-carrier-user={isCarrierUser} 
+                                            effective-account-data={effectiveAccountData}
+                                            plant-code-date={plantCodeDate} 
+                                            get-price-book-products-value={getPriceBookProductsValue}
+                                            override-gallon-limit={overrideGallonLimit}
+                                            >       
+  </c-carmeuse-upload-file-for-line-item-modal>  
+</template>

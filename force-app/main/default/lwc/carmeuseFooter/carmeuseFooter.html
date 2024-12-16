@@ -1,0 +1,173 @@
+<template>
+   <footer class="footer-wrapper font">
+       <div class="marginpdiv slds-grid slds-wrap">
+          <div class="logo slds-col slds-size_1-of-1  slds-large-size_2-of-12">
+             <a href="https://carmeuse.com/na-en/" class="logo">
+             <img src={carmeuseImageslogo} alt="Carmeuse Logo">
+             </a>
+             <hr>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1  slds-large-size_3-of-12">
+             <div class="region--footer-first">
+                <nav role="navigation" aria-labelledby="block-main-nav-footer-menu" id="block-main-nav-footer" class="block-main-nav-footer">
+
+                  <ul class="menu vertical nlarge-horizontal dropdown" data-responsive-menu="accordion nlarge-dropdown" role="menubar" data-e="8hmohq-e" data-mutate="fgk8f8-responsive-menu">
+                     <!-- <li role="menuitem">
+                        <a href="https://www.carmeuse.com/na-en/markets-applications" class="menu-item-markets block-main-nav-footer" data-drupal-link-system-path="node/9" target="_blank">Applications by Markets</a>
+                     </li>
+                     <li role="menuitem">
+                        <a href="https://www.carmeuse.com/na-en/products-services-markets" class="menu-item-ps block-main-nav-footer" data-drupal-link-system-path="node/254" target="_blank">Products &amp; Services</a>
+                     </li>
+                     <li role="menuitem">
+                        <a href="https://www.carmeuse.com/na-en/sustainability" class="block-main-nav-footer" data-drupal-link-system-path="node/67" target="_blank">Sustainability</a>
+                     </li> -->
+                     <li role="menuitem">
+                       <a href="https://www.carmeuse.com/na-en/mycarmeuse?" class="block-main-nav-footer" data-drupal-link-system-path="node/67" target="_blank">Learn How To Use The Portal</a>
+                      </li>
+                      <li role="menuitem">
+                        <a href="#" onclick={openModal} class="block-main-nav-footer" data-drupal-link-system-path="node/67">Manage Email Notifications</a>
+                       </li>
+                  </ul>
+                </nav>
+             </div>
+             <hr >
+          </div>
+
+          <div class="slds-col slds-size_1-of-1  slds-large-size_4-of-12 font">
+             <div class="footer-middle-inn/er">
+                <div class="region--footer-middle">
+                   <section id="block-block-footer-text" class="block-block-footer-text block block-block-content block-block-content7e61359d-dc58-4f1a-b8c0-fd8686a7274b">
+                      <h2 class="block-title font">Need Assistance?</h2>
+                      <!-- <div class="field-wrapper body field field-block-content--body field-name-body field-type-text-with-summary field-label-hidden ">
+                         <div class="field-items">
+                            <div class="field-item">
+                               <p>
+                                Our team of Supply Planning Coordinators is dedicated to taking care of you with friendly customer service and 24/7 coverage.
+                               </p>
+                            </div>
+                         </div>
+                      </div> -->
+                      <div class="field-wrapper field field-block-content--field-block-content-link field-name-field-block-content-link field-type-link field-label-hidden slds-m-top--large">
+                        <div class="field-items">
+                           <div class="field-item fontsize16"><p>Phone : {phone}</p></div>
+                        </div>
+                    </div>
+                      <div class="field-wrapper field field-block-content--field-block-content-link field-name-field-block-content-link field-type-link field-label-hidden slds-m-top--large">
+                         <div class="field-items">
+                            <div class="field-item fontsize16"><a href="mailto:customer-portal@carmeuse.com" target="_blank">Click here to email our team</a></div>
+                         </div>
+                     </div>
+                   </section>
+                </div>
+             </div>
+             <hr>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1  slds-large-size_3-of-12 font">
+             <div class="footer-last-inner">
+                <div class="region--footer-last">
+                   <section id="block-footer-social-networks" class="block-footer-social-networks block block-block-content block-block-content52fbf243-5713-4abd-a0ea-235967aba967 social-nw">
+                      <h2 class="block-title font">Join us on social networks</h2>
+                      <div class="social-nw-wrapper">
+                         <a href="https://www.linkedin.com/company/carmeuse" target="_blank" class="social-nw-icon linkedin">
+                           <img src={linkedInLogo} width="12%" alt="Carmeuse Logo"></a>
+                         <a href="https://www.facebook.com/CarmeuseAmericas/" target="_blank" class="social-nw-icon facebook">
+                           <img width="12%" src={facebookLogo} alt="Carmeuse Logo">
+                       </a>
+                         <a href="https://www.instagram.com/carmeuseamericas/" target="_blank" class="social-nw-icon instagram">
+                           <img width="12%" src={instagramLogo} alt="Carmeuse Logo">
+                       </a>
+                         <a href="https://www.youtube.com/CarmeuseChannel" target="_blank" class="social-nw-icon youtube">
+                           <img width="12%" src={youtubeLogo} alt="Carmeuse Logo">
+                       </a>
+                      </div>
+                   </section>
+                </div>
+             </div>
+          </div>
+          <hr>
+       </div>
+       <div class="bottom-bar row slds-m-top--xx-large marginpdiv">
+          <div class="large-12 columns">
+             <div class="bottom-inner displayClass letterspace">
+                <div class="colorlastfotter">© Carmeuse  {currentYear}. All rights reserved. | </div>
+                <div>
+                 <a href="https://www.carmeuse.com/na-en/equal-opportunity-employer" class="colorlastfotter" data-drupal-link-system-path="node/70" target="_blank"> Equal Opportunity Employer | </a>
+                </div>
+                <div>
+                 <a href="https://www.carmeuse.com/na-en/terms-and-conditions" class="colorlastfotter" data-drupal-link-system-path="node/71" target="_blank"> Terms and Conditions | </a>
+                </div>
+                <div>
+                 <a href="https://www.carmeuse.com/na-en/privacy-policy" class="colorlastfotter" data-drupal-link-system-path="node/72" target="_blank"> Privacy Policy | </a>
+                </div>
+                <div>
+                 <a href="https://www.carmeuse.com/na-en/cookie-policy" class="colorlastfotter" data-drupal-link-system-path="node/73" target="_blank"> Cookie policy</a>
+                </div>               
+             </div>
+          </div>
+       </div>
+   </footer>
+   <template if:true={isModalOpen}>
+      <div class="slds-container_small ">   
+         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open"> 
+            <div class="slds-modal__container">
+               <div>
+                  <header class="slds-modal__header"> 
+                     <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                           alternative-text="close"
+                           variant="inverse"
+                           size="small" >
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                     </button>                     
+                     <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                           Manage Email Notifications 
+                     </h2>
+                  </header>
+                  <div  class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                   <div class = "slds-grid slds-wrap" style="padding-left: 20px;">
+                        <div class="slds-col slds-size_5-of-12">
+                           <center class="contentHeader"><b>Subscribe me for my order notification emails</b></center><br>
+                           <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="submit" label="Order Submission" onchange={handleSubmit}></lightning-input><br>
+                           <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="confirmed" label="Order Confirmation" onchange={handleConfirmed}></lightning-input><br>
+                           <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="cancelled" label="Order Cancellation" onchange={handleCancelled}></lightning-input><br>
+                        </div>
+                         <div class="slds-col slds-size_1-of-12">
+                           <span class="vertical-line"></span>
+                        </div>          
+                        <div class="slds-col slds-size_5-of-12">
+                           <center class="contentHeader"><b>Subscribe me for all user's order notification emails</b></center><br>
+                           <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="allSubmit" label="All Submission" onchange={handleAllSubmit}></lightning-input><br>
+                           <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="allConfirmed" label="All Confirmation" onchange={handleAllConfirmed}></lightning-input><br>
+                           <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="allCancelled" label="All Cancellation" onchange={handleAllCancelled}></lightning-input><br>
+                        </div>   
+                     </div>
+                     <div class = "slds-grid slds-wrap"> 
+                        <div class="slds-col slds-size_2-of-12">
+                        </div>
+                        <div class="slds-col slds-size_10-of-12">
+                           <lightning-input class="slds-p-left_xx-large" type="checkbox" data-id="noemail" label=" Do not send me order notifications via email" onchange={handleNoEmail}></lightning-input><br> 
+                        </div>
+                     </div>
+                  </div>
+               </div>                
+               
+               <footer class="slds-modal__footer">
+                  <lightning-button variant="brand"                   
+                     name="Update Email Preferences"
+                     class='slds-m-right--small'
+                     onclick={handleSubscribe}
+                     label="Update Email Preferences"
+                     title="Update Email Preferences"
+                     > 
+                  </lightning-button>
+               </footer>
+            </div>          
+         </section>
+         <div class="slds-backdrop slds-backdrop_open">
+         </div>
+      </div>
+  </template>   
+</template>

@@ -1,0 +1,107 @@
+<apex:component controller="PricingController1" access="global">
+    <table border="1"> 
+        <h2>
+            <b>Previous Line Item</b></h2>
+        <thead>
+            <tr style="background-color: blue; color: white;">
+                <th>ProuctName</th>
+                <th>Quantity</th>
+                <th>List price</th>
+                <th>Frieht Price</th>
+                <th>Commision</th>
+                <th>Misc Price</th>
+                <th>Surcharge</th>
+                <th>Fees Price</th>
+                <th>Total Price</th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            <apex:repeat value="{!lstQuoteLine}" var="acc">
+                <tr style="color:black">
+                    <td>{!acc.SBQQ__ProductName__c}</td>
+                    <td>{!acc.SBQQ__Quantity__c}</td>
+                    <td>{!acc.List_Unit_Price__c}</td>
+                    <td>{!acc.Freight_Price__c}</td>
+                    <td>{!acc.Commission__c}</td>
+                    <td>{!acc.Misc_Price__c}</td>
+                    <td>{!acc.Surcharge__c}</td>
+                    <td>{!acc.Fees_Price__c}</td>
+                    <td>{!acc.Total_Price__c}</td>
+                    
+                </tr>
+            </apex:repeat> 
+        </tbody>
+    </table>
+     <table border="1"> 
+         <h2>
+            <b>Proposed Line Item</b></h2>
+        <thead>
+            <tr style="background-color: blue; color: white;">
+                <th>ProuctName</th>
+                <th>Quantity</th>
+                <th>List price</th>
+                <th>Frieht Price</th>
+                <th>Commision</th>
+                <th>Misc Price</th>
+                <th>Surcharge</th>
+                <th>Fees Price</th>
+                <th>Total Price</th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            <apex:repeat value="{!lstpropose}" var="acc">
+                <tr style="color:black">
+                    <td>{!acc.SBQQ__ProductName__c}</td>
+                    <td>{!acc.SBQQ__Quantity__c}</td>
+                    <td>{!acc.List_Unit_Price__c}</td>
+                    <td>{!acc.Freight_Price__c}</td>
+                    <td>{!acc.Commission__c}</td>
+                    <td>{!acc.Misc_Price__c}</td>
+                    <td>{!acc.Surcharge__c}</td>
+                    <td>{!acc.Fees_Price__c}</td>
+                    <td>{!acc.Total_Price__c}</td>
+                    
+                </tr>
+            </apex:repeat> 
+        </tbody>
+    </table>
+     <table border="1"> 
+         <h2>
+            <b>Competitor Line Item</b></h2>
+        <thead>
+            <tr style="background-color: blue; color: white;">
+                <th>ProuctName</th>
+                <th>Quantity</th>
+                <th>List price</th>
+                <th>Frieht Price</th>
+                <th>Commision</th>
+                <th>Misc Price</th>
+                <th>Surcharge</th>
+                <th>Fees Price</th>
+                <th>Total Price</th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            <apex:repeat value="{!lstSales}" var="acc">
+                <tr style="color:black">
+                    <td>{!acc.Product_Name__c}</td>
+                    <td>{!acc.Tons__c}</td>
+                   <!-- <td>{!acc.List_Unit_Price__c}</td>-->
+                    <td>{!acc.Freight_Unit_Price__c}</td>
+                   <!-- <td>{!acc.Commission__c}</td>-->
+                    <td>{!acc.OtherCosts__c}</td>
+                   <!-- <td>{!acc.Surcharge__c}</td>-->
+                    <td>{!acc.FeesUnitPrice__c}</td>
+                    <td>{!acc.Total_Price__c}</td>
+                    
+                </tr>
+            </apex:repeat> 
+        </tbody>
+    </table>
+</apex:component>

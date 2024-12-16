@@ -1,0 +1,64 @@
+<template>     
+  <div class="slds-container_small ">    
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">       
+        <header class="slds-modal__header">
+          <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Upload File to Cart
+          </h2>
+        </header> 
+        <div class="slds-modal__content slds-p-around_medium modalBody" id="modal-content-id-1">
+          <template if:true={showLoadingSpinner}>
+            <lightning-spinner class="spinsfile" alternative-text="Uploading......" size="medium"></lightning-spinner>
+          </template>  
+            <p class="detail">
+              <span >
+              <b>Use following format:</b><br>"Delivery Date","Deliveries Per Day","Load Volume","Delivery Text","PO Number"-OR-<br>"04/20/2022","1","25","@5PM","BSF123"
+              </span><br><br>
+              <span class="details">
+              <b>Product Details :</b><br>Product Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {productName}<br>Shipment Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {shipmentType}<br>Shipping Condition&nbsp;: {shippingCondition}
+              </span>
+            </p>                
+            <br>
+            <p class="note"><b>NOTE : </b>Each product should have its own file to upload.</h2></p>
+            <br>
+            <p><b>Download Template</b></p>
+            <b><u><a onclick={importTemplate}>Download CSV Template</a></u></b><br>
+            <b><u><a onclick={importTemplateXLS}>Download XLS Template</a></u></b><br>
+            <b><u><a onclick={importTemplateXLSX}>Download XLSX Template</a></u></b><br><br>
+            <b>Select file : </b>
+            <input type="file" id="input" onchange = {handleFilesChange} onclick= {handleFilesClick} name="files" label="files---">
+            <lightning-button variant="brand"
+                name="Upload Items"
+                label="Upload Items"
+                title="Upload Items"
+                onclick={handleSave} 
+                class="confirm"
+                disabled='{isError}'>
+            </lightning-button>
+            <br>
+        <!-- </div>               -->
+        <div class="errors">
+          <b if:true={isError} >Errors: </b><br>
+          <template for:each={errorLst} for:item="item">
+            <div key={item.index} data-key={item.id}>
+                {item.error}<br/>
+            </div>
+            
+        </template>
+        </div> 
+      </div>        
+        <footer class="slds-modal__footer">                    
+          <lightning-button variant="brand"
+                            name="cancel"
+                            label={cancelLabel}
+                            title={cancelLabel}
+                            onclick={handleCancelClick} 
+                            class="confirm">
+          </lightning-button>    
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open">
+    </div>
+  </div>    
+</template>

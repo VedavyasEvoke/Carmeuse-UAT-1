@@ -1,0 +1,58 @@
+.custom-modal {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.custom-modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    height: calc(100% - 4rem); /* Adjusted to leave space for the header and footer */
+}
+
+.custom-modal-body iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.custom-modal-footer {
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+.custom-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+}

@@ -1,0 +1,85 @@
+<apex:page controller="ev_competitorController" contenttype="application/vnd.ms-excel#printsummarycompany.xls" applyBodyTag="false" standardStylesheets="false">
+    <style>
+        .custom-table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: white;
+        }
+        .blue-background {
+        background-color: #6495ED;
+        /* Set the background color for the first row */
+        color: white;
+        /* Font color for better visibility on a blue background */
+        font-weight: bold;
+        }
+        .company-name {
+        font-size: 30px;
+        color: #000075;
+        margin-top: 0;
+        font-weight: bold;
+        }
+        .company-group-name {
+        /* Styling for the group name */
+        font-size: 30px;
+        color: #808080;
+        /* Example size, adjust as needed */
+        font-weight: bold;
+        /* Example weight, adjust as needed */
+        }
+       
+        
+    </style>
+    
+    <apex:pageBlock >        
+        <div class="company-name">
+            <b>CIC - Carmeuse Intelligence
+                on competition Database</b>
+        </div>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="{!groupname}        {!countryname}">
+    </apex:pageBlock>
+    <apex:pageBlock title=" ">
+        <table border="1" class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+            <tr class="slds-line-height_reset">
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">plant</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Aggre.</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Limestone</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Dolomite</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Quicklime</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Dolime</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Nom .Cap.tpy</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Estimated Production t/y</th>
+            </tr>
+            <apex:repeat value="{!plantlist}" var="competitor">
+            <tr>
+                <td>
+                    <apex:outputText value="{!competitor.Name}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Aggre__c, 'TRUE', 'FALSE')}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Limestone__c, 'TRUE', 'FALSE')}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Dolomite__c, 'TRUE', 'FALSE')}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Quicklime__c, 'TRUE', 'FALSE')}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Dolime__c, 'TRUE', 'FALSE')}"/>
+                </td> 
+                <td>
+                     <apex:outputText value="{!competitor.Nominal_Capacity_t_y__c}"/>
+                </td>
+                <td>
+                     <apex:outputText value="{!competitor.Estimated_Production_t_y__c}"/>
+                </td>
+            </tr>
+        </apex:repeat>
+        </table>
+    </apex:pageBlock>
+  
+</apex:page>

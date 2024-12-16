@@ -1,0 +1,107 @@
+<template>
+	<div class="rl" title="Competitor Line Item">
+		<div class="rl-header">
+			<lightning-icon icon-name="utility:cart" alternative-text="Cart" size="small"
+				style="--slds-c-icon-color-foreground-default: white;"></lightning-icon>
+			<span style="padding-left: 12px;">Competitor Line Item</span>
+		</div>
+		<template if:true={records}>
+			<div>
+				<lightning-datatable key-field="Id" data={records} hide-checkbox-column style="font-size: 10px;"
+					columns={columns} column-widths-mode="auto" min-column-width="35" wrap-table-header>
+				</lightning-datatable>
+			</div>
+			<!-- <div class="rl-body">
+				<div class="mostly-customized-scrollbar">
+					<table style="width:100 %">
+						<thead>
+							<tr>
+								<th>Supplier</th>
+								<th>Plant</th>
+								<th>Carmeuse Product</th>
+								<th>Quantity</th>
+								<th>Product Price</th>
+								<th>Freight Price</th>
+								<th>Fuel Surch</th>
+								<th>Misc</th>
+								<th>Fees</th>
+								<th>Distance</th>
+								<th>UoM Dist</th>
+								<th>Co2 Cost</th>
+								<th>Curr</th>
+								<th>Amount</th>
+
+							</tr>
+						</thead>
+
+						<template for:each={records} for:item="rec">
+							<tr key={rec.Id}>
+								<template if:true={rec.Competitor__c}>
+									<td>{rec.Competitor__r.Name}</td>
+								</template>
+								<template if:false={rec.Competitor__c}>
+									<td>{rec.Legacy_Competitor_Name__c}</td>
+								</template>
+								<template if:true={rec.Plant__c}>
+									<td>{rec.Plant__r.Name}</td>
+								</template>
+								<template if:false={rec.Plant__c}>
+									<td>{rec.Legacy_Plant_Name__c}</td>
+								</template>
+								<template if:true={rec.Product__c}>
+									<td>{rec.Product__r.Name}</td>
+								</template>
+								<template if:false={rec.Product__c}>
+									<td>{rec.Legacy_Product_Name__c}</td>
+								</template>
+								<td>{rec.Tons__c}</td>
+								<td>
+									<template if:true={rec.FOB__c}>
+										<template if:true={currency}>{currency}</template>{rec.FOB__c}
+									</template>
+								</td>
+								<td>
+									<template if:true={rec.Freight_Unit_Price__c}>
+										<template if:true={currency}>{currency}</template>{rec.Freight_Unit_Price__c}
+									</template>
+								</td>
+								<td>
+									<template if:true={rec.FuelSurcharge__c}>
+										<template if:true={currency}>{currency}</template>{rec.FuelSurcharge__c}
+									</template>
+								</td>
+								<td>
+									<template if:true={rec.OtherCosts__c}>
+										<template if:true={currency}>{currency}</template>{rec.OtherCosts__c}
+									</template>
+								</td>
+
+								<td>
+									<template if:true={rec.FeesUnitPrice__c}>
+										<template if:true={currency}>{currency}</template>{rec.FeesUnitPrice__c}
+									</template>
+								</td>
+
+								<td>{rec.Distance__c}</td>
+								<td>{rec.UOM__c}</td>
+								<td>
+									<template if:true={rec.CO2Cost__c}>
+										<template if:true={currency}>{currency}</template>{rec.CO2Cost__c}
+									</template>
+								</td>
+								<td>{rec.CurrencyIsoCode}</td>
+								<td>
+									<template if:true={rec.Total_Price__c}>
+										<template if:true={currency}>{currency}</template>{rec.Total_Price__c}
+									</template>
+								</td>
+
+							</tr>
+						</template>
+					</table>
+				</div>
+			</div> -->
+
+		</template>
+	</div>
+</template>

@@ -1,0 +1,4 @@
+.slds-modal__container{
+    width : 100%;
+    transform: inherit !important;
+}

@@ -1,0 +1,66 @@
+/* Carousel container that adjusts to the page width */
+.carousel-container {
+    width: 100%; /* Adopts the full width of the page */
+    max-width: 1200px; /* Optional max-width to prevent excessive stretching on larger screens */
+    margin: 0 auto; /* Centers the content horizontally */
+    padding: 10px; /* Adds some padding around the container */
+}
+
+/* Styling for the box around the carousel */
+.slds-box {
+    padding: 1rem; /* Padding within the box */
+    background-color: #ffffff; /* Light background color for clarity */
+    border: 1px solid #d8dde6; /* Light border */
+    border-radius: 0.25rem; /* Rounded corners for a smoother look */
+}
+
+/* Carousel layout itself */
+.lightning-carousel {
+    width: 100%; /* Takes up the full width of the container */
+    position: relative; /* Positions internal elements like buttons relative to the carousel */
+    overflow: visible; /* Ensure that buttons and elements inside aren't clipped */
+}
+
+/* Cropped image style */
+.carousel-image {
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    width: auto;  /* Fixed width for the image */
+    height: 250px; /* Fixed height for the image */
+    object-fit: cover;  /* Crop the image to fit the dimensions */
+    display: block;  /* Ensure no inline space around the image */
+    margin: 0 auto;  /* Center the image horizontally */
+    overflow: hidden;  /* Ensure that excess parts of the image are hidden */
+}
+
+/* Ensure that carousel buttons are visible */
+.lightning-carousel button {
+    z-index: 10; /* Ensure that buttons appear above other content */
+    position: relative; /* Allow buttons to stay in their natural flow */
+}
+
+/* Style for paragraph elements (e.g., "No images found") */
+p {
+    font-size: 1rem; /* Standard font size */
+    color: #5f6368; /* Subtle text color */
+    padding: 1rem; /* Adds padding around the text */
+    text-align: center; /* Center the text horizontally */
+}
+
+/* Centering the upload button and making it match carousel width */
+.upload-container {
+    text-align: center; /* Center the upload button */
+    margin-top: 10px; /* Add space above the upload button */
+}
+
+.upload-button {
+    text-decoration: solid;
+    display: inline-block;
+    width: 100%; /* Same width as the carousel container */
+    max-width: 1200px; /* Matches the carousel's max-width */
+    background-color: #f4f6f9; /* Match the carousel background */
+    border: none; /* Optional: remove default button border */
+    padding: 10px;
+    border-radius: 0.25rem; /* Slight rounding for consistency with carousel */
+}

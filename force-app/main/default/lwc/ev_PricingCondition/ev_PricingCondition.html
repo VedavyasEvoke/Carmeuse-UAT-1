@@ -1,0 +1,13 @@
+<template>
+	<!-- North America -->
+	<template lwc:if={isNorthAmerica}>
+		<c-ev_-pricing-condition_-north-america record-id={recordId} navigate-to-url-from-vf={navigateToUrlFromVf}>
+		</c-ev_-pricing-condition_-north-america>
+	</template>
+
+	<!-- Other Region -->
+	<template lwc:if={isOther}>
+		<c-ev_-pricing-condition_-europe record-id={recordId} navigate-to-url-from-vf={navigateToUrlFromVf}>
+		</c-ev_-pricing-condition_-europe>
+	</template>
+</template>

@@ -1,0 +1,55 @@
+th
+{
+  font-weight: bold;
+  text-align: left;
+	color : #eaeff3;
+  background-color:#005B9A !important;
+	/* border: 1px solid #ddd; */
+  border-right: 1px solid #6b92ad;
+	padding: 4px 8px;
+}
+thead tr th:last-child {
+  border-right: 0px solid transparent;
+}
+td
+{
+  text-align: left;
+  padding: 4px 8px;
+	/* border: 1px solid #ddd; */
+}
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+/*---------------------------------*/
+.visible-scrollbar,
+.invisible-scrollbar,
+.mostly-customized-scrollbar {
+  display: block;
+  /* width: 60em; */
+  /* padding: 1em; */
+  width: 100%;
+  overflow: auto;
+  /* margin: 1em auto; */
+  font-size: 10px;
+}
+
+.invisible-scrollbar::-scrollbar {
+  display: none;
+}
+
+.mostly-customized-scrollbar::-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #ddd; /* or add it to the track */
+}
+
+/* Add a thumb */
+.mostly-customized-scrollbar::-scrollbar-thumb {
+  background: #ddd;
+}
+
+.rl { border: 1px solid #c9c9c9; border-radius: 0.25rem; }
+.rl-header { width: 100%; font-size: 14px; padding: 8px 12px; font-weight: 500; background-color: #005B9A; border-radius: 0.25rem 0.25rem 0 0;
+border-bottom: 1px solid #6b92ad; color: white; }
+.rl-body { width: 100%; }

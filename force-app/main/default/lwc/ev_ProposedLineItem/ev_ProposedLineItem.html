@@ -1,0 +1,91 @@
+<template>
+	<div class="rl" title="Proposed Line Item">
+		<div class="rl-header">
+			<lightning-icon icon-name="utility:cart" alternative-text="Cart" size="small"
+				style="--slds-c-icon-color-foreground-default: white;"></lightning-icon>
+			<span style="padding-left: 12px;">Proposed Line Item</span>
+		</div>
+		<template if:true={records}>
+			<div>
+				<lightning-datatable key-field="Id" data={records} hide-checkbox-column style="font-size: 10px;"
+					columns={columns} column-widths-mode="auto" min-column-width="35" wrap-table-header>
+				</lightning-datatable>
+			</div>
+			<!-- <div class="rl-body" style="width:100 %">
+				<div class="mostly-customized-scrollbar">
+					<table>
+						<thead>
+							<tr>
+								<th>Supplier</th>
+								<th>Plant</th>
+								<th>Carmeuse Product</th>
+								<th>Quantity</th>
+								<th>UOM</th>
+								<th>Product Price</th>
+								<th>Freight Price</th>
+								<th>Fuel Surch</th>
+								<th>Misc</th>
+								<th>Fees</th>
+								<th>Distance</th>
+								<th>UoM Dist</th>
+								<th>Co2 Cost</th>
+								<th>Curr</th>
+								<th>Amount</th>
+							</tr>
+						</thead>
+						<template for:each={records} for:item="rec">
+							<tr key={rec.fields.Id.value}>
+								<td>Carmeuse</td>
+								<td>{rec.fields.Plant__c.value}</td>
+								<td>{rec.fields.SBQQ__ProductName__c.value}</td>
+								<td>{rec.fields.SBQQ__Quantity__c.value}</td>
+								<td>{rec.fields.Default_UOM__c.value}</td>
+								<td>
+									<template if:true={rec.fields.List_Unit_Price__c.value}>
+										<template if:true={currency}>{currency}</template>{rec.fields.List_Unit_Price__c.value}
+									</template>
+								</td>
+								<td>
+									<template if:true={rec.fields.Freight_Price__c.value}>
+										<template if:true={currency}>{currency}</template>{rec.fields.Freight_Price__c.value}
+									</template>
+								</td>
+								<td>
+									<template if:true={rec.fields.Surcharge__c.value}>
+										<template if:true={currency}>{currency}</template>{rec.fields.Surcharge__c.value}
+									</template>
+								</td>
+								<td>
+									<template if:true={rec.fields.Misc_Price__c.value}>
+										<template if:true={currency}>{currency}</template>{rec.fields.Misc_Price__c.value}
+									</template>
+								</td>
+								
+								<td>
+									<template if:true={rec.fields.Fees_Price__c.value}>
+										<template if:true={currency}>{currency}</template>{rec.fields.Fees_Price__c.value}
+									</template>
+								</td>
+								
+								<td>{rec.fields.Distance__c.value}</td>
+								<td>{rec.fields.UOM_Distance__c.value}</td>
+								<td>
+									<template if:true={rec.fields.ZCO2__c.value}>
+										<template if:true={currency}>{currency}</template>{rec.fields.ZCO2__c.value}
+									</template>
+								</td>
+								<td>{rec.fields.CurrencyIsoCode.value}</td>
+								<td>
+									<template if:true={rec.fields.Total_Price__c.value}>
+										<template if:true={currency}>{currency}</template>{rec.fields.Total_Price__c.value}
+									</template>
+								</td>
+							</tr>
+						</template>
+					</table>
+				</div>
+			</div> -->
+		</template>
+	</div>
+	<!-- Proposed Line Item Ends -->
+</template>

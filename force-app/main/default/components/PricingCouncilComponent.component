@@ -1,0 +1,65 @@
+<apex:component controller="PricingController1" access="global">
+    <apex:dataTable value="{!lstQuoteLine}" var="s_quote">
+        <apex:column >
+            <h2>
+            <b>Previous Line Item</b></h2>
+            <table border="1">
+                <thead>
+                    <tr style="background-color: blue; color: white;">
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>List Unit Price</th>
+                        <th>Frieght Price</th>
+                        <th>Commission</th>
+                        <th>Misc Price</th>
+                        <th>Surcharge</th>
+                        <th>Fees Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+            </table>
+            <h2><b>Proposed Line Item</b></h2>
+            <table border="1">
+                <thead>
+                    <tr style="background-color: blue; color: white;">
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>List Unit Price</th>
+                        <th>Frieght Price</th>
+                        <th>Commission</th>
+                        <th>Misc Price</th>
+                        <th>Surcharge</th>
+                        <th>Fees Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+<apex:repeat value="{!lstQuoteLine}" var="acc">
+<tr>
+<td>{!acc.SBQQ__ProductName__c}</td>
+<td>{!acc.SBQQ__Quantity__c}</td>
+<td>{!acc.SBQQ__ListPrice__c}</td>
+<td>{!acc.Freight_Price__c}</td>
+</tr>
+</apex:repeat>
+</tbody>
+                </table>
+            <h2><b>Competitor Line Item</b></h2>
+            <table border="1">
+                <thead>
+                    <tr style="background-color: blue; color: white;">
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>List Unit Price</th>
+                        <th>Frieght Price</th>
+                        <th>Commission</th>
+                        <th>Misc Price</th>
+                        <th>Surcharge</th>
+                        <th>Fees Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                </table>
+        </apex:column>
+    </apex:dataTable>
+</apex:component>

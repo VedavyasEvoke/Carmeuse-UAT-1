@@ -1,0 +1,36 @@
+<apex:component controller="Car_OrderTemplateController" access="global">
+    <apex:slds />
+    <apex:attribute name="orderSummaryId" 
+                    type="Id" 
+                    description="Id of the order" 
+                    assignTo="{!orderToDisplayId}"/>
+    <apex:attribute name="orderSummaryLink" 
+                    type="String" 
+                    description="Link for Order Summary" 
+                    assignTo="{!orderToDisplayLink}"/>
+    <div style = "text-align : center;">
+        <img src="{!StrLogoUrl}" 
+                ></img>
+    </div>
+    <div>
+        <br></br>
+        <p>Hello {!orderdetails.Owner.Name},</p>
+        <p>Thank you for placing your order. We are processing it.</p>    
+        <p>Here are your order details: </p>
+        
+        <p>Order Placed On: {!orderdetails.OrderedDate}<br/>
+           Order Summary Number : {!orderdetails.OrderNumber}<br/>
+        </p> 
+        <p>
+            Use your browser to track your order status using the link below :
+            {!orderToDisplayLink}
+            <br></br><apex:outputLink value="https://crmdev-carmeuse.cs129.force.com/portal/s/OrderSummary/{!orderToDisplayId}" target="_parent" >{!orderdetails.OrderNumber}</apex:outputLink>
+        </p>        
+        <p>Thanks,
+            <br></br>
+            CARMEUSE
+        </p>
+
+        
+    </div>    
+</apex:component>

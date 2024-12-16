@@ -1,0 +1,147 @@
+<apex:page controller="ev_printsummarycontroller" contenttype="application/vnd.ms-excel#printsummarygroup.xls" applyBodyTag="false" standardStylesheets="false">
+    <style>
+        .custom-table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: white;
+        }
+        .blue-background {
+        background-color: #6495ED;
+        /* Set the background color for the first row */
+        color: white;
+        /* Font color for better visibility on a blue background */
+        font-weight: bold;
+        }
+        .company-name {
+        font-size: 30px;
+        color: #000075;
+        margin-top: 0;
+        font-weight: bold;
+        }
+        .company-group-name {
+        /* Styling for the group name */
+        font-size: 30px;
+        color: #808080;
+        /* Example size, adjust as needed */
+        font-weight: bold;
+        /* Example weight, adjust as needed */
+        }
+       
+        
+    </style>
+    
+    <apex:pageBlock >
+        <!--<table>
+        <tr>
+            <td>
+                <a href="{!$Resource.LOGO}">
+                </a>
+            </td>
+        </tr>
+    </table>-->
+        
+        <div class="company-name">
+            <b>CIC - Carmeuse Intelligence
+                on competition Database</b>
+        </div>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="{!groupname}">
+            
+            <table border="1" class="custom-table" >
+                
+                <tr class="blue-background">
+                    <td>Group lime capacity</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Estimated production t/y:</td>
+                    <td>16,378,485</td>
+                </tr>
+                <tr>
+                    <td>Nominal capacity t/y:</td>
+                    <td>21,230,190</td>
+                </tr>
+                <tr>
+                    <td>Free capacity t/y:</td>
+                    <td>4,851,705</td>
+                </tr>
+                <tr>
+                    <td>Number of Kilns:</td>
+                    <td>244</td>
+                </tr>
+            </table><br/>
+     
+    </apex:pageBlock>
+    <apex:pageBlock title=" ">
+        <br/>
+        <table border="1" class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+            <tr class="slds-line-height_reset">
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">plant</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Activity</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Annual Extraction tpy</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Quick Lime</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Dolime</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Lime Estimation tpy</th>
+<th class="header-cell" scope="col" style="background-color: #6495ED;">Lime cap tpy</th>
+<th class="header-cell" scope="col" style="background-color: #6495ED;">nb klin</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Hydr. Lime</th>
+                <th class="header-cell" scope="col" style="background-color: #6495ED;">Hydr. Lime cap tpy</th>
+                <!-- Add more columns as needed -->
+            </tr>
+            <apex:repeat value="{!plantlist}" var="company">
+                
+                    <tr style="background-color: #6495ED;">
+                        
+                            <td ><b>{!company.Name} </b></td>
+              
+                <!-- Add more fields as needed -->
+            </tr>
+        
+        <apex:repeat value="{!company.Competitor__r}" var="competitor">
+            <tr>
+                <td>
+                    <apex:outputText value="{!competitor.Name}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!competitor.Activity__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!competitor.Annual_Extraction_t_y__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Quicklime__c, 'TRUE', 'FALSE')}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Dolime__c, 'TRUE', 'FALSE')}"/>
+                </td>
+                <!--<td>
+<apex:outputText value = "{!IF(competitor.Lime_Cap_tpy__c, 'TRUE', 'FALSE')}"/>
+</td>
+<td>
+<apex:outputText value = "{!IF(competitor.Quicklime__c, 'TRUE', 'FALSE')}"/>
+</td>-->
+                <td>
+                    <apex:outputText value="{!competitor.Lime_Est_tpy__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!competitor.Lime_Cap_tpy__c}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!IF(competitor.Hydrated_Lime__c, 'TRUE', 'FALSE')}"/>
+                </td> 
+                <td>
+                    <apex:outputText value="{!IF(competitor.Hydrated_Lime__c, 'TRUE', 'FALSE')}"/>
+                </td> 
+                <td>
+                    <apex:outputText value="{!IF(competitor.Hyd_Cap_T_y__c, 'TRUE', 'FALSE')}"/>
+                </td>
+                <td>
+                    <apex:outputText value="{!competitor.Hydrated_Limecap_t_y__c}"/>
+                </td>
+            </tr>
+        </apex:repeat>
+    </apex:repeat>
+</table>
+</apex:pageBlock>
+</apex:page>

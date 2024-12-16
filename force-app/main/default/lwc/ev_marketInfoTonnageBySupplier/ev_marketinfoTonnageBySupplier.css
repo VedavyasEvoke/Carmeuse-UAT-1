@@ -1,0 +1,33 @@
+.slds-table {
+    width: 100%;  
+}
+
+.slds-table th, .slds-table td {
+    text-align: left; 
+    padding: 0.75rem;  
+}
+
+.custom-accordion-section .slds-accordion__section-content {
+    padding: 0;  
+}
+.custom-text {
+    font-size: 1.2rem; /* Adjust size as needed */
+}
+
+.bold-text {
+    font-weight: bold; /* Ensure text is bold */
+}
+
+.slds-text-title_bold {
+    font-weight: bold;
+}
+
+.slds-m-top_medium {
+    margin-top: 1rem;
+}
+
+.slds-truncate {
+    white-space: nowrap;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,23 @@
+/* .startDatePicker {
+    
+} */
+
+.endDatePicker {
+    padding-left: 10px;
+}
+
+.searchField {
+    padding-left: 10px;
+}
+
+.invoiceTable lightning-datatable div div div {
+    width: 100% !important;
+}
+
+.textAlign {
+    text-align: center;
+}
+
+.recordCount {
+    color:rgb(128, 128, 128);
+}

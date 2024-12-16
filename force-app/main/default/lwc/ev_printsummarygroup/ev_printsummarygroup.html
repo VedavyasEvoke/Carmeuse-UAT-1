@@ -1,0 +1,211 @@
+<template>
+<lightning-card>
+    <div class="line"></div>
+<div class="controls">
+<div class="control-icon" onclick={handleFirst}>
+                    <lightning-button-icon icon-name="utility:left" alternative-text="Backward"></lightning-button-icon>
+                </div>
+                <div class="control-icon" onclick={handleBackward}>
+                    <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Back"></lightning-button-icon>
+                </div>
+                <span class="current-page-box">{currentPage}</span>
+                <span class="pagination-text">of</span>
+                <span class="total-pages-box">{totalPages}</span>
+                <span class="pagination-text">?</span>
+                <div class="control-icon" onclick={handleForward}>
+                    <lightning-button-icon icon-name="utility:chevronright" alternative-text="Forward"></lightning-button-icon>
+                </div>
+                <div class="control-icon" onclick={handleLast}>
+                    <lightning-button-icon icon-name="utility:right" alternative-text="Forward"></lightning-button-icon>
+                </div>
+                <div class="line-vertical"></div>
+                <div class="control-icon" onclick={handleRefresh}>
+                    <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh"></lightning-button-icon>
+                </div>
+                <div class="line-vertical"></div>
+                <!--<div class="control-icon" onclick={handleBack}>
+                    <lightning-button-icon icon-name="utility:back" alternative-text="Back"></lightning-button-icon>
+                </div>
+                <div class="line-vertical"></div>-->
+                <!--<div class="resolution-dropdown">
+                    <lightning-combobox
+                        options={resolutionOptions}
+                        onchange={handleResolutionChange}
+                    ></lightning-combobox>
+                </div>-->
+                <div class="line-vertical"></div>
+                <!--<lightning-button-icon icon-name="utility:save" alternative-text="Save" onclick={handleSave}></lightning-button-icon>-->
+ <lightning-button-menu alternative-text="Save" icon-name="utility:save" onselect={handleMenuSelect}>
+<lightning-menu-item label="PDF" value="pdf"> </lightning-menu-item>
+<lightning-menu-item label="Excel" value="Excel"> </lightning-menu-item>
+</lightning-button-menu>
+                <div class="line-vertical"></div>
+                <!--<lightning-button-icon icon-name="utility:print" alternative-text="Print" onclick={handlePrint}></lightning-button-icon>-->
+ 
+                <!-- Add the refresh button -->
+            </div>
+            <div class="line"></div>
+ 
+            <div class="header">
+            <div class="logo-and-name">
+            <img src={logoUrl} alt="Logo" class="logo"/>
+            <span class="company-name">
+                CIC - Carmeuse Intelligence<br> &nbsp;&nbsp;on competition Database</span>
+ 
+            </div>
+ 
+            <div class="company-group-name">
+                {selectedGroupName}
+            </div>
+            </div>
+ 
+            <div class="content-container">
+            <div class="table-container">
+            <table class="custom-table">
+            <tr class="blue-background">
+            <td colspan="2">Group lime capacity</td>
+            </tr>
+            <tr>
+            <td>Estimated production t/y:</td>
+            <td> {EstimatedProductionty}</td>
+            </tr>
+            <tr>
+            <td>Nominal capacity t/y:</td>
+            <td> {NominalCapacityTy}</td>
+            </tr>
+            <tr>
+            <td>Free capacity t/y:</td>
+            <td>{FreeCapTy}</td>
+            </tr>
+            <tr>
+            <td>Number of Kilns:</td>
+            <td>{TotalNoKilns}</td>
+            </tr>
+            </table>
+            </div>
+            </div><br><br>
+ 
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+                <thead>
+                    <tr class="slds-line-height_reset" >
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Plant" style="color: white;">Plant</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Activity" style="color: white;">Activity</div>
+                        </th>
+                       
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Annual Extraction tpy" style="color: white;">Annual Extraction tpy</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Quick Lime" style="color: white;">Quick Lime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Dolime" style="color: white;">Dolime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Lime Estimation tpy" style="color: white;">Lime Estimation tpy</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Lime cap tpy" style="color: white;">Lime cap tpy</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="nb klin" style="color: white;">nb klin</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Hydr. Lime" style="color: white;">Hydr. Lime</div>
+                        </th>
+                        <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                            <div class="slds-truncate" title="Hydr. Lime cap tpy" style="color: white;">Hydr. Lime cap tpy</div>
+                        </th>
+                    </tr>
+                 
+                </thead>
+                <tbody>
+                    <template for:each={companiesWithCompetitors} for:item="company">
+                        <thead key={company.Id}>
+                            <tr>
+                                <th class="header-cell" scope="col" style="background-color: #6495ED;">
+                                    <div class="slds-truncate" title={company.Name} style="color: white;">{company.Name}</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <template if:true={company.Competitor__r}>
+                        <template for:each={company.Competitor__r} for:item="competitor">
+                         
+                            <tr key={company.Id}>
+                                                       
+           
+                                <td data-label="plant company" key={company.Id}  scope="col">
+                                                                <div class="slds-truncate" title={competitor.Name}>{competitor.Name}</div>
+                                                            </td>
+                                                           
+                                <td data-label="Competitors" key={company.Id}  scope="col">
+                                     
+                                        <div key={competitor.Id} class="slds-truncate" title={competitor.Activity__c}>
+                                            {competitor.Activity__c}
+                                        </div>
+                                </td>
+                                <td data-label="Competitors" key={company.Id}>
+                                     
+                                        <div key={competitor.Id} class="slds-truncate" title={competitor.Annual_Extraction_t_y__c}>
+                                            {competitor.Annual_Extraction_t_y__c}
+                                        </div>
+                                </td>
+                                     
+                                         
+                                        <td data-label="Aggre">
+                                                                <input type="checkbox" disabled checked={competitor.Quicklime__c}  />
+                                                            </td>
+                           
+                               
+                                 <td data-label="Dolime">
+                                                                <input type="checkbox" disabled checked={competitor.Dolime__c}  />
+                                                            </td>
+                                                             <td data-label="Lime Estimated tpy" key={company.Id}>
+                                                                <div key={competitor.Id} class="slds-truncate" title={competitor.Lime_Est_tpy__c}>
+                                            {competitor.Lime_Est_tpy__c}
+                                        </div>
+                                                            </td>
+                                                             <td data-label="Lime Cap Tpy" key={company.Id}>
+                                                                <div key={competitor.Id} class="slds-truncate" title={competitor.Lime_Cap_tpy__c}>
+                                            {competitor.Lime_Cap_tpy__c}
+                                        </div>
+                                                            </td>
+                                                              <td data-label="HydLime">
+                                                                <input type="checkbox" disabled checked={competitor.Hydrated_Lime__c}  />
+                                                            </td>
+                                                             <td data-label="Hyd_Cap_Ty">
+                                                                <input type="checkbox" disabled checked={competitor.Hyd_Cap_T_y__c}  />
+                                                            </td>
+                                 
+                               <td data-label="Hydrated Limecap_t y" key={company.Id}>
+                                                                <div key={competitor.Id} class="slds-truncate" title={competitor.Hydrated_Limecap_t_y__c}>
+                                            {competitor.Hydrated_Limecap_t_y__c}
+                                        </div>
+                                                            </td>
+                               
+                               
+                            </tr>
+                           
+                       
+                         </template>
+                         </template>
+                         <template if:false={company.Competitor__r}>
+                         
+                                <tr key={company.Id}>
+                                    <td colspan="9">
+                                        No plants for this company
+                                    </td>
+                                </tr>
+                           
+                        </template>
+                    </template>
+                </tbody>
+            </table>
+ 
+               
+            <div class="line"></div>
+            </lightning-card>
+            </template>

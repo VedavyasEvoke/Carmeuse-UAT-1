@@ -1,0 +1,35 @@
+<apex:page standardController="Account">
+    <style type="text/css">
+        #powerBIframe {
+            height: 45vw;
+            zoom: 1.0;
+        }
+        @-moz-document url-prefix() {
+            #powerBIframe {
+                transform: scale(1.25);
+                transform-origin: 50% 0;
+            }
+        }
+        .button-container {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+    </style>
+    
+    <!-- Button Container -->
+    <div class="button-container">
+        <button onclick="openPopout()">Explore in New Window</button>
+    </div>
+    
+    <!-- Iframe for Power BI Report with Merge Field as Filter -->
+    <iframe id="powerBIframe" 
+        src="https://app.powerbi.com/reportEmbed?reportId=cadb9a8d-2717-4d89-852d-ad754236e398&autoAuth=true&ctid=02baf972-dbc1-4d23-ba9d-8cb2cac30c59&$filter=Dim_Customer/Customer_x0020_SoldTo_x0020_Code eq '{!Account.SAP_ID__c}'" 
+        frameborder="0" width="100%"></iframe>
+    
+    <script>
+        function openPopout() {
+            var url = document.getElementById('powerBIframe').src;
+            window.open(url, '_blank', 'width=800,height=650,resizable=yes,scrollbars=no');
+        }
+    </script>
+</apex:page>

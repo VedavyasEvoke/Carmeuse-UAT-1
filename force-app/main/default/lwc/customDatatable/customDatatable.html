@@ -1,0 +1,86 @@
+<template>
+	<table class="slds-table slds-table_cell-buffer slds-table_bordered"
+		aria-labelledby="element-with-table-label other-element-with-table-label">
+		<thead>
+			<tr class="slds-line-height_reset">
+				<template for:each={dtColumns} for:item="column">
+					<th key={column.fieldName} scope="col" data-fieldname={column.fieldName} style={column.style.th}>
+						<div class="slds-cell-wrap" title={column.label}>
+							{column.label}
+							<template lwc:if={column.columnLevelHelp}>
+								&nbsp;&nbsp;<lightning-helptext content={column.columnLevelHelp}>
+								</lightning-helptext>
+							</template>
+						</div>
+					</th>
+				</template>
+			</tr>
+		</thead>
+		<tbody>
+			<template for:each={dtData} for:item="row">
+				<tr key={row} class="row slds-hint-parent">
+					<template for:each={row} for:item="column">
+						<td key={column.fieldName} data-label={column.label} data-fieldname={column.fieldName}>
+							<div class="slds-cell-wrap" title={column.value}>
+								<template lwc:if={column.isText}>
+									<!-- <input class="cellinput" type="text" value={column.value} data-fieldname={column.fieldName}
+									data-keyfieldvalue={column.keyFieldValue} data-required={column.required} onchange={handleCellChange} required={column.required} readonly={column.readOnly}/> -->
+									<lightning-input class="cellinput" type="text" value={column.value}
+										variant="label-hidden" data-fieldname={column.fieldName}
+										data-keyfieldvalue={column.keyFieldValue} data-required={column.required}
+										onchange={handleCellChange} required={column.required}
+										disabled={column.readOnly}></lightning-input>
+								</template>
+								<template lwc:if={column.isNumber}>
+									<!-- <input class="cellinput" type="number" value={column.value} data-fieldname={column.fieldName}
+									data-keyfieldvalue={column.keyFieldValue} data-required={column.required} onchange={handleCellChange} required={column.required} readonly={column.readOnly}/> -->
+									<lightning-input class="cellinput" type="number" value={column.value}
+										variant="label-hidden" data-fieldname={column.fieldName}
+										data-keyfieldvalue={column.keyFieldValue} data-required={column.required}
+										onblur={handleCellChange} required={column.required}
+										disabled={column.readOnly}></lightning-input>
+								</template>
+								<template lwc:if={column.isCombobox}>
+									<lightning-combobox variant="label-hidden" value={column.value}
+										options={column.options} data-fieldname={column.fieldName}
+										data-keyfieldvalue={column.keyFieldValue} data-required={column.required}
+										onchange={handleCellChange} disabled={column.readOnly}
+										required={column.required}>
+									</lightning-combobox>
+								</template>
+								<template lwc:if={column.isCheckbox}>
+									<lightning-input type="checkbox" variant="label-hidden" checked={column.value}
+										data-fieldname={column.fieldName} data-keyfieldvalue={column.keyFieldValue}
+										data-required={column.required} onchange={handleCellChange}
+										disabled={column.readOnly} required={column.required}>
+									</lightning-input>
+								</template>
+								<template lwc:if={column.isDecimal}>
+									<template lwc:if={column.minValue}>
+										<!-- <input class="cellinput" type="number" step=".01" value={column.value} min={column.minValue} data-fieldname={column.fieldName}
+										data-keyfieldvalue={column.keyFieldValue} data-required={column.required} onchange={handleCellChange} required={column.required} readonly={column.readOnly}/> -->
+										<lightning-input class="cellinput" type="number" step=".01" value={column.value}
+											variant="label-hidden" min={column.minValue}
+											data-fieldname={column.fieldName} data-keyfieldvalue={column.keyFieldValue}
+											data-required={column.required} onblur={handleCellChange}
+											required={column.required} disabled={column.readOnly}>
+										</lightning-input>
+									</template>
+									<template lwc:else>
+										<!-- <input class="cellinput" type="number" step=".01" value={column.value} data-fieldname={column.fieldName}
+										data-keyfieldvalue={column.keyFieldValue} data-required={column.required} onchange={handleCellChange} required={column.required} readonly={column.readOnly}/> -->
+										<lightning-input class="cellinput" type="number" step=".01" value={column.value}
+											variant="label-hidden" data-fieldname={column.fieldName}
+											data-keyfieldvalue={column.keyFieldValue} data-required={column.required}
+											onblur={handleCellChange} required={column.required}
+											disabled={column.readOnly}></lightning-input>
+									</template>
+								</template>
+							</div>
+						</td>
+					</template>
+				</tr>
+			</template>
+		</tbody>
+	</table>
+</template>

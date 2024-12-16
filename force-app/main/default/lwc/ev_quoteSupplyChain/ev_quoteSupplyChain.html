@@ -1,0 +1,67 @@
+<template>
+    <template if:true={quotes.data} for:each={quotes.data} for:item="qt">
+      <lightning-card key={qt.Id} variant="Narrow" >
+        <div class="slds-grid slds-gutters">
+          
+          <div class="header">
+            <div class="slds-m-top_small logo-and-name">
+            <img src={logo} alt="Logo" class="logo logo-small"/></div></div>
+       
+    <div class="slds-align_absolute-center">
+        
+            <div>
+                <span class="company-name content">Supply Chain Information</span>
+            </div>
+        
+    </div>
+        
+      </div>
+        
+        <div class="slds-grid slds-gutters">
+           <div class="slds-col slds-size_6-of-12 slds-size_5-of-12 ">
+           
+            <div class="slds-m-left_medium ">
+            <lightning-input type="checkbox" label="Freight Request" data-id={qt.Id} data-field="Freight_Request__c" onchange={handleOnChange} checked={qt.Freight_Request__c}></lightning-input><br>
+            <lightning-input type="checkbox" label="Urgent" data-id={qt.Id} data-field="Urgent__c" onchange={handleOnChange} checked={qt.Urgent__c}></lightning-input>
+            <lightning-combobox label="SE Shipping Condition" data-id={qt.Id} data-field="SE_Shipping_Condition__c" onchange={handleOnChange} value={qt.SE_Shipping_Condition__c} options={shippingConditionOptions}></lightning-combobox>
+             <lightning-combobox label="Currency" data-id={qt.Id} data-field="CurrencyIsoCode" onchange={handleOnChange} value={qt.CurrencyIsoCode} options={currencyOptions}></lightning-combobox>
+             <lightning-textarea label="C3S Description" data-id={qt.Id} data-field="C3S_Description__c" onchange={handleOnChange} value={qt.C3S_Description__c}></lightning-textarea>
+            <lightning-input type="text" label="Address" data-id={qt.Id} data-field="Address__c" onchange={handleOnChange} value={qt.Address__c}></lightning-input>
+            <lightning-input type="text" label="Receiving Days and Hours" data-id={qt.Id} data-field="Receiving_days_and_Hours__c" onchange={handleOnChange} value={qt.Receiving_days_and_Hours__c}></lightning-input>
+            <lightning-input type="number" label="SE Est. Total Quantity" data-id={qt.Id} data-field="SE_Est_Total_Quantity__c" onchange={handleOnChange} value={qt.SE_Est_Total_Quantity__c}></lightning-input>
+            <lightning-input type="number" label="SE Est. Quantity/Del" data-id={qt.Id} data-field="SE_Est_Quantity_Del__c" onchange={handleOnChange} value={qt.SE_Est_Quantity_Del__c}></lightning-input>
+            <lightning-input type="text" label="Secondary Carrier Name" data-id={qt.Id} data-field="Secondary_Carrier_Name__c" onchange={handleOnChange} value={qt.Secondary_Carrier_Name__c}></lightning-input>
+            <lightning-input type="date" label="Valid From" data-id={qt.Id} data-field="Valid_From__c" onchange={handleOnChange} value={qt.Valid_From__c}></lightning-input>
+          </div>  </div>
+          <div class="slds-col slds-size_6-of-12 slds-size_5-of-12">
+            
+              <div class="slds-m-right_medium">
+                
+            <lightning-input type="checkbox" label="Freight Ready (Supply Chain)" data-id={qt.Id} data-field="Freight_Ready_Supply_Chain__c" onchange={handleOnChange} checked={qt.Freight_Ready_Supply_Chain__c}></lightning-input><br>
+            <lightning-input type="checkbox" label="Freight Approved (Supply)" data-id={qt.Id} data-field="Freight_Approved_Supply__c" onchange={handleOnChange} checked={qt.Freight_Approved_Supply__c}></lightning-input>
+             <lightning-combobox label="SE Shipping Type"  data-id={qt.Id} data-field="SE_Shipping_Type__c" onchange={handleOnChange} value={qt.SE_Shipping_Type__c} options={shippingTypeOptions}></lightning-combobox>
+             <lightning-combobox label="Per Ton or Flat" data-id={qt.Id} data-field="Per_ton_or_Flat__c" onchange={handleOnChange} value={qt.Per_ton_or_Flat__c} options={perTonOrFlatOptions}></lightning-combobox>
+             <lightning-textarea label="Description (Supply Chain Only)" data-id={qt.Id} data-field="Description_Suply_Chain_Only__c" onchange={handleOnChange} value={qt.Description_Suply_Chain_Only__c}></lightning-textarea>
+            <lightning-input type="number" formatter="percent-fixed" step="0.01" label="Primary Rate" data-id={qt.Id} data-field="Primary_rate__c" onchange={handleOnChange} value={qt.Primary_rate__c} helptext="Enter primary rate as a percentage"></lightning-input>
+            <lightning-input type="number"  formatter="currency" label="Rate" data-id={qt.Id} data-field="Rate__c" onchange={handleOnChange} value={qt.Rate__c}></lightning-input>
+            <lightning-input type="text" label="Carrier Name" data-id={qt.Id} data-field="Carrier_Name__c" onchange={handleOnChange} value={qt.Carrier_Name__c}></lightning-input>
+            <lightning-input type="number" label="Min. Ton" data-id={qt.Id} data-field="Min_Ton__c" onchange={handleOnChange} value={qt.Min_Ton__c}></lightning-input>
+            <lightning-input type="number" label="Secondary Rate" data-id={qt.Id} data-field="Secondary_Rate__c" onchange={handleOnChange} value={qt.Secondary_Rate__c}></lightning-input>
+           <lightning-input type="date" label="Valid To" data-id={qt.Id} data-field="Valid_To__c" onchange={handleOnChange} value={qt.Valid_To__c}></lightning-input>
+
+          </div>
+           </div>
+        </div>
+        <div></div>
+             
+                      <div class="button-container">
+    <lightning-button class="slds-m-top_medium" variant="brand" label="Submit" onclick={handleSave}></lightning-button>&nbsp;&nbsp;
+    <template if:true={UserId}>
+        <lightning-button  class="slds-m-top_medium" variant="brand" label="Submit & Send Email" onclick={handleSaveandSendemail}></lightning-button>
+    </template>
+</div>
+
+              
+      </lightning-card>
+    </template>
+  </template>

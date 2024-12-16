@@ -1,0 +1,66 @@
+<template>
+    <lightning-card title="Lime Tonnage by Supplier (last year)">
+        <br><br>
+        <template if:true={competitors}>
+            <div class="slds-grid slds-grid_vertical-align-center slds-m-around_small">
+                <div class="slds-col slds-size_1-of-3">
+                    <strong>Competitor</strong>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <strong>Crude Tonnage</strong>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <strong>Burnt Tonnage</strong>
+                </div>
+            </div>
+            <lightning-accordion allow-multiple-sections-open>
+                <template for:each={competitors} for:item="competitor">
+                    <lightning-accordion-section name={competitor.CompetitorName}
+                      label={competitor.label}
+                      key={competitor.CompetitorName}
+                      class="custom-accordion-section">
+                      <template for:each={competitor.Plants} for:item="plant">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-m-around_small" key={plant.PlantName}>
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-truncate" title={plant.PlantName}>{plant.PlantName}</div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-truncate" title={plant.FormattedCrudeTonnage}>{plant.FormattedCrudeTonnage}</div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <div class="slds-truncate" title={plant.FormattedBurntTonnage}>{plant.FormattedBurntTonnage}</div>
+                            </div>
+                        </div>
+                      </template>
+                      <template if:false={competitor.Plants.length}>
+                          <div class="slds-grid slds-grid_vertical-align-center slds-m-around_small">
+                              <div class="slds-col">
+                                  <p>No plants found for this competitor.</p>
+                              </div>
+                          </div>
+                      </template>
+                    </lightning-accordion-section>
+                </template>
+            </lightning-accordion>
+
+            <!-- Display total tonnage outside the accordion -->
+            <div class="slds-m-top_medium">
+                <div class="slds-grid slds-grid_vertical-align-center slds-m-around_small">
+                    <div class="slds-col slds-size_1-of-3 slds-text-title_bold">
+                        Total 
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                          <strong>{formattedTotalCrudeTonnage}</strong>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-3">
+                        <strong>{formattedTotalBurntTonnage}</strong>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={error}>
+            <p>Error: {error}</p>
+        </template>
+    </lightning-card>
+</template>

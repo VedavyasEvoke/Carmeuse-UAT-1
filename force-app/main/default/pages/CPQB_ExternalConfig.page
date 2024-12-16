@@ -1,0 +1,111 @@
+<apex:page sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" standardStylesheets="false">
+  <html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <title>Salesforce CPQ External Config</title>
+    
+    <apex:includeLightning />
+        <style>
+        * {margin:0px; padding:0px;}
+        </style>
+  </head>
+
+
+  <body>
+    <!-- This is it, all we need is a div to host our LEX app -->
+    <div id="ext-config"></div>
+    <div id="componentId" />
+
+  </body>
+
+<!-- easyXDM.min.js compiled and minified JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/easyXDM/2.4.20/easyXDM.min.js" crossorigin="anonymous" ></script>
+    <!-- adds the scripts to let us render Lightning components in Visualforce -->
+  <!-- easyXDM and Lightning for VF for passing config data to/from Salesforc CPQ -->
+  <script type="text/javascript">
+
+    var rpc = new easyXDM.Rpc({}, {
+      // method defined in Salesforce CPQ
+      remote: {
+        postMessage: {}
+      },
+
+      local: {
+        postMessage: function (message) {
+          console.log("External Config JSON Recieved");
+            //console.log(message);
+          configuredObject = JSON.parse(message);
+            //console.log("External Config JSON Recieved 1");
+          console.log(configuredObject);
+         // Options = JSON.stringify(configuredObject.product.optionConfigurations);
+          var options = configuredObject.product.optionConfigurations["Other Options"];
+            //console.log('options1'+options.length);
+          
+            /*var options2 = [{
+          "optionId": "a0oHn0000086BRZIA2",
+          "selected": true,
+          "ProductCode": "wific002",
+          "ProductName": "WiFi Cable - 10 meter",
+          "Quantity": 1,
+          "configurationData": {},
+          "readOnly": {}
+        }];*/
+        //configuredObject.product.optionConfigurations["Other Options"]=options2;
+            //console.log('options2'+configuredObject.product.optionConfigurations["Other Options"].length);
+          // Lightning out/for VF to host our custom config UI
+            
+            
+            /* $Lightning.use("c:CPQB_ExtConfigApp", function () {
+            $Lightning.createComponent("c:CPQB_ExtConfig", { configData: JSON.stringify(configuredObject)},
+              "ext-config",
+              function () {
+                $A.eventService.addHandler({ "event": "c:ConfigEvent", "handler": broadcast });
+              }
+            );
+          }); */
+            
+            document.addEventListener("configevent", function(event){
+                console.log('VF --> Output');
+                console.log(event);
+                rpc.postMessage(event.detail.configData);
+            });
+             $Lightning.use("c:cpqb_SurchargeConfigApp", function() {
+                $Lightning.createComponent("c:cpqb_SurchargeConfig",
+                { 
+                    recordId : configuredObject.quote.Id,
+                    productId : configuredObject.product.configuredProductId,
+                    configAttrJSON : JSON.stringify(configuredObject.product.configurationAttributes),
+                    productJSON : JSON.stringify(configuredObject.product.optionConfigurations),
+                    configData: JSON.stringify(configuredObject),
+                    quoteJSON : JSON.stringify(configuredObject.quote),
+                    quoteCurrency : configuredObject.quote.CurrencyIsoCode,
+                    quotePricebook : configuredObject.quote.SBQQ__PricebookId__c
+                },
+                "componentId",)
+            });  
+            
+            
+        }
+      }
+    });
+
+    // Broadcast function back to Salesforce CPQ to create the config
+    var broadcast = function (event) {
+      console.log(event);
+      var data = event.getParam("configData");
+      console.log(data);
+      rpc.postMessage(data);
+    }
+    
+     document.addEventListener("broadcast", function(event){
+            console.log('vf event data window listener => ', JSON.stringify(event.detail));
+         // rpc.postMessage(data);
+        });
+            
+  </script>
+
+  </html>
+</apex:page>

@@ -1,0 +1,76 @@
+<template>
+    <div class="chart slds-m-around_medium" lwc:dom="manual"></div>
+    <section
+      id="modal"
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open slds-hide">
+    <div class="slds-modal__container">
+      <header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+          {label.Order_Delivery_Group_Modal_Header}
+        </h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1" >
+       
+        <div class="" style="width:400px">
+          <template if:true={isExtendedEntitlementPresent}>
+            <div class="slds-form">
+              <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" for="unique-id-of-quote">
+                    <abbr class="slds-required" title="required">* </abbr>{label.Order_Delivery_Group_Modal_Quote_Number}</label>
+                    <div class="slds-form-element__control">
+                    <lightning-combobox
+                          name="quoteNumber"
+                          placeholder="Choose Quote Number"
+                          value={value}
+                          onchange={handleChange}
+                          options={extendedEntitlements}
+                          class="quoteCmp" >
+                    </lightning-combobox>                   
+                    </div>
+              </div>
+              <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" >
+                    {label.Order_Delivery_Group_Modal_Quantity}</label>
+                <div class="slds-form-element__control">
+                      {quantity}
+                </div>
+              </div>
+              <div class="slds-form-element slds-form-element_horizontal">
+                  <label class="slds-form-element__label" >
+                    {label.Order_Delivery_Group_Modal_Delivery_Date}</label>
+                <div class="slds-form-element__control">
+                      {desiredDeliveryDate}
+                </div>
+              </div>
+              <div class="slds-form-element slds-form-element_horizontal">                    
+                <div class="slds-form-element__control">
+                      <lightning-button
+                      type="submit"
+                      label={label.Order_Delivery_Group_Modal_Update_Button}
+                      class="slds-m-top_medium" onclick={handleUpdate} >
+                  </lightning-button>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template if:false={isExtendedEntitlementPresent}>
+            <div>{label.Order_Delivery_Group_Modal_Extended_Entitlement_Not_Present}</div>
+          </template>
+        </div>
+      </div>
+      <footer class="slds-modal__footer slds-modal__footer_directional">
+        <button class="slds-button slds-button_neutral" onclick={handleClose}>
+          {label.Order_Delivery_Group_Modal_Delivery_Close_Button}
+        </button>
+      </footer>
+    </div>
+    </section>
+    <div
+      class="slds-backdrop slds-backdrop_open slds-hide modalBackdrops" id="modalBackdrops">
+    </div>
+  </template>

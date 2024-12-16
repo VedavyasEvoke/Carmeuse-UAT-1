@@ -1,0 +1,59 @@
+<template>
+    
+        <lightning-accordion-section key ={productInstance.productCode}  
+                                    name={productInstance.productCode}
+                                    label={accordionSectionLabel}>
+        <lightning-accordion allow-multiple-sections-open 
+                                    active-section-name={activeSections}>
+            <template for:each={productInstance.orderDeliveryGroupSummaryWrapperHeaderList} 
+                        for:item = "eachDeliveryDateWrapper">
+                <div key ={eachDeliveryDateWrapper.desiredDeliveryDateStr} class = "slds-box">
+                    <div class = "slds-grid slds-wrap">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <p>
+                                    <b>{label.Amend_Order_L2_Ship_To_Address} </b> {eachDeliveryDateWrapper.deliverToName} {eachDeliveryDateWrapper.deliverToStreet} {eachDeliveryDateWrapper.deliverToCity} {eachDeliveryDateWrapper.deliverToState} {eachDeliveryDateWrapper.deliverToCountry} {eachDeliveryDateWrapper.deliverToPostalCode} 
+                                </p>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12">
+                            <span><b>{label.Amend_Order_L2_Requested_Delivery_Date} </b> {eachDeliveryDateWrapper.desiredDeliveryDateStr}</span>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12">
+                            <span><b>{label.Amend_Order_L2_Shipping_Mode} </b> {eachDeliveryDateWrapper.shippingMode} </span>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12">
+                            <span><b>{label.Amend_Order_L2_Deliveries_Required} </b> {eachDeliveryDateWrapper.quantity}</span>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12">
+                            <span><b>{label.Amend_Order_L2_Load_Volume} </b> {eachDeliveryDateWrapper.loadVolume}</span>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12">
+                            <span if:false={isGallonShipTo}><b>{label.Amend_Order_L2_Tonnage} </b>{eachDeliveryDateWrapper.shipmentTonnage} </span>
+                            <span if:true={isGallonShipTo}><b>{label.Amend_Order_L2_Gallon} </b>{eachDeliveryDateWrapper.shipmentTonnage} </span>
+                        </div>
+                        <div class="slds-col slds-size_4-of-12">
+                            <span><b>{label.Amend_Order_L2_PO_Number} </b>{eachDeliveryDateWrapper.poNumber}  </span>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12">
+                            <span><b>{label.Amend_Order_L2_Delivery_Text} </b>{eachDeliveryDateWrapper.deliveryText} </span>
+                        </div>
+                    </div>
+
+                    <lightning-accordion-section 
+                                    name={productInstance.productCode}
+                                    label=''
+                                    if:true={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}>
+                            <c-carmeuse-amend-order-summery-line-item each-delivery-date-wrapper ={eachDeliveryDateWrapper} 
+                                                            product-code = {productInstance.productCode} 
+                                                            account-id = {accountId}  >
+
+                            </c-carmeuse-amend-order-summery-line-item>
+                    </lightning-accordion-section>
+                </div>
+                    
+            </template>
+            </lightning-accordion>
+        </lightning-accordion-section>
+   
+</template>

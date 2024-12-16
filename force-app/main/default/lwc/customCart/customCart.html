@@ -1,0 +1,21 @@
+<template>
+    <lightning-card icon-name="standard:account" variant="base">
+        <div slot="title">
+            Add Product To Cart
+        </div>
+        <div>
+            <!-- Card Body  -->
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="search" onchange={handleKeyChange} label="Search" value={searchKey}
+                        placeholder="Enter the SKU" class="slds-m-bottom_small"></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-button variant="neutral" label="Add to Cart" title="Add to Cart"
+                        onclick={handleClick}></lightning-button>
+                </div>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

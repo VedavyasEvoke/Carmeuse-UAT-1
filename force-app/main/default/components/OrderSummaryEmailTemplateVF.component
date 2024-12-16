@@ -1,0 +1,30 @@
+<apex:component controller="ConfirmedOrderDeliveryGroup" access="global">
+    <style>
+        tbody{text-align:center}
+        .tpadding{padding-right:12px;padding-left:12px}
+    </style>
+    <apex:attribute name="orderSumarryId" type="Id" description="Id of Order Sumarry" assignTo="{!osId}"/>
+    <table border="1px" width="70%" >
+        <tr>
+            <th>Order Delivery Group Number</th>
+            <th>Material Description</th>
+            <th>PO Number</th>
+            <th>Access Code</th>
+            <th>Desired Delivery Date</th>
+            <th>Requested Tonnage/Gallon</th> 
+        </tr>                    
+        <apex:repeat value="{!lstOrderItems}" var="odg" >
+            <tr>
+                <td class="tpadding">{!odg.OrderDeliveryGroup.OrderDeliveryGroupNumber}</td>
+                <td class="tpadding">{!odg.Product2.Name}</td>
+                <td class="tpadding">{!odg.OrderDeliveryGroup.PONumber__c}</td>                       
+                <td class="tpadding">{!odg.OrderDeliveryGroup.AccessCode__c}</td>
+                <td class="tpadding">
+                    <apex:outputText value="{0,date,MM/dd/yyyy}">
+                        <apex:param value="{!odg.OrderDeliveryGroup.DesiredDeliveryDate}" /> 
+                    </apex:outputText></td>
+            	<td class="tpadding">{!odg.OrderDeliveryGroup.ShipmentTonnage__c}</td>
+            </tr>                
+        </apex:repeat>
+    </table>
+</apex:component>

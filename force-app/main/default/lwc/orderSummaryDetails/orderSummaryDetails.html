@@ -1,0 +1,54 @@
+<template>
+    <div class="slds-text-heading_large">Order Summaries</div>
+    &nbsp;
+    <div class="slds-grid slds-wrap">
+        <lightning-input name="input"
+                         type="search"
+                         onchange={handleSearch}
+                         onkeypress={keycheck}
+                         placeholder="Search for Access Code or PO"
+                         class="slds-col slds-size_6-of-12"
+                         variant="label-hidden">
+        </lightning-input>
+        <lightning-button label="Search"
+                          type="search"
+                          onclick={handleSearchKeyword}
+                          variant="brand"
+                          class="slds-var-p-left_large slds-col slds-size_2-of-12">
+        </lightning-button>
+        </div>
+        &nbsp;
+        <lightning-accordion allow-multiple-sections-open={True} active-section-name={activeSections}>
+            <template for:each={orderSummaryRecords} for:item="Order">
+                <div key={Order.Id} class="slds-box">
+                    <lightning-accordion allow-multiple-sections-open={True} 
+                                         active-section-name={activeSections}>
+                        <lightning-accordion-section label={Order.OrderNumber}>
+                            <c-order-details record-id={Order.Id}>
+                            </c-order-details>
+                            <c-carmeuse-cancel-order-summary record-id={Order.Id} 
+                                                            effective-account-id={effectiveAccountId}>
+                            </c-carmeuse-cancel-order-summary>
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                </div>
+            </template>
+        </lightning-accordion>
+       <div if:true={isNext} class="slds-utility-bar slds-align_absolute-center">
+        <lightning-button label="Previous"
+                          onclick={previousFound}
+                          variant="brand-outline"
+                          class="slds-var-p-right_small">
+        </lightning-button>
+        <lightning-button label="Go To Top"
+                          onclick={scrollToTop}
+                          variant="brand-outline"
+                          class="slds-var-p-right_small">
+        </lightning-button>
+        <lightning-button label="Next"
+                          type="search"
+                          onclick={handleSearchKeyword}
+                          variant="brand-outline">
+    </lightning-button>
+    </div>
+</template>

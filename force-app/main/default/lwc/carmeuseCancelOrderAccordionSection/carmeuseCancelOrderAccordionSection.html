@@ -1,0 +1,61 @@
+<template>
+        <lightning-accordion allow-multiple-sections-open={True}
+        active-section-name={activeSections}>
+            <lightning-accordion-section key ={productInstance.productCode}
+                                                name={productInstance.productCode}
+                                                label={accordionSectionLabel}>
+                <template for:each={productInstance.orderDeliveryGroupSummaryWrapperHeaderList}
+                            for:item = "eachDeliveryDateWrapper">
+                    <div key ={eachDeliveryDateWrapper.desiredDeliveryDateStr} class = "slds-box">
+                        <div class = "slds-grid slds-wrap">
+                            <div class="slds-col slds-size_6-of-12">
+                                <span>
+                                    <p>
+                                        <b>{label.Order_Detail_Ship_To_Address}:</b> {eachDeliveryDateWrapper.deliverToName} {eachDeliveryDateWrapper.deliverToStreet} {eachDeliveryDateWrapper.deliverToCity} {eachDeliveryDateWrapper.deliverToState} {eachDeliveryDateWrapper.deliverToCountry} {eachDeliveryDateWrapper.deliverToPostalCode}
+                                    </p>
+                                </span>
+                            </div>
+                            <div class="slds-col slds-size_6-of-12">
+                                <span><b>{label.Order_Detail_Requested_Delivery_Date}:</b> {eachDeliveryDateWrapper.desiredDeliveryDateStr}</span>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <span><b>{label.Order_Detail_Shipping_Mode}:</b> {eachDeliveryDateWrapper.shippingMode} </span>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <span><b>{label.Order_Detail_Deliveries_Required}:</b> {eachDeliveryDateWrapper.quantity}</span>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <span><b>{label.Order_Detail_Load_Volume}:</b> {eachDeliveryDateWrapper.loadVolume}</span>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <span if:false={isGallonShipTo}><b>{label.Order_Detail_Tonnage}: </b>{eachDeliveryDateWrapper.shipmentTonnage} </span>
+                                <span if:true={isGallonShipTo}><b>{label.Order_Detail_Gallon}:</b>{eachDeliveryDateWrapper.shipmentTonnage} </span>
+                            </div>
+                            <div class="slds-col slds-size_4-of-12">
+                                <span><b>{label.Order_Detail_PO_Number}:</b> {eachDeliveryDateWrapper.poNumber}</span>
+                            </div>
+                            <div class="slds-col slds-size_12-of-12">
+                                <span><b>{label.Order_Detail_Delivery_Text}:</b> {eachDeliveryDateWrapper.deliveryText} </span>
+                            </div>
+                        </div>
+                        <lightning-accordion allow-multiple-sections-open={True}
+                        active-section-name={activeSections}>
+                        <lightning-accordion-section
+                                        name={productInstance.productCode}
+                                        label=''
+                                        if:true={eachDeliveryDateWrapper.orderDeliveryGroupSummaryWrapperList}>
+                                <c-carmeuse-cancel-order-summery-line-item each-delivery-date-wrapper-clone ={eachDeliveryDateWrapper}
+                                                                product-code = {productInstance.productCode}
+                                                                order-id={orderId}
+                                                                delivery-date ={eachDeliveryDateWrapper.desiredDeliveryDateStr}
+                                                                shipping-mode={eachDeliveryDateWrapper.shippingMode}
+                                                                effective-account-id={effectiveAccountId}
+                                                                is-owner={isOwner}>
+                                </c-carmeuse-cancel-order-summery-line-item>
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                    </div>
+                </template>
+        </lightning-accordion-section>
+    </lightning-accordion>
+    </template>

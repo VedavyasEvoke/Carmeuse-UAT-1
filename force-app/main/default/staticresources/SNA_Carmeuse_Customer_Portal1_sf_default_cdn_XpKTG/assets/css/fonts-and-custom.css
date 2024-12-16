@@ -1,0 +1,72 @@
+@font-face {
+font-family: 'tahomaregular';
+src: url('/sfsites/c/resource/TahomaRegularFont') format('truetype');
+}
+.slds-button_brand:hover
+{
+    background-color:#CD6011 !important;
+}
+
+.slds-button--neutral a:hover
+{
+    color:#CD6011 !important;
+}
+
+.slds-button_neutral:hover
+{
+    color:#CD6011 !important;
+} 
+
+.branding-actions:hover{
+     color:#CD6011 !important;
+}
+
+.uiMenuItem a:hover .forceActionLink{
+    color:#CD6011 !important;
+}
+
+.price-unavailable {
+    display: none !important;
+}
+
+.previewerAction[title='View File Details'] {
+    display: none !important;
+}
+
+.forceActionsContainer a[title='Show More'] {
+    display: none !important;
+}
+
+.forceActionsContainer button[title='Public Link'] {
+    display: none !important;
+}
+
+.forceRelatedListCardHeader span[title='Files'],
+.forceRelatedListCardHeader span[title='Files'] + span {
+    pointer-events: none !important;
+}
+
+.forceRelatedListCardHeader a[href*='AttachedContentDocuments'] {
+    pointer-events: none !important;
+}
+
+.quantity-selector {
+    display: none !important;
+}
+
+.slds-file-selector__dropzone--integrated {
+    display: none !important;
+}
+
+.slds-file-selector__dropzone {
+    display: none !important;
+}
+
+.settingsEmail {
+    pointer-events: none !important;
+}
+
+commerce_checkout-address-selector .slds-radio_faux {
+    display: none !important;
+}
+:root { --dxp-c-section-columns-max-width: 1170px; }

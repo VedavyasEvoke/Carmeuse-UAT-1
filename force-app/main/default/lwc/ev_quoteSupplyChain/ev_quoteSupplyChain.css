@@ -1,0 +1,63 @@
+.dummy{
+	color : black;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.logo-container {
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.logo-container img {
+    width: 40px;
+    height: auto;
+}
+
+.logo-and-name {
+    display: flex;
+    align-items: right;
+}
+
+.logo {
+    /* Adjust the width and height as needed */
+    width: 150px;
+    height: auto;
+    margin-right: 10px;
+}
+.logo-small {
+    width: 100px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+.company-name {
+    font-size: 30px;
+    color: #000075;
+    margin-top: 0;
+    /* Remove top margin to align with the logo */
+    font-weight: bold;
+}
+.content {
+    text-align: center;
+}
+
+.slds-float_right {
+    float: right;
+}
+.colsize{
+    width: 400px;
+    height: 30px;
+}
+.colsizee{
+    width: 400px;
+    height: 30px;
+}
+.button-container {
+    display: flex;
+    justify-content: center;  
+    align-items: center; 
+    height: 100%;  
+}

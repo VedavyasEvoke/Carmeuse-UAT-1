@@ -1,0 +1,21 @@
+.custom-container{
+	color : black;
+}
+.custom-accordion-section .slds-accordion__summary {
+    font-weight: bold;
+}
+.custom-heading {
+    padding-right: 20px; /* Adjust space on the right of the first heading */
+    padding-left: 20px;  /* Adjust space on the left of the second heading */
+}
+.child-account-row:nth-child(odd) {
+    background-color: #f4f6f9; /* Light grey color for odd rows */
+}
+
+.child-account-row:nth-child(even) {
+    background-color: #ffffff; /* White color for even rows */
+}
+
+.parent-account-row {
+    background-color: #f4f6f9; /* Light grey color for parent row */
+}

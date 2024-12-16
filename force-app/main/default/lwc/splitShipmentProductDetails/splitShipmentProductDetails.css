@@ -1,0 +1,14 @@
+.alignCenter {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.width {
+    width: 100% !important;
+}
+
+.uploadCSVButton{
+    top: 23.5px !important;
+}

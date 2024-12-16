@@ -1,0 +1,65 @@
+<template>
+    <lightning-card title="Account Order History">
+        <div class="slds-m-around_medium">
+            <div class="slds-grid">
+                <lightning-input 
+                    type="date" 
+                    name="startDate" 
+                    value={startDate}
+                    label="Start Date"
+                    onchange={StartDateChange}
+                    class="slds-size_1-of-6 startDatePicker"
+                >
+                </lightning-input>
+                <lightning-input 
+                    type="date" 
+                    name="endDate" 
+                    value={endDate}
+                    label="End Date"
+                    onchange={EndDateChange}
+                    class="slds-size_1-of-6 endDatePicker"
+                >
+                </lightning-input> 
+                <lightning-input 
+                    type="search" 
+                    onchange={handleKeyChange} 
+                    class="slds-m-bottom_small slds-size_4-of-6 searchField" 
+                    label="Search"
+                    placeholder="Order Number"
+                    value={searchKey}
+                >
+                </lightning-input>
+            </div>
+            <template if:true={accountOrders}>
+                <div class="invoiceTable">
+                    <lightning-datatable
+                    data={accountOrders} 
+                    columns={columns} 
+                    key-field="id"
+                    sorted-by={sortedBy}
+                    sorted-direction={sortedDirection}
+                    onsort={sortColumns}
+                    hide-checkbox-column
+                    >
+                    </lightning-datatable>
+                </div>
+                    </br>
+                    <lightning-layout horizontal-align="space">
+                        <lightning-layout-item flexibility="auto">
+                            <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                            </lightning-button>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto">
+                            <p class="textAlign">Page {page} of {totalPage}</p>
+                            <p class="textAlign recordCount">{numberOfRecords} total records</p>
+                        </lightning-layout-item>
+                        <lightning-layout-item flexibility="auto">
+                            <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                                onclick={nextHandler}></lightning-button>
+                        </lightning-layout-item>
+                    </lightning-layout>
+            </template>
+        </div>
+    </lightning-card>
+    </br>
+</template>

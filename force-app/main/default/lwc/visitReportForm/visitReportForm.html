@@ -1,0 +1,172 @@
+<template>
+    <div class="outer" style="overflow: hidden;">
+        <!-- Form Header -->
+        <div class="slds-modal__header">
+            <h2 class="slds-modal__title slds-hyphenate">Add Visit Report</h2>
+        </div>
+        <!-- Form Body -->
+        <div class="form-content slds-modal__content slds-p-around_small">
+            <template if:true={showSpinner}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+            <template if:false={showSpinner}>
+                <div class="accordions-cont slds-grid slds-wrap slds-gutters_direct">
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-accordion class="accordion">
+                            <lightning-accordion-section class="accordion-section" name="Details" label="Details">
+                                <div class="slds-p-vertical_medium">
+                                    <!-- Other Parent Object Fields -->
+                                    <lightning-record-edit-form object-api-name="Visit_Report__c"
+                                        record-id={visitReport.Id}>
+                                        <lightning-layout multiple-rows>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12"
+                                                large-device-size="6">
+                                                <lightning-input-field variant="label-stacked" field-name="Account__c"
+                                                    name="Account__c" value={visitReport.Account__c}
+                                                    disabled={fields.Account__c.disabled}
+                                                    onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12"
+                                                large-device-size="6">
+                                                <lightning-input-field variant="label-stacked" field-name="Contact__c"
+                                                    name="Contact__c" onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12"
+                                                large-device-size="6">
+                                                <lightning-input-field variant="label-stacked"
+                                                    field-name="Opportunity__c" name="Opportunity__c"
+                                                    value={visitReport.Opportunity__c}
+                                                    disabled={fields.Opportunity__c.disabled}
+                                                    onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12"
+                                                large-device-size="6">
+                                                <lightning-input-field variant="label-stacked"
+                                                    field-name="Meeting_Date__c" name="Meeting_Date__c"
+                                                    onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12">
+                                                <lightning-input-field variant="label-stacked" field-name="Subject__c"
+                                                    name="Subject__c" onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12">
+                                                <lightning-input-field variant="label-stacked" field-name="Minutes__c"
+                                                    name="Minutes__c" onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12">
+                                                <lightning-input-field variant="label-stacked"
+                                                    field-name="Next_steps_actions__c" name="Next_steps_actions__c"
+                                                    onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item class="slds-p-horizontal_small" size="12">
+                                                <lightning-input-field variant="label-stacked"
+                                                    field-name="Description__c" name="Description__c"
+                                                    style="--slds-c-textarea-sizing-min-height: 400px;"
+                                                    onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                        </lightning-layout>
+                                    </lightning-record-edit-form>
+                                </div>
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning-accordion class="accordion">
+                            <lightning-accordion-section class="accordion-section" name="Attachments"
+                                label="Attachments">
+                                <div class="slds-p-vertical_medium slds-p-horizontal_small">
+                                    <lightning-file-upload label="Attach Files" id="AttachFiles" name="AttachFiles"
+                                        multiple onuploadfinished={handleUploadFinished}>
+                                    </lightning-file-upload>
+                                    <div class="files-cont slds-grid slds-wrap slds-m-top_xx-small">
+                                        <template for:each={files} for:item="file">
+                                            <div key={file}
+                                                class="file slds-grid slds-m-around_xx-small slds-p-around_xx-small">
+                                                <lightning-icon icon-name={file.iconName} size="x-small">
+                                                </lightning-icon>
+                                                <a class="file-name" href={file.href}>{file.name}</a>
+                                                <lightning-icon class="file-delete-btn" icon-name="utility:close"
+                                                    size="x-small" data-documentid={file.documentId}
+                                                    onclick={handleDelFile}></lightning-icon>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <lightning-accordion class="accordion">
+                            <lightning-accordion-section class="accordion-section" name="SiteVisitAssignees"
+                                label="Site Visit Assignees">
+                                <!-- Child Object Fields -->
+                                <div class="slds-p-vertical_medium slds-p-horizontal_small">
+                                    <lightning-record-edit-form object-api-name="Visit_Report__c"
+                                        record-id={visitReport.Id}>
+                                        <lightning-layout multiple-rows>
+                                            <lightning-layout-item size="12" large-device-size="6">
+                                                <lightning-input-field variant="label-stacked" field-name="Notify__c"
+                                                    name="Notify__c" onchange={handleVisitReportFieldChange}>
+                                                </lightning-input-field>
+                                            </lightning-layout-item>
+                                        </lightning-layout>
+                                    </lightning-record-edit-form>
+                                    <div class="slds-p-horizontal_xx-small">
+                                        <div class="slds-grid">
+                                            <div class="slds-col slds-size_12-of-12 slds-form-element__label">
+                                                Assigned To</div>
+                                        </div>
+                                        <template for:each={siteVisitAssignees} for:item="siteVisitAssignee">
+                                            <div class="slds-grid slds-m-top_xx-small" key={siteVisitAssignee.index}>
+                                                <div class="slds-col" style="width: calc(100% - 56px);">
+                                                    <lightning-record-edit-form object-api-name="Site_Visit_Assignee__c"
+                                                        data-objectname="Site_Visit_Assignee__c">
+                                                        <lightning-input-field variant="label-hidden"
+                                                            field-name="Assigned_To__c" name="Assigned_To__c"
+                                                            value={siteVisitAssignee.data.Assigned_To__c}
+                                                            data-index={siteVisitAssignee.index}
+                                                            onchange={handleSvaFieldChange}>
+                                                        </lightning-input-field>
+                                                    </lightning-record-edit-form>
+                                                </div>
+                                                <div class="slds-col slds-p-top_xx-small slds-p-horizontal_xx-small">
+                                                    <lightning-button-icon class="slds-p-right_xx-small"
+                                                        icon-name="utility:add" variant="bare"
+                                                        disabled={siteVisitAssignee.actions.addBtn.disabled}
+                                                        data-index={siteVisitAssignee.index}
+                                                        onclick={handleAddSiteVisitAssignee}>
+                                                    </lightning-button-icon>
+                                                    <lightning-button-icon class="slds-p-left_xx-small"
+                                                        icon-name="utility:delete" variant="bare"
+                                                        disabled={siteVisitAssignee.actions.deleteBtn.disabled}
+                                                        data-index={siteVisitAssignee.index}
+                                                        onclick={handleDelSiteVisitAssignee}>
+                                                    </lightning-button-icon>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </lightning-accordion-section>
+                        </lightning-accordion>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Form Footer -->
+        <div class="slds-modal__footer slds-p-around_small">
+            <lightning-button variant="brand" label="Save" onclick={handleSubmit}></lightning-button>
+        </div>
+    </div>
+</template>

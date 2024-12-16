@@ -1,0 +1,132 @@
+<template>
+<lightning-card>
+    <div class="line"></div>
+<div class="controls">
+<div class="control-icon" onclick={handleFirst}>
+                    <lightning-button-icon icon-name="utility:left" alternative-text="Backward"></lightning-button-icon>
+                </div>
+                <div class="control-icon" onclick={handleBackward}>
+                    <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Back"></lightning-button-icon>
+                </div>
+                <span class="current-page-box">{currentPage}</span>
+                <span class="pagination-text">of</span>
+                <span class="total-pages-box">{totalPages}</span>
+                <span class="pagination-text">?</span>
+                <div class="control-icon" onclick={handleForward}>
+                    <lightning-button-icon icon-name="utility:chevronright" alternative-text="Forward"></lightning-button-icon>
+                </div>
+                <div class="control-icon" onclick={handleLast}>
+                    <lightning-button-icon icon-name="utility:right" alternative-text="Forward"></lightning-button-icon>
+                </div>
+                <div class="line-vertical"></div>
+                <div class="control-icon" onclick={handleRefresh}>
+                    <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh"></lightning-button-icon>
+                </div>
+                <div class="line-vertical"></div>
+               <!-- <div class="control-icon" onclick={handleBack}>
+                    <lightning-button-icon icon-name="utility:back" alternative-text="Back"></lightning-button-icon>
+                </div>-->
+                <div class="line-vertical"></div>
+                <!--<div class="resolution-dropdown">
+                    <lightning-combobox
+                        options={resolutionOptions}
+                        onchange={handleResolutionChange}
+                    ></lightning-combobox>
+                </div>-->
+                <div class="line-vertical"></div>
+                <!--<lightning-button-icon icon-name="utility:save" alternative-text="Save" onclick={handleSave}></lightning-button-icon>-->
+                <lightning-button-menu alternative-text="Save" icon-name="utility:save" onselect={handleMenuSelect}>
+                    <lightning-menu-item label="PDF" value="pdf"> </lightning-menu-item>
+                    <lightning-menu-item label="Excel" value="Excel"> </lightning-menu-item>
+                </lightning-button-menu>
+                <div class="line-vertical"></div>
+                <!--<lightning-button-icon icon-name="utility:print" alternative-text="Print" onclick={handlePrint}></lightning-button-icon>-->
+            </div>
+            <div class="line"></div>
+<div class="header">
+<div class="logo-and-name">
+<img src={logoUrl} alt="Logo" class="logo"/>
+<span class="company-name">
+    CIC - Carmeuse Intelligence<br> &nbsp;&nbsp;on competition Database</span>
+
+</div>
+<div class="company-group-name">
+                {selectedGroupName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{selectedCountry}
+</div>
+</div>
+<table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+    <thead>
+        <tr class="slds-line-height_reset" >
+    <th class="header-cell" scope="col" colspan="9" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Plant" style="color: white;">products produced</div>
+            </th>
+            </tr>
+        <tr class="slds-line-height_reset">
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Plant" style="color: white;">Plant</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Aggre" style="color: white;">Aggregates</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Limestone" style="color: white;">Limestone</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Dolomite" style="color: white;">Dolomite</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Quicklime" style="color: white;">Quicklime</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Dolime" style="color: white;">Dolime</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Hydrate" style="color: white;">Hydrate</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Nom .Cap.tpy" style="color: white;">Nom.Lime Cap.t/y</div>
+            </th>
+            <th class="header-cell" scope="col" style="background-color: #0047AB !important;">
+                <div class="slds-truncate" title="Estimated Production t/y" style="color: white;">Estimated Lime Production t/y</div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <template for:each={childRecords} for:item="childRecord">
+            <tr key={childRecord.Id} onclick={handleRowClick} data-record-id={childRecord.Id>
+               
+                <td data-label="plant name">
+                    <div class="slds-truncate" title={childRecord.Name} onclick={planthandleChildGoClick} data-record-id={childRecord.Id}>{childRecord.Name}</div>
+                </td>
+                <td data-label="Aggregates">
+                    <input type="checkbox" disabled checked={childRecord.Aggre__c}  />
+                </td>
+                <td data-label="Limestone">
+                    <input type="checkbox" checked={childRecord.Limestone__c} disabled />
+                </td>
+                <td data-label="Dolomite">
+                    <input type="checkbox" checked={childRecord.Dolomite__c} disabled />
+                </td>
+                <td data-label="Quicklime">
+                    <input type="checkbox" checked={childRecord.Quicklime__c} disabled />
+                </td>
+                <td data-label="Dolime">
+                    <input type="checkbox" checked={childRecord.Dolime__c} disabled />
+                </td>
+                <td data-label="Hydrate">
+                    <input type="checkbox" checked={childRecord.Hyd_Lime__c} disabled />
+                </td>
+                <td data-label="Nom.Lime Cap.t/y">
+                    
+                    {childRecord.formattedNominalCapacity}
+                </td>
+                <td data-label="Estimated Lime Production t/y" >
+                     {childRecord.formattedEstimatedProduction}
+                </td>
+            </tr>
+        </template>
+    </tbody>
+</table><br><Br><br>
+<div class="line"></div>
+</lightning-card>
+</template>

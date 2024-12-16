@@ -1,0 +1,151 @@
+<!--
+	@description       : NotesAndAttachmentsCompanyPage
+	@author            : Naganjaneya Lakshman
+	@last modified on  : 19-02-2024
+	@last modified by  : Naganjaneya Lakshman
+-->
+
+<template>
+    <lightning-card>
+        <lightning-layout>
+            <lightning-layout-item size="3" class="slds-var-p-vertical_xx-small slds-align-top">
+                <template if:true={DocTypePicklistValues.data}>
+                <lightning-combobox
+                    name="Filter by document type"
+                    label="Filter by document type"
+                    value={value}
+                    placeholder="All"
+                    options={dTypeOptionsFilter}
+                    onchange={handleDocumentChange}
+                ></lightning-combobox>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+        <br>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer ">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col" onclick={sortByDocument}>
+                        <div class="slds-truncate" title="Document">
+                            Document
+                            <template if:true={isSortedByDocument}>
+                                <lightning-icon icon-name={sortIcon} size="x-small" alternative-text="Sort" class="slds-icon"></lightning-icon>
+                            </template>
+                        </div>
+                    </th>
+                    <th scope="col" onclick={sortByType}>
+                        <div class="slds-truncate" title="Type">
+                            Type
+                            <template if:true={isSortedByType}>
+                                <lightning-icon icon-name={sortIcon} size="x-small" alternative-text="Sort" class="slds-icon"></lightning-icon>
+                            </template>
+                        </div>
+                    </th>
+                    <th scope="col" onclick={sortByDate}>
+                        <div class="slds-truncate" title="Date">
+                            Date
+                            <template if:true={isSortedByDate}>
+                                <lightning-icon icon-name={sortIcon} size="x-small" alternative-text="Sort" class="slds-icon"></lightning-icon>
+                            </template>
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Actions">
+                            Actions
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+        <!--<thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Document">Document</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Type">Type</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Date">Date</div>
+                </th>
+            </tr>
+        </thead>-->
+        <tbody>
+
+        <template for:each={allAttachments} for:item="singleAttachment">
+            <tr key={singleAttachment}>
+                <td>
+                    <div class="slds-truncate">
+                        {singleAttachment.Title}
+                    </div>
+                </td>
+                <td>
+                    <div class="slds-truncate">
+                        {singleAttachment.Document_Type__c}
+                    </div>
+                </td>
+                <td>
+                    <div class="slds-truncate">
+                        {singleAttachment.CreatedDateValue__c}
+                    </div>
+                </td>
+
+                <td>
+                    <lightning-button label="Delete"
+                            variant="destructive"
+                            type="reset"
+                            data-record-id={singleAttachment.Id}
+                            onclick={deleteSelectedRecords}
+                    ></lightning-button>
+                    &nbsp;&nbsp;
+                    <lightning-button label="Preview" 
+                            variant="brand"
+                            data-record-id={singleAttachment.ContentDocumentId}
+                            onclick={previewFiles}
+                    ></lightning-button>
+                </td>
+            </tr>
+        </template>
+        </tbody>
+        </table>
+    </lightning-card>
+
+    <!-- Upload File -->
+    <lightning-card>
+        <table>
+        <tr>
+            <td>
+                <div class="slds-p-around_medium lgc-bg"> 
+                   <!--- <lightning-input type="file" onchange={handleFileUpload} data-record-id={recordId}></lightning-input> -->
+                   <lightning-combobox
+                   name="DocumentType"
+                   label="Document Type"
+                   placeholder="Choose a document type"
+                   options={dTypeOptions}
+                   value={selectVal}
+                   onchange={handlePicklistChange}>
+               </lightning-combobox>
+                               </div>
+                         
+                       </td>
+                       <td>
+                           <div class="slds-p-around_medium lgc-bg">
+                               <!--<lightning-input type="file" onchange={handleFileUpload} data-record-id={recordId}></lightning-input> -->
+                  
+                               <lightning-file-upload
+                      label="Upload File"
+                      multiple
+                      name="fileUploader"
+                      record-id={recordId}
+                      accept={acceptedFormats}
+                      onuploadfinished={handleUploadFinished}
+                      disabled={disableUploadButton}>
+                  </lightning-file-upload>
+                </div>
+            </td>
+            <td>
+               <!--- <div> <lightning-button label="INSERT" variant="brand" onclick={submitFile}></lightning-button> </div>-->
+            </td>
+        </tr>
+        </table>
+    </lightning-card>
+</template>
